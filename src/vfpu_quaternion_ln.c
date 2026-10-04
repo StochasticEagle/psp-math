@@ -11,7 +11,9 @@ void vfpu_quaternion_ln(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin) {
 		"vsqrt.s  S020, S020\n"				// r = sqrt(x^2 + y^2 + z^2)
 		"mfv      %0, S020\n"
 	:"=r"(r): "m"(*qin));
-	r = vfpu_atan2f(r, qin->w)/r;
+
+	r = vfpu_atan2f(r, qin->d)/r;
+
 	__asm__ volatile (
 		"mtv      %1, S021\n"				// t = atan2(r, w) / r
 		"vdot.q   S022, C010, C010\n"		// norm = x^2 + y^2 + z^2 + w^2

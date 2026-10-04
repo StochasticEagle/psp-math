@@ -1,0 +1,2446 @@
+/**
+ * PSP Software Development Kit - http://www.pspdev.org
+ * -----------------------------------------------------------------------
+ * Licensed under the BSD license, see LICENSE in PSPSDK root for details.
+ *
+ * Copyright (c) 2007 Steve Galatis
+ * Copyright (c) 2007 Christophe Avoinme
+ *
+ * General purpose math library using vfpu optimized instructions.
+ * Most of the routines here run at least 5 to 20 times faster than the equivalent
+ * routines in libm
+ *
+ **/
+
+#ifndef _pspmath_h_
+#define _pspmath_h_
+
+#include <psptypes.h>
+
+/* @defgroup VFPUMATH VFPU Math Library
+ *
+ **/
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+/**
+ * Aligns data to a 16-byte boundary
+**/
+#define PSPMATH_ALIGN __attribute__((aligned(16)))
+
+typedef struct quat {
+	float a, b, c, d;
+} PSPMATH_ALIGN ScePspQuatMatrix;
+
+/* @addtogroup VFPUMATH **/
+/**@{**/
+
+/**
+  * Print a formatted block of 16 vfpu registers
+  *
+  * @param blockid - register block id (0 to 7)
+  *
+**/
+void printVFPURegisters(int blockid);
+
+/**
+  * Set vfpu random generator seed
+  *
+  * @param x - seed value
+  *
+**/
+void vfpu_srand(unsigned int x);
+
+/**
+  * Return random float value
+  *
+  * @param min - minimum value to return
+  * @param max - maximum value to return
+  *
+**/
+float vfpu_randf(float min, float max);
+
+/**
+  * Return random color value in 8888 format
+  * This always sets the alpha channel value to 0xFF
+  *
+  * @param min - minimum value for each color channel (0..255)
+  * @param max - maximum value for each color channel (0..255)
+  *
+**/
+unsigned int vfpu_rand_8888(int min, int max);
+
+/**
+  * Generate an identity matrix
+  *
+  * @param m - pointer to matrix to set
+  *
+**/
+void vfpu_identity_matrix(ScePspFMatrix4 *m);
+
+/**
+  * Generate a translation matrix
+  *
+  * @param m - pointer to matrix
+  * @param x - translation on x axis
+  * @param y - translation on y axis
+  * @param z - translation on z axis
+  *
+**/
+void vfpu_translate_matrix(ScePspFMatrix4 *m, float x, float y, float z);
+
+/**
+  * Generate a perspective projection matrix
+  *
+  * @param m      - pointer to matrix
+  * @param fovy   - vertical field of view
+  * @param aspect - aspect ratio of viewport
+  * @param near   - near clipping plane
+  * @param far    - far clipping plane
+  *
+**/
+void vfpu_perspective_matrix(ScePspFMatrix4 *m, float fovy, float aspect, float near, float far);
+
+/**
+  * Generate an orthogonal  projection matrix
+  *
+  * @param m      - pointer to matrix
+  * @param left   - coordinate for left edge of viewport
+  * @param right  - coordinate for right edge of viewport
+  * @param bottom - coordinate for bottom edge of viewport
+  * @param top    - coordinate for top edge of viewport
+  * @param near   - near clipping plane
+  * @param far    - far clipping plane
+  *
+**/
+void vfpu_ortho_matrix(ScePspFMatrix4 *m, float left, float right, float bottom, float top, float near, float far);
+
+/**
+  * Calculate sine
+  *
+  * @param x - input in radians
+  *
+**/
+float vfpu_sinf(float x);
+
+/**
+  * Calculate cosine
+  *
+  * @param x - input in radians
+  *
+**/
+float vfpu_cosf(float x);
+
+/**
+  * Calculate tangent
+  *
+  * @param x - input in radians
+  *
+**/
+float vfpu_tanf(float x);
+
+/**
+  * Calculate inverse sine (arcsin)
+  *
+  * @param x - input
+  *
+**/
+float vfpu_asinf(float x);
+
+/**
+  * Calculate inverse cosine (arccos)
+  *
+  * @param x - input
+  *
+**/
+float vfpu_acosf(float x);
+
+/**
+  * Calculate inverse tangent (arctan)
+  *
+  * @param x - input
+  *
+**/
+float vfpu_atanf(float x);
+
+/**
+  * Calculate inverse tangent, with proper quadrant fixup
+  *
+  * @param x - input
+  *
+**/
+float vfpu_atan2f(float x, float y);
+
+/**
+  * Calculate hyperbolic sine
+  *
+  * @param x - input
+  *
+**/
+float vfpu_sinhf(float x);
+
+/**
+  * Calculate hyperbolic cosine
+  *
+  * @param x - input
+  *
+**/
+float vfpu_coshf(float x);
+
+/**
+  * Calculate hyperbolic tangent
+  *
+  * @param x - input
+  *
+**/
+float vfpu_tanhf(float x);
+
+/**
+  * Calculate sine and cosine
+  *
+  * @param r - input in radians
+  * @param s - pointer to float for sin
+  * @param c - pointer to float for cos
+**/
+void vfpu_sincos(float r, float *s, float *c);
+
+/**
+  * Calculate exponent of x
+  *
+  * @param x - input
+  *
+**/
+float vfpu_expf(float x);
+
+/**
+  * Calculate logarithm of x
+  *
+  * @param x - input
+  *
+**/
+float vfpu_logf(float x);
+
+/**
+  * Calculate x raised to the power of y
+  *
+  * @param x - number to raise power of
+  * @param y - power to raise x by
+  *
+**/
+float vfpu_powf(float x, float y);
+
+/**
+  * Calculate floating point remainder of x/y
+  *
+  * @param x - input
+  * @param y - input
+  *
+**/
+float vfpu_fmodf(float x, float y);
+
+/**
+  * Perform a smooth acceleration/deceleration curve based on the input time value
+  * returns 0 to 1
+  *
+  * @param t - input (0 to 1 float)
+  *
+**/
+float vfpu_ease_in_out(float t);
+
+
+/**
+  * Normalize a 3d vector, returning a unit vector of length = 1
+  *
+  * @param v - pointer to vector to normalize
+  *
+**/
+void vfpu_normalize_vector(ScePspFVector4 *v);
+
+/**
+  * Zero a 3d vector
+  *
+  * @param v - pointer to vector
+  *
+**/
+void vfpu_zero_vector(ScePspFVector4 *v);
+
+/**
+  * Scale a 3d vector
+  *
+  * @param vout  - pointer to result vector
+  * @param vin   - pointer to vector to scale
+  * @param scale - float value to scale vector by
+  *
+**/
+void vfpu_scale_vector(ScePspFVector4 *vout, ScePspFVector4 *vin, float scale);
+
+/**
+  * Add 2 3d vectors
+  *
+  * @param vout - pointer to result vector
+  * @param va   - pointer to first vector to add
+  * @param vb   - pointer to second vector to add
+**/
+void vfpu_add_vector(ScePspFVector4 *vout, ScePspFVector4 *va, ScePspFVector4 *vb);
+
+
+/**
+  * Generate rotation matrix for environment map.
+  *
+  * @param envmat - pointer to array of 2 vectors to store envmap matrix
+  * @param r      - angle to rotate in radians
+**/
+void vfpu_envmap_matrix(ScePspFVector4 *envmat, float r);
+
+/**
+  * Transform 3d vector by 4x4 matrix
+  *
+  * @param m    - pointer to transformation matrix
+  * @param vin  - pointer to vector to transform
+  * @param vout - pointer to result vector
+**/
+void vfpu_transform_vector(ScePspFMatrix4 *m, ScePspFVector4 *vin, ScePspFVector4 *vout);
+
+/**
+  * Convert input sphere coordinates to cartesian coordinates
+  *
+  * @param az  - azimuth angle (0 to PI*2)
+  * @param ze  - zenith angle (0 to PI)
+  * @param rad - sphere radius
+  * @param x   - pointer to float for x coordinate
+  * @param y   - pointer to float for y coordinate
+  * @param z   - pointer to float for z coordinate
+  *
+**/
+void vfpu_sphere_to_cartesian(float az, float ze, float rad, float *x, float *y, float *z);
+
+/**
+  * Generate an identity quaternion
+  *
+  * @param q - pointer to quaternion
+  *
+  * this will set the quaternion's components to 0,0,0,1
+  *
+**/
+void vfpu_quaternion_identity(ScePspQuatMatrix *q);
+
+/**
+  * Copy a quaternion
+  *
+  * @param dst - pointer to quaternion to copy to
+  * @param src - pointer to quaternion to copy from
+  *
+**/
+void vfpu_quaternion_copy(ScePspQuatMatrix *dst, ScePspQuatMatrix *src);
+
+/**
+  * Normalize a quaternion
+  *
+  * @param res - pointer to quaternion to normalize
+  *
+**/
+void vfpu_quaternion_normalize(ScePspQuatMatrix *res);
+
+/**
+  * Multiply 2 quaternions
+  *
+  * @param qout - pointer to result quaternion
+  * @param a    - pointer to first quaternion to multiply
+  * @param b    - pointer to second quaternion to multiply
+  *
+**/
+void vfpu_quaternion_multiply(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b);
+
+/**
+  * Make a quaternion from euler angles
+  *
+  * @param qout - pointer to output quaternion
+  * @param rx   - rotation on x axis, in degrees
+  * @param ry   - rotation on y axis, in degrees
+  * @param rz   - rotation on z axis, in degrees
+**/
+void vfpu_quaternion_from_euler(ScePspQuatMatrix *qout, float rx, float ry, float rz);
+
+/**
+  * Calculate exponent of a quaternion
+  *
+  * @param qout - pointer to output quaternion
+  * @param qin  - pointer to input quaternion
+  *
+**/
+void vfpu_quaternion_exp(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
+
+/**
+  * Calculate logarithm of a quaternion
+  *
+  * @param qout - pointer to output quaternion
+  * @param qin  - pointer to input quaternion
+  *
+**/
+void vfpu_quaternion_ln(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
+
+/**
+  * Return a sample from a linear interpolation of 2 quaternions
+  *
+  * @param qout - pointer to output quaternion
+  * @param a    - pointer to starting quaternion
+  * @param b    - pointer to ending quaternion
+  * @param t    - time value to sample, from 0 to 1
+  *
+**/
+void vfpu_quaternion_sample_linear(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, float t);
+
+/**
+  * Return a sample from a hermite spline interpolation
+  *
+  * @param qout - pointer to output quaternion
+  * @param a    - pointer to start quaternion
+  * @param b    - pointer to end quaternion
+  * @param at   - pointer to tangent point for quaternion a
+  * @param bt   - pointer to tangent point for quaternion b
+  * @param t    - time value to sample, from 0 to 1
+  *
+**/
+void vfpu_quaternion_sample_hermite(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, ScePspQuatMatrix *at, ScePspQuatMatrix *bt, float t);
+
+/**
+  * Return a tangent point for hermite spline interpolation
+  *
+  * @param qout - pointer to output quaternion
+  * @param p1   - pointer to p-1 on spline curve for tangent
+  * @param p2   - pointer to p+1 on spline curve for tangent
+  * @param bias - value to scale difference between endpoints.
+  *              for example, 0.5 results in a catmull-rom spline tangent
+  *
+**/
+
+void vfpu_quaternion_hermite_tangent(ScePspQuatMatrix *qout, ScePspQuatMatrix *p1, ScePspQuatMatrix *p2, float bias);
+
+/**
+  * Convert quaternion to rotation matrix
+  *
+  * @param q - pointer to input quaternion
+  * @param m - pointer to output matrix
+  *
+**/
+void vfpu_quaternion_to_matrix(ScePspQuatMatrix *q, ScePspFMatrix4 *m);
+
+
+
+/************ Imported from pspla library ************/
+
+
+
+/**
+  *  Copy a matrix - Unaligned
+  *  @param m1 source matrix
+  *  @param mout destination matrix
+**/
+void vfpu_Mat2Copy_U(float *m1, float *mout);
+
+/**
+  *  Copy a matrix - Unaligned
+  *  @param m1 source matrix
+  *  @param mout destination matrix
+**/
+void vfpu_Mat3Copy_U(float *m1, float *mout);
+
+/**
+  *  Copy a matrix - Unaligned
+  *  @param m1 source matrix
+  *  @param mout destination matrix
+**/
+void vfpu_Mat4Copy_U(float *m1, float *mout);
+
+/**
+  *  Copy a matrix - Aligned
+  *  @param m1 source matrix
+  *  @param mout destination matrix
+**/
+void vfpu_Mat2Copy__A(float *m1, float *mout);
+
+/**
+  *  Copy a matrix - Aligned
+  *  @param m1 source matrix
+  *  @param mout destination matrix
+**/
+void vfpu_Mat3Copy__A(float *m1, float *mout);
+
+/**
+  *  Copy a matrix - Aligned
+  *  @param m1 source matrix
+  *  @param mout destination matrix
+**/
+void vfpu_Mat4Copy_A(float *m1, float *mout);
+
+/**
+  *  Copy a vector - Unaligned
+  *  @param v1 source vector
+  *  @param vout destination vector
+**/
+void vfpu_Vec2Copy_U(float *v1, float *vout);
+
+/**
+  *  Copy a vector - Unaligned
+  *  @param v1 source vector
+  *  @param vout destination vector
+**/
+void vfpu_Vec3Copy_U(float *v1, float *vout);
+
+/**
+  *  Copy a vector - Unaligned
+  *  @param v1 source vector
+  *  @param vout destination vector
+**/
+void vfpu_Vec4Copy_U(float *v1, float *vout);
+
+/**
+  *  Copy a vector - Aligned
+  *  @param v1 source vector
+  *  @param vout destination vector
+**/
+void vfpu_VecVCopy_A(float *v1, float *vout);
+
+/**
+  *  Add two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec2Add_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Add two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec3Add_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Add two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec4Add_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Add two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_VecVAdd_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Subtract two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec2Subtract_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Subtract two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec3Subtract_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Subtract two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec4Subtract_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Subtract two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_VecVSubtract_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Multiply two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec2Multiply_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Multiply two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec3Multiply_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Multiply two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec4Multiply_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Multiply two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_VecVMultiply_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Divide two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec2Divide_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Divide two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec3Divide_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Divide two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec4Divide_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Divide two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec2Divide_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Divide two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec3Divide_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Divide two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_Vec4Divide_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Divide two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout result vector
+**/
+void vfpu_VecVDivide_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Construct a vector from the the element-wise minimum of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_Vec2Minimum_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Construct a vector from the the element-wise minimum of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_Vec3Minimum_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Construct a vector from the the element-wise minimum of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_Vec4Minimum_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Construct a vector from the the element-wise minimum of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_VecVMinimum_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Construct a vector from the the element-wise maximum of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_Vec2Maximum_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Construct a vector from the the element-wise maximum of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_Vec3Maximum_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Construct a vector from the the element-wise maximum of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_Vec4Maximum_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Construct a vector from the the element-wise maximum of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_VecVMaximum_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Get the average of the elements in a vector - Unaligned
+  *  @param v1 input vector
+  *  @return The average of each element
+**/
+float vfpu_Vec2Average_U(float *v1);
+
+/**
+  *  Get the average of the elements in a vector - Unaligned
+  *  @param v1 input vector
+  *  @return The average of each element
+**/
+float vfpu_Vec3Average_U(float *v1);
+
+/**
+  *  Get the average of the elements in a vector - Unaligned
+  *  @param v1 input vector
+  *  @return The average of each element
+**/
+float vfpu_Vec4Average_U(float *v1);
+
+/**
+  *  Get the average of the elements in a vector - Aligned
+  *  @param v1 input vector
+  *  @return The average of each element
+**/
+float vfpu_Vec2Average_A(float *v1);
+
+/**
+  *  Get the average of the elements in a vector - Aligned
+  *  @param v1 input vector
+  *  @return The average of each element
+**/
+float vfpu_Vec3Average_A(float *v1);
+
+/**
+  *  Get the average of the elements in a vector - Aligned
+  *  @param v1 input vector
+  *  @return The average of each element
+**/
+float vfpu_Vec4Average_A(float *v1);
+
+/**
+  *  Get the sum of the elements in a vector - Unaligned
+  *  @param v1 input vector
+  *  @return The sum of the elements
+**/
+float vfpu_Vec2Sum_U(float *v1);
+
+/**
+  *  Get the sum of the elements in a vector - Unaligned
+  *  @param v1 input vector
+  *  @return The sum of the elements
+**/
+float vfpu_Vec3Sum_U(float *v1);
+
+/**
+  *  Get the sum of the elements in a vector - Unaligned
+  *  @param v1 input vector
+  *  @return The sum of the elements
+**/
+float vfpu_Vec4Sum_U(float *v1);
+
+/**
+  *  Get the sum of the elements in a vector - Aligned
+  *  @param v1 input vector
+  *  @return The sum of the elements
+**/
+float vfpu_Vec2Sum_A(float *v1);
+
+/**
+  *  Get the sum of the elements in a vector - Aligned
+  *  @param v1 input vector
+  *  @return The sum of the elements
+**/
+float vfpu_Vec3Sum_A(float *v1);
+
+/**
+  *  Get the sum of the elements in a vector - Aligned
+  *  @param v1 input vector
+  *  @return The sum of the elements
+**/
+float vfpu_Vec4Sum_A(float *v1);
+
+/**
+  *  Get the absolute value of a scalar
+  *  @param s1 input scalar
+  *  @return The absolute value
+**/
+float vfpu_AbsoluteValue(float s1);
+
+/**
+  *  Get the absolute value of each element in a vector - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec2AbsoluteValue_U(float *v1, float *vout);
+
+/**
+  *  Get the absolute value of each element in a vector - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec3AbsoluteValue_U(float *v1, float *vout);
+
+/**
+  *  Get the absolute value of each element in a vector - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec4AbsoluteValue_U(float *v1, float *vout);
+
+/**
+  *  Get the absolute value of each element in a vector - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_VecVAbsoluteValue_A(float *v1, float *vout);
+
+/**
+  *  Get the cross product of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout cross product
+**/
+void vfpu_Vec3CrossProduct_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Get the cross product of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout cross product
+**/
+void vfpu_Vec3CrossProduct_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Scale a vector by a scalar value - Unaligned
+  *  @param v1 input vector
+  *  @param s1 scale value
+  *  @param vout output vector
+**/
+void vfpu_Vec2Scale_U(float *v1, float s1, float *vout);
+
+/**
+  *  Scale a vector by a scalar value - Unaligned
+  *  @param v1 input vector
+  *  @param s1 scale value
+  *  @param vout output vector
+**/
+void vfpu_Vec3Scale_U(float *v1, float s1, float *vout);
+
+/**
+  *  Scale a vector by a scalar value - Unaligned
+  *  @param v1 input vector
+  *  @param s1 scale value
+  *  @param vout output vector
+**/
+void vfpu_Vec4Scale_U(float *v1, float s1, float *vout);
+
+/**
+  *  Scale a vector by a scalar value - Aligned
+  *  @param v1 input vector
+  *  @param s1 scale value
+  *  @param vout output vector
+**/
+void vfpu_VecVScale_A(float *v1, float s1, float *vout);
+
+/**
+  *  Get the dot product of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return The dot product
+**/
+float vfpu_Vec2DotProduct_U(float *v1, float *v2);
+
+/**
+  *  Get the dot product of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return The dot product
+**/
+float vfpu_Vec3DotProduct_U(float *v1, float *v2);
+
+/**
+  *  Get the dot product of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return The dot product
+**/
+float vfpu_Vec4DotProduct_U(float *v1, float *v2);
+
+/**
+  *  Get the dot product of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return The dot product
+**/
+float vfpu_Vec2DotProduct_A(float *v1, float *v2);
+
+/**
+  *  Get the dot product of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return The dot product
+**/
+float vfpu_Vec3DotProduct_A(float *v1, float *v2);
+
+/**
+  *  Get the dot product of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return The dot product
+**/
+float vfpu_Vec4DotProduct_A(float *v1, float *v2);
+
+/**
+  *  Find the square root of a scalar
+  *  @param s1 input scalar
+  *  @return The square root
+**/
+float vfpu_SquareRoot(float s1);
+
+/**
+  *  Find the square roots of each element in a vector - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec2SquareRoot_U(float *v1, float *vout);
+
+/**
+  *  Find the square roots of each element in a vector - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec3SquareRoot_U(float *v1, float *vout);
+
+/**
+  *  Find the square roots of each element in a vector - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec4SquareRoot_U(float *v1, float *vout);
+
+/**
+  *  Find the square roots of each element in a vector - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec2SquareRoot_A(float *v1, float *vout);
+
+/**
+  *  Find the square roots of each element in a vector - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec3SquareRoot_A(float *v1, float *vout);
+
+/**
+  *  Find the square roots of each element in a vector - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec4SquareRoot_A(float *v1, float *vout);
+
+/**
+  *  Find the square roots of each element in a vector - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_VecVSquareRoot_A(float *v1, float *vout);
+
+/**
+  *  Get the magnitude of a vector - Unaligned
+  *  @param v1 input vector
+  *  @return The magnitude
+**/
+float vfpu_Vec2Magnitude_U(float *v1);
+
+/**
+  *  Get the magnitude of a vector - Unaligned
+  *  @param v1 input vector
+  *  @return The magnitude
+**/
+float vfpu_Vec3Magnitude_U(float *v1);
+
+/**
+  *  Get the magnitude of a vector - Unaligned
+  *  @param v1 input vector
+  *  @return The magnitude
+**/
+float vfpu_Vec4Magnitude_U(float *v1);
+
+/**
+  *  Get the magnitude of a vector - Aligned
+  *  @param v1 input vector
+  *  @return The magnitude
+**/
+float vfpu_Vec2Magnitude_A(float *v1);
+
+/**
+  *  Get the magnitude of a vector - Aligned
+  *  @param v1 input vector
+  *  @return The magnitude
+**/
+float vfpu_Vec3Magnitude_A(float *v1);
+
+/**
+  *  Get the magnitude of a vector - Aligned
+  *  @param v1 input vector
+  *  @return The magnitude
+**/
+float vfpu_Vec4Magnitude_A(float *v1);
+
+/**
+  *  Get a vector of the same direction but with a magnitude of 1 - Unaligned
+  *  @param v1 input vector
+  *  @param vout normalized vector
+**/
+void vfpu_Vec2Normalize_U(float *v1, float *vout);
+
+/**
+  *  Get a vector of the same direction but with a magnitude of 1 - Unaligned
+  *  @param v1 input vector
+  *  @param vout normalized vector
+**/
+void vfpu_Vec3Normalize_U(float *v1, float *vout);
+
+/**
+  *  Get a vector of the same direction but with a magnitude of 1 - Unaligned
+  *  @param v1 input vector
+  *  @param vout normalized vector
+**/
+void vfpu_Vec4Normalize_U(float *v1, float *vout);
+
+/**
+  *  Get a vector of the same direction but with a magnitude of 1 - Aligned
+  *  @param v1 input vector
+  *  @param vout normalized vector
+**/
+void vfpu_Vec2Normalize_A(float *v1, float *vout);
+
+/**
+  *  Get a vector of the same direction but with a magnitude of 1 - Aligned
+  *  @param v1 input vector
+  *  @param vout normalized vector
+**/
+void vfpu_Vec3Normalize_A(float *v1, float *vout);
+
+/**
+  *  Get a vector of the same direction but with a magnitude of 1 - Aligned
+  *  @param v1 input vector
+  *  @param vout normalized vector
+**/
+void vfpu_Vec4Normalize_A(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to the nearest whole number - Unaligned
+  *  @param v1 input vector
+  *  @param vout rounded vector
+**/
+void vfpu_Vec2Round_U(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to the nearest whole number - Unaligned
+  *  @param v1 input vector
+  *  @param vout rounded vector
+**/
+void vfpu_Vec3Round_U(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to the nearest whole number - Unaligned
+  *  @param v1 input vector
+  *  @param vout rounded vector
+**/
+void vfpu_Vec4Round_U(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to the nearest whole number - Aligned
+  *  @param v1 input vector
+  *  @param vout rounded vector
+**/
+void vfpu_VecVRound_A(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to zero - Unaligned
+  *  @param v1 input vector
+  *  @param vout truncated vector
+**/
+void vfpu_Vec2Floor_U(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to zero - Unaligned
+  *  @param v1 input vector
+  *  @param vout truncated vector
+**/
+void vfpu_Vec3Floor_U(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to zero - Unaligned
+  *  @param v1 input vector
+  *  @param vout truncated vector
+**/
+void vfpu_Vec4Floor_U(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to zero - Aligned
+  *  @param v1 input vector
+  *  @param vout truncated vector
+**/
+void vfpu_VecVFloor_A(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to the next whole number - Unaligned
+  *  @param v1 input vector
+  *  @param vout truncated vector
+**/
+void vfpu_Vec2Ceiling_U(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to the next whole number - Unaligned
+  *  @param v1 input vector
+  *  @param vout truncated vector
+**/
+void vfpu_Vec3Ceiling_U(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to the next whole number - Unaligned
+  *  @param v1 input vector
+  *  @param vout truncated vector
+**/
+void vfpu_Vec4Ceiling_U(float *v1, float *vout);
+
+/**
+  *  Round each element in a vector to the next whole number - Aligned
+  *  @param v1 input vector
+  *  @param vout truncated vector
+**/
+void vfpu_VecVCeiling_A(float *v1, float *vout);
+
+/**
+  *  Get the sine of a value in π/2 radians
+  *  @param s1 input value
+  *  @return The sine value
+**/
+float vfpu_Sine(float s1);
+
+/**
+  *  Get the cosine of a value in π/2 radians
+  *  @param s1 input value
+  *  @return The cosine value
+**/
+float vfpu_Cosine(float s1);
+
+/**
+  *  Get the sine of each element in a vector in π/2 radians - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec2Sine_U(float *v1, float *vout);
+
+/**
+  *  Get the sine of each element in a vector in π/2 radians - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec3Sine_U(float *v1, float *vout);
+
+/**
+  *  Get the sine of each element in a vector in π/2 radians - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec4Sine_U(float *v1, float *vout);
+
+/**
+  *  Get the sine of each element in a vector in π/2 radians - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec2Sine_A(float *v1, float *vout);
+
+/**
+  *  Get the sine of each element in a vector in π/2 radians - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec3Sine_A(float *v1, float *vout);
+
+/**
+  *  Get the sine of each element in a vector in π/2 radians - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec4Sine_A(float *v1, float *vout);
+
+/**
+  *  Get the cosine of each element in a vector in π/2 radians - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec2Cosine_U(float *v1, float *vout);
+
+/**
+  *  Get the cosine of each element in a vector in π/2 radians - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec3Cosine_U(float *v1, float *vout);
+
+/**
+  *  Get the cosine of each element in a vector in π/2 radians - Unaligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec4Cosine_U(float *v1, float *vout);
+
+/**
+  *  Get the cosine of each element in a vector in π/2 radians - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec2Cosine_A(float *v1, float *vout);
+
+/**
+  *  Get the cosine of each element in a vector in π/2 radians - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec3Cosine_A(float *v1, float *vout);
+
+/**
+  *  Get the cosine of each element in a vector in π/2 radians - Aligned
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Vec4Cosine_A(float *v1, float *vout);
+
+/**
+  *  Get the arcsine of a value
+  *  @param s1 input value
+  *  @return The arcsine value in π/2 radians
+**/
+float vfpu_Arcsine(float s1);
+
+/**
+  *  Get the arccosine of a value
+  *  @param s1 input value
+  *  @return The arccosine value in π/2 radians
+**/
+float vfpu_Arccosine(float s1);
+
+/**
+  *  Negate a vector - Unaligned
+  *  @param v1 input vector
+  *  @param vout negated vector
+**/
+void vfpu_Vec2Negate_U(float *v1, float *vout);
+
+/**
+  *  Negate a vector - Unaligned
+  *  @param v1 input vector
+  *  @param vout negated vector
+**/
+void vfpu_Vec3Negate_U(float *v1, float *vout);
+
+/**
+  *  Negate a vector - Unaligned
+  *  @param v1 input vector
+  *  @param vout negated vector
+**/
+void vfpu_Vec4Negate_U(float *v1, float *vout);
+
+/**
+  *  Negate a vector - Aligned
+  *  @param v1 input vector
+  *  @param vout negated vector
+**/
+void vfpu_VecVNegate_A(float *v1, float *vout);
+
+/**
+  *  Get the element-wise '==' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec2Equals_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '==' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec3Equals_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '==' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec4Equals_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '==' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec2Equals_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '==' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec3Equals_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '==' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec4Equals_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec2LessThan_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec3LessThan_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec4LessThan_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec2LessThan_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec3LessThan_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec4LessThan_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<=' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec2LessThanEqual_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<=' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec3LessThanEqual_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<=' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec4LessThanEqual_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<=' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec2LessThanEqual_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<=' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec3LessThanEqual_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '<=' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec4LessThanEqual_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec2GreaterThan_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec3GreaterThan_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec4GreaterThan_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec2GreaterThan_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec3GreaterThan_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec4GreaterThan_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>=' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec2GreaterThanEqual_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>=' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec3GreaterThanEqual_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>=' comparison of two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec4GreaterThanEqual_U(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>=' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec2GreaterThanEqual_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>=' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec3GreaterThanEqual_A(float *v1, float *v2);
+
+/**
+  *  Get the element-wise '>=' comparison of two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
+**/
+int vfpu_Vec4GreaterThanEqual_A(float *v1, float *v2);
+
+/**
+  *  Get the element wise comparison of two vectors (-1.0 for lt, 0.0 for eq, 1.0 for gt) - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_Vec2Compare_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Get the element wise comparison of two vectors (-1.0 for lt, 0.0 for eq, 1.0 for gt) - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_Vec3Compare_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Get the element wise comparison of two vectors (-1.0 for lt, 0.0 for eq, 1.0 for gt) - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_Vec4Compare_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Get the element wise comparison of two vectors (-1.0 for lt, 0.0 for eq, 1.0 for gt) - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param vout output vector
+**/
+void vfpu_VecVCompare_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Get a linear interpolation between two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param s1 weight
+  *  @param vout interpolated vector
+**/
+void vfpu_Vec2Lerp_U(float *v1, float *v2, float s1, float *vout);
+
+/**
+  *  Get a linear interpolation between two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param s1 weight
+  *  @param vout interpolated vector
+**/
+void vfpu_Vec3Lerp_U(float *v1, float *v2, float s1, float *vout);
+
+/**
+  *  Get a linear interpolation between two vectors - Unaligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param s1 weight
+  *  @param vout interpolated vector
+**/
+void vfpu_Vec4Lerp_U(float *v1, float *v2, float s1, float *vout);
+
+/**
+  *  Get a linear interpolation between two vectors - Aligned
+  *  @param v1 first vector
+  *  @param v2 second vector
+  *  @param s1 weight
+  *  @param vout interpolated vector
+**/
+void vfpu_VecVLerp_A(float *v1, float *v2, float s1, float *vout);
+
+/**
+  *  Clamp each element in a vector to a specified range - Unaligned
+  *  @param v1 input vector
+  *  @param s1 minimum
+  *  @param s2 maximum
+  *  @param vout clamped vector
+**/
+void vfpu_Vec2Clamp_U(float *v1, float s1, float s2, float *vout);
+
+/**
+  *  Clamp each element in a vector to a specified range - Unaligned
+  *  @param v1 input vector
+  *  @param s1 minimum
+  *  @param s2 maximum
+  *  @param vout clamped vector
+**/
+void vfpu_Vec3Clamp_U(float *v1, float s1, float s2, float *vout);
+
+/**
+  *  Clamp each element in a vector to a specified range - Unaligned
+  *  @param v1 input vector
+  *  @param s1 minimum
+  *  @param s2 maximum
+  *  @param vout clamped vector
+**/
+void vfpu_Vec4Clamp_U(float *v1, float s1, float s2, float *vout);
+
+/**
+  *  Clamp each element in a vector to a specified range - Aligned
+  *  @param v1 input vector
+  *  @param s1 minimum
+  *  @param s2 maximum
+  *  @param vout clamped vector
+**/
+void vfpu_VecVClamp_A(float *v1, float s1, float s2, float *vout);
+
+/**
+  *  Create a new vector by reordering elements of the input vector - Unaligned
+  *  @param v1 vector to reorder
+  *  @param v2 vector of element indices 0-1
+  *  @param vout reordered vector
+**/
+void vfpu_Vec2Reorder_U(float *v1, int *v2, float *vout);
+
+/**
+  *  Create a new vector by reordering elements of the input vector - Unaligned
+  *  @param v1 vector to reorder
+  *  @param v2 vector of element indices 0-2
+  *  @param vout reordered vector
+**/
+void vfpu_Vec3Reorder_U(float *v1, int *v2, float *vout);
+
+/**
+  *  Create a new vector by reordering elements of the input vector - Unaligned
+  *  @param v1 vector to reorder
+  *  @param v2 vector of element indices 0-3
+  *  @param vout reordered vector
+**/
+void vfpu_Vec4Reorder_U(float *v1, int *v2, float *vout);
+
+/**
+  *  Create a new vector by reordering elements of the input vector - Aligned
+  *  @param v1 vector to reorder
+  *  @param v2 vector of element indices 0-1
+  *  @param vout reordered vector
+**/
+void vfpu_Vec2Reorder_A(float *v1, int *v2, float *vout);
+
+/**
+  *  Create a new vector by reordering elements of the input vector - Aligned
+  *  @param v1 vector to reorder
+  *  @param v2 vector of element indices 0-2
+  *  @param vout reordered vector
+**/
+void vfpu_Vec3Reorder_A(float *v1, int *v2, float *vout);
+
+/**
+  *  Create a new vector by reordering elements of the input vector - Aligned
+  *  @param v1 vector to reorder
+  *  @param v2 vector of element indices 0-3
+  *  @param vout reordered vector
+**/
+void vfpu_Vec4Reorder_A(float *v1, int *v2, float *vout);
+
+/**
+  *  Generate a random floating pointer number
+  *  @return A random number (0 <= x < 1)
+**/
+float vfpu_Random();
+
+/**
+  *  Generate a vector of random floating point numbers (0 <= x < 1) - Unaligned
+  *  @param vout output vector
+**/
+void vfpu_Vec2Random_U(float *vout);
+
+/**
+  *  Generate a vector of random floating point numbers (0 <= x < 1) - Unaligned
+  *  @param vout output vector
+**/
+void vfpu_Vec3Random_U(float *vout);
+
+/**
+  *  Generate a vector of random floating point numbers (0 <= x < 1) - Unaligned
+  *  @param vout output vector
+**/
+void vfpu_Vec4Random_U(float *vout);
+
+/**
+  *  Generate a vector of random floating point numbers (0 <= x < 1) - Aligned
+  *  @param vout output vector
+**/
+void vfpu_Vec2Random_A(float *vout);
+
+/**
+  *  Generate a vector of random floating point numbers (0 <= x < 1) - Aligned
+  *  @param vout output vector
+**/
+void vfpu_Vec3Random_A(float *vout);
+
+/**
+  *  Generate a vector of random floating point numbers (0 <= x < 1) - Aligned
+  *  @param vout output vector
+**/
+void vfpu_Vec4Random_A(float *vout);
+
+/**
+  *  Generate a vector of random floating point numbers (0 <= x < 1) - Aligned
+  *  @param vout output vector
+**/
+void vfpu_VecVRandom_A(float *vout);
+
+/**
+  *  Set the VFPU's RNG seed
+  *  @param s1 seed
+**/
+void vfpu_RandomSeed(int s1);
+
+/**
+  *  Get the reflection of a vector off of a surface normal - Unaligned
+  *  @param v1 input vector
+  *  @param v2 normalized surface normal
+  *  @param vout reflected vector
+**/
+void vfpu_Vec2Reflect_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Get the reflection of a vector off of a surface normal - Unaligned
+  *  @param v1 input vector
+  *  @param v2 normalized surface normal
+  *  @param vout reflected vector
+**/
+void vfpu_Vec3Reflect_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Get the reflection of a vector off of a surface normal - Unaligned
+  *  @param v1 input vector
+  *  @param v2 normalized surface normal
+  *  @param vout reflected vector
+**/
+void vfpu_Vec4Reflect_U(float *v1, float *v2, float *vout);
+
+/**
+  *  Get the reflection of a vector off of a surface normal - Aligned
+  *  @param v1 input vector
+  *  @param v2 normalized surface normal
+  *  @param vout reflected vector
+**/
+void vfpu_Vec2Reflect_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Get the reflection of a vector off of a surface normal - Aligned
+  *  @param v1 input vector
+  *  @param v2 normalized surface normal
+  *  @param vout reflected vector
+**/
+void vfpu_Vec3Reflect_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Get the reflection of a vector off of a surface normal - Aligned
+  *  @param v1 input vector
+  *  @param v2 normalized surface normal
+  *  @param vout reflected vector
+**/
+void vfpu_Vec4Reflect_A(float *v1, float *v2, float *vout);
+
+/**
+  *  Get a rotation matrix from a set of euler angles in π/2 radians - Unaligned
+  *  @param v1 input vector
+  *  @param mout rotation matrix
+**/
+void vfpu_Vec3RotationMatrix_U(float *v1, float *mout);
+
+/**
+  *  Get a rotation matrix from a set of euler angles in π/2 radians - Aligned
+  *  @param v1 input vector
+  *  @param mout rotation matrix
+**/
+void vfpu_Vec3RotationMatrix_A(float *v1, float *mout);
+
+/**
+  *  Get a rotation quaternion from a set of euler angles in π/2 radians - Unaligned
+  *  @param v1 input vector [x,y,z]
+  *  @param qout output quaternion [w,x,y,z]
+**/
+void vfpu_Vec3RotationQuaternion_U(float *v1, float *qout);
+
+/**
+  *  Get a rotation quaternion from a set of euler angles in π/2 radians - Aligned
+  *  @param v1 input vector [x,y,z]
+  *  @param qout output quaternion [w,x,y,z]
+**/
+void vfpu_Vec3RotationQuaternion_A(float *v1, float *qout);
+
+/**
+  *  Multiply two quaternions - Unaligned
+  *  @param q1 first quaternion
+  *  @param q2 second quaternion
+  *  @param qout output quaternion
+**/
+void vfpu_QuatMultiply_U(float *q1, float *q2, float *qout);
+
+/**
+  *  Multiply two quaternions - Aligned
+  *  @param q1 first quaternion
+  *  @param q2 second quaternion
+  *  @param qout output quaternion
+**/
+void vfpu_QuatMultiply_A(float *q1, float *q2, float *qout);
+
+/**
+  *  Set a quaternion to an identity quaternion - Unaligned
+  *  @param qout output quaternion
+**/
+void vfpu_QuatIdentity_U(float *qout);
+
+/**
+  *  Set a quaternion to an identity quaternion - Aligned
+  *  @param qout output quaternion
+**/
+void vfpu_QuatIdentity_A(float *qout);
+
+/**
+  *  Get the conjugate of a quaternion - Unaligned
+  *  @param q1 input quaternion
+  *  @param qout output quaternion
+**/
+void vfpu_QuatConjugate_U(float *q1, float *qout);
+
+/**
+  *  Get the conjugate of a quaternion - Aligned
+  *  @param q1 input quaternion
+  *  @param qout output quaternion
+**/
+void vfpu_QuatConjugate_A(float *q1, float *qout);
+
+/**
+  *  Get the norm of a quaternion - Unaligned
+  *  @param q1 input quaternion
+  *  @return The quaternion norm
+**/
+float vfpu_QuatNorm_U(float* q1);
+
+/**
+  *  Get the norm of a quaternion - Aligned
+  *  @param q1 input quaternion
+  *  @return The quaternion norm
+**/
+float vfpu_QuatNorm_A(float* q1);
+
+/**
+  *  Get the inverse of a quaternion - Unaligned
+  *  @param q1 input quaternion
+  *  @param qout inverse quaternion
+**/
+void vfpu_QuatInverse_U(float *q1, float *qout);
+
+/**
+  *  Get the inverse of a quaternion - Aligned
+  *  @param q1 input quaternion
+  *  @param qout inverse quaternion
+**/
+void vfpu_QuatInverse_A(float *q1, float *qout);
+
+/**
+  *  Get the linear interpolation of two quaternions based on a specified weight - Unaligned
+  *  @param q1 first quaternion
+  *  @param q2 second quaternion
+  *  @param s1 weight
+  *  @param qout interpolated quaternion
+**/
+void vfpu_QuatLerp_U(float *q1, float *q2, float s1, float *qout);
+
+/**
+  *  Get the linear interpolation of two quaternions based on a specified weight - Aligned
+  *  @param q1 first quaternion
+  *  @param q2 second quaternion
+  *  @param s1 weight
+  *  @param qout interpolated quaternion
+**/
+void vfpu_QuatLerp_A(float *q1, float *q2, float s1, float *qout);
+
+/**
+  *  Get the spherical linear interpolations of two quaternions based on a specified weight - Unaligned
+  *  @param q1 first quaternion
+  *  @param q2 second quaternion
+  *  @param s1 weight
+  *  @param qout interpolated quaternion
+**/
+void vfpu_QuatSlerp_U(float *q1, float *q2, float s1, float *qout);
+
+/**
+  *  Get the spherical linear interpolations of two quaternions based on a specified weight - Aligned
+  *  @param q1 first quaternion
+  *  @param q2 second quaternion
+  *  @param s1 weight
+  *  @param qout interpolated quaternion
+**/
+void vfpu_QuatSlerp_A(float *q1, float *q2, float s1, float *qout);
+
+/**
+  *  Rotate a pure quaternion (0, Vec3) by a quaternion - Unaligned
+  *  @param q1 pure input quaternion
+  *  @param q2 rotation quaternion
+  *  @param qout pure output quaternion
+**/
+void vfpu_QuatRotate_U(float *q1, float *q2, float *qout);
+
+/**
+  *  Rotate a pure quaternion (0, Vec3) by a quaternion - Aligned
+  *  @param q1 pure input quaternion
+  *  @param q2 rotation quaternion
+  *  @param qout pure output quaternion
+**/
+void vfpu_QuatRotate_A(float *q1, float *q2, float *qout);
+
+/**
+  *  Get a rotation matrix from a quaternion - Unaligned
+  *  @param q1 input quaternion
+  *  @param mout output matrix
+**/
+void vfpu_QuatRotationMatrix_U(float *q1, float *mout);
+
+/**
+  *  Get a rotation matrix from a quaternion - Aligned
+  *  @param q1 input quaternion
+  *  @param mout output matrix
+**/
+void vfpu_QuatRotationMatrix_A(float *q1, float *mout);
+
+/**
+  *  Add two matrices - Unaligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat2Add_U(float *m1, float *m2, float *mout);
+
+/**
+  *  Add two matrices - Unaligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat3Add_U(float *m1, float *m2, float *mout);
+
+/**
+  *  Add two matrices - Unaligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat4Add_U(float *m1, float *m2, float *mout);
+
+/**
+  *  Add two matrices - Aligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat2Add_A(float *m1, float *m2, float *mout);
+
+/**
+  *  Add two matrices - Aligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat3Add_A(float *m1, float *m2, float *mout);
+
+/**
+  *  Add two matrices - Aligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat4Add_A(float *m1, float *m2, float *mout);
+
+/**
+  *  Subtract two matrices - Unaligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat2Subtract_U(float *m1, float *m2, float *mout);
+
+/**
+  *  Subtract two matrices - Unaligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat3Subtract_U(float *m1, float *m2, float *mout);
+
+/**
+  *  Subtract two matrices - Unaligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat4Subtract_U(float *m1, float *m2, float *mout);
+
+/**
+  *  Subtract two matrices - Aligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat2Subtract_A(float *m1, float *m2, float *mout);
+
+/**
+  *  Subtract two matrices - Aligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat3Subtract_A(float *m1, float *m2, float *mout);
+
+/**
+  *  Subtract two matrices - Aligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat4Subtract_A(float *m1, float *m2, float *mout);
+
+/**
+  *  Scale a matrix by a scalar value - Unaligned
+  *  @param m1 input matrix
+  *  @param s1 scale factor
+  *  @param mout scaled matrix
+**/
+void vfpu_Mat2Scale_U(float *m1, float s1, float *mout);
+
+/**
+  *  Scale a matrix by a scalar value - Unaligned
+  *  @param m1 input matrix
+  *  @param s1 scale factor
+  *  @param mout scaled matrix
+**/
+void vfpu_Mat3Scale_U(float *m1, float s1, float *mout);
+
+/**
+  *  Scale a matrix by a scalar value - Unaligned
+  *  @param m1 input matrix
+  *  @param s1 scale factor
+  *  @param mout scaled matrix
+**/
+void vfpu_Mat4Scale_U(float *m1, float s1, float *mout);
+
+/**
+  *  Scale a matrix by a scalar value - Aligned
+  *  @param m1 input matrix
+  *  @param s1 scale factor
+  *  @param mout scaled matrix
+**/
+void vfpu_Mat2Scale_A(float *m1, float s1, float *mout);
+
+/**
+  *  Scale a matrix by a scalar value - Aligned
+  *  @param m1 input matrix
+  *  @param s1 scale factor
+  *  @param mout scaled matrix
+**/
+void vfpu_Mat3Scale_A(float *m1, float s1, float *mout);
+
+/**
+  *  Scale a matrix by a scalar value - Aligned
+  *  @param m1 input matrix
+  *  @param s1 scale factor
+  *  @param mout scaled matrix
+**/
+void vfpu_Mat4Scale_A(float *m1, float s1, float *mout);
+
+/**
+  *  Multiply two matrices - Unaligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat2Multiply_U(float *m1, float *m2, float *mout);
+
+/**
+  *  Multiply two matrices - Unaligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat3Multiply_U(float *m1, float *m2, float *mout);
+
+/**
+  *  Multiply two matrices - Unaligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat4Multiply_U(float *m1, float *m2, float *mout);
+
+/**
+  *  Multiply two matrices - Aligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat2Multiply_A(float *m1, float *m2, float *mout);
+
+/**
+  *  Multiply two matrices - Aligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat3Multiply_A(float *m1, float *m2, float *mout);
+
+/**
+  *  Multiply two matrices - Aligned
+  *  @param m1 first matrix
+  *  @param m2 second matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat4Multiply_A(float *m1, float *m2, float *mout);
+
+/**
+  *  Set a matrix to an identity matrix - Unaligned
+  *  @param mout output matrix
+**/
+void vfpu_Mat2Identity_U(float *mout);
+
+/**
+  *  Set a matrix to an identity matrix - Unaligned
+  *  @param mout output matrix
+**/
+void vfpu_Mat3Identity_U(float *mout);
+
+/**
+  *  Set a matrix to an identity matrix - Unaligned
+  *  @param mout output matrix
+**/
+void vfpu_Mat4Identity_U(float *mout);
+
+/**
+  *  Set a matrix to an identity matrix - Aligned
+  *  @param mout output matrix
+**/
+void vfpu_Mat2Identity_A(float *mout);
+
+/**
+  *  Set a matrix to an identity matrix - Aligned
+  *  @param mout output matrix
+**/
+void vfpu_Mat3Identity_A(float *mout);
+
+/**
+  *  Set a matrix to an identity matrix - Aligned
+  *  @param mout output matrix
+**/
+void vfpu_Mat4Identity_A(float *mout);
+
+/**
+  *  Transpose a matrix - Unaligned
+  *  @param m1 input matrix
+  *  @param mout transposed matrix
+**/
+void vfpu_Mat2Transpose_U(float *m1, float *mout);
+
+/**
+  *  Transpose a matrix - Unaligned
+  *  @param m1 input matrix
+  *  @param mout transposed matrix
+**/
+void vfpu_Mat3Transpose_U(float *m1, float *mout);
+
+/**
+  *  Transpose a matrix - Unaligned
+  *  @param m1 input matrix
+  *  @param mout transposed matrix
+**/
+void vfpu_Mat4Transpose_U(float *m1, float *mout);
+
+/**
+  *  Get the determinant of a matrix - Unaligned
+  *  @param m1 input matrix
+  *  @return The determinant
+**/
+float vfpu_Mat2Determinant_U(float *m1);
+
+/**
+  *  Get the determinant of a matrix - Unaligned
+  *  @param m1 input matrix
+  *  @return The determinant
+**/
+float vfpu_Mat3Determinant_U(float *m1);
+
+/**
+  *  Get the determinant of a matrix - Unaligned
+  *  @param m1 input matrix
+  *  @return The determinant
+**/
+float vfpu_Mat4Determinant_U(float *m1);
+
+/**
+  *  Get the determinant of a matrix - Aligned
+  *  @param m1 input matrix
+  *  @return The determinant
+**/
+float vfpu_Mat2Determinant_A(float *m1);
+
+/**
+  *  Get the determinant of a matrix - Aligned
+  *  @param m1 input matrix
+  *  @return The determinant
+**/
+float vfpu_Mat3Determinant_A(float *m1);
+
+/**
+  *  Get the determinant of a matrix - Aligned
+  *  @param m1 input matrix
+  *  @return The determinant
+**/
+float vfpu_Mat4Determinant_A(float *m1);
+
+/**
+  *  Get the inverse of a matrix - Unaligned
+  *  @param m1 input matrix
+  *  @param s1 determinant
+  *  @param mout inverse matrix
+**/
+void vfpu_Mat2Inverse_U(float *m1, float s1, float *mout);
+
+/**
+  *  Get the inverse of a matrix - Unaligned
+  *  @param m1 input matrix
+  *  @param s1 determinant
+  *  @param mout inverse matrix
+**/
+void vfpu_Mat3Inverse_U(float *m1, float s1, float *mout);
+
+/**
+  *  Get the inverse of a matrix - Unaligned
+  *  @param m1 input matrix
+  *  @param s1 determinant
+  *  @param mout inverse matrix
+**/
+void vfpu_Mat4Inverse_U(float *m1, float s1, float *mout);
+
+/**
+  *  Get the inverse of a matrix - Aligned
+  *  @param m1 input matrix
+  *  @param s1 determinant
+  *  @param mout inverse matrix
+**/
+void vfpu_Mat2Inverse_A(float *m1, float s1, float *mout);
+
+/**
+  *  Get the inverse of a matrix - Aligned
+  *  @param m1 input matrix
+  *  @param s1 determinant
+  *  @param mout inverse matrix
+**/
+void vfpu_Mat3Inverse_A(float *m1, float s1, float *mout);
+
+/**
+  *  Get the inverse of a matrix - Aligned
+  *  @param m1 input matrix
+  *  @param s1 determinant
+  *  @param mout inverse matrix
+**/
+void vfpu_Mat4Inverse_A(float *m1, float s1, float *mout);
+
+/**
+  *  Convert a matrix 2 to a matrix 3 - Unaligned
+  *  @param m1 input matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat2ToMatrix3_U(float *m1, float *mout);
+
+/**
+  *  Convert a matrix 2 to a matrix 3 - Aligned
+  *  @param m1 input matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat2ToMatrix3_A(float *m1, float *mout);
+
+/**
+  *  Convert a matrix 2 to a matrix 4 - Unaligned
+  *  @param m1 input matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat2ToMatrix4_U(float *m1, float *mout);
+
+/**
+  *  Convert a matrix 2 to a matrix 4 - Aligned
+  *  @param m1 input matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat2ToMatrix4_A(float *m1, float *mout);
+
+/**
+  *  Convert a matrix 3 to a matrix 4 - Unaligned
+  *  @param m1 input matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat3ToMatrix4_U(float *m1, float *mout);
+
+/**
+  *  Convert a matrix 3 to a matrix 4 - Aligned
+  *  @param m1 input matrix
+  *  @param mout output matrix
+**/
+void vfpu_Mat3ToMatrix4_A(float *m1, float *mout);
+
+/**
+  *  Multiply a matrix by a vector - Unaligned
+  *  @param m1 input matrix
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Mat2Vector2Multiply_U(float *m1, float *v1, float *vout);
+
+/**
+  *  Multiply a matrix by a vector - Unaligned
+  *  @param m1 input matrix
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Mat3Vector3Multiply_U(float *m1, float *v1, float *vout);
+
+/**
+  *  Multiply a matrix by a vector - Unaligned
+  *  @param m1 input matrix
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Mat4Vector4Multiply_U(float *m1, float *v1, float *vout);
+
+/**
+  *  Multiply a matrix by a vector - Aligned
+  *  @param m1 input matrix
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Mat2Vector2Multiply_A(float *m1, float *v1, float *vout);
+
+/**
+  *  Multiply a matrix by a vector - Aligned
+  *  @param m1 input matrix
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Mat3Vector3Multiply_A(float *m1, float *v1, float *vout);
+
+/**
+  *  Multiply a matrix by a vector - Aligned
+  *  @param m1 input matrix
+  *  @param v1 input vector
+  *  @param vout output vector
+**/
+void vfpu_Mat4Vector4Multiply_A(float *m1, float *v1, float *vout);
+
+
+
+/************ New functions to complete library ************/
+
+
+
+/**
+  *  Calculate a distance vector from a pair of vectors - Unaligned
+  *  @param position 1
+  *  @param position 2
+**/
+void vfpu_Vec2Distance_U(const ScePspFVector2 *va, const ScePspFVector2 *vb, ScePspFVector2 *vout);
+
+/**
+  *  Calculate a distance vector from a pair of vectors - Unaligned
+  *  @param position 1
+  *  @param position 2
+**/
+void vfpu_Vec3Distance_U(const ScePspFVector3 *va, const ScePspFVector3 *vb, ScePspFVector3 *vout);
+
+/**
+  *  Calculate a distance vector from a pair of vectors - Unaligned
+  *  @param position 1
+  *  @param position 2
+**/
+void vfpu_Vec4Distance_U(const ScePspFVector4Unaligned *va, const ScePspFVector4Unaligned *vb, ScePspFVector4Unaligned *vout);
+
+/**
+  *  Calculate a distance vector from a pair of vectors - Unaligned
+  *  @param position 1
+  *  @param position 2
+**/
+void vfpu_Vec4Distance_A(const ScePspFVector4 *va, const ScePspFVector4 *vb, ScePspFVector4 *vout);
+
+
+/**
+  *  Create a "look at" matrix from a set of vectors - Unaligned
+  *  @param eye input vector
+  *  @param center input vector
+  *  @param up input vector
+  *  @param mout output matrix
+**/
+void vfpu_Mat4LookAt_U(const ScePspFVector3 *eye, const ScePspFVector3 *center, const ScePspFVector3 *up, ScePspFMatrix4 *mout);
+
+/**
+  *  Create a "look at" matrix from a set of vectors - Aligned
+  *  @param eye input vector
+  *  @param center input vector
+  *  @param up input vector
+  *  @param mout output matrix
+**/
+void vfpu_Mat4LookAt_A(const ScePspFVector3 *eye, const ScePspFVector3 *center, const ScePspFVector3 *up, ScePspFMatrix4 *mout);
+
+
+#if defined(__cplusplus)
+}
+#endif
+
+#endif
