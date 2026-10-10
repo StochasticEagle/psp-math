@@ -23,6 +23,7 @@ gfunc vfpu_Vec2Reorder_U
     lv.s s011, 0($t1)
     svp s001, s011, $a2, 0
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Reorder_U
     vfim.s s003, 4
@@ -41,6 +42,7 @@ gfunc vfpu_Vec3Reorder_U
     lv.s s021, 0($t2)
     svt s001, s011, s021, $a2, 0
     jr $ra
+    nop
 
 gfunc vfpu_Vec4Reorder_U
     vfim.s s003, 4
@@ -62,6 +64,7 @@ gfunc vfpu_Vec4Reorder_U
     lv.s s031, 0($t3)
     usv.q r001, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Vec2Reorder
     vfim.s s003, 4
@@ -75,6 +78,7 @@ gfunc vfpu_Vec2Reorder
     lv.s s011, 0($t1)
     sv.q r001, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Reorder
     vfim.s s003, 4
@@ -110,6 +114,7 @@ gfunc vfpu_Vec4Reorder
     lv.s s031, 0($t3)
     sv.q r001, 0($a2)
     jr $ra
+    nop
 
 
 /* Indices 0 and 1 are local to each independent packed vec2. */
@@ -139,3 +144,4 @@ gfunc vfpu_Vec2pReorder
     sw $t2, 8($a2)
     sw $t3, 12($a2)
     jr $ra
+    nop

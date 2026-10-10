@@ -15,6 +15,7 @@ gfunc vfpu_Mat2Transpose_U
     vmov.q r000, r000[x,z,y,w]
     usv.q r000, 0($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat3Transpose_U
     pushf $f0
@@ -27,6 +28,7 @@ gfunc vfpu_Mat3Transpose_U
     usv.q r101, 12($a1)
     svt s102, s112, s122, $a1, 24
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Transpose_U
     pushf $f0
@@ -41,6 +43,7 @@ gfunc vfpu_Mat4Transpose_U
     usv.q r102, 32($a1)
     usv.q r103, 48($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Transpose
     pushf   $f0
@@ -60,3 +63,4 @@ gfunc vfpu_Mat4Transpose
     sv.q    r102, 32($a1)
     sv.q    r103, 48($a1)
     jr      $ra
+    nop

@@ -18,6 +18,7 @@ gfunc vfpu_Vec2Magnitude_U
     mfv $t0, s002
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Magnitude_U
     pushf $f0
@@ -28,6 +29,7 @@ gfunc vfpu_Vec3Magnitude_U
     mfv $t0, s002
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 gfunc vfpu_QuatMagnitude_U
 gfunc vfpu_Vec4Magnitude_U
@@ -39,6 +41,7 @@ gfunc vfpu_Vec4Magnitude_U
     mfv $t0, s002
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 gfunc vfpu_Vec2Magnitude
     lv.q r000, 0($a0)
@@ -47,6 +50,7 @@ gfunc vfpu_Vec2Magnitude
     mfv $t0, s002
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 gfunc vfpu_Vec2pMagnitude
     lv.q r000, 0($a0)
@@ -58,6 +62,7 @@ gfunc vfpu_Vec2pMagnitude
     sv.s s200, 0($a1)
     sv.s s210, 4($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Magnitude
     lv.q r000, 0($a0)
@@ -66,6 +71,7 @@ gfunc vfpu_Vec3Magnitude
     mfv $t0, s002
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 gfunc vfpu_QuatMagnitude
 gfunc vfpu_Vec4Magnitude
@@ -75,3 +81,4 @@ gfunc vfpu_Vec4Magnitude
     mfv $t0, s002
     mtc1 $t0, $f0
     jr $ra
+    nop

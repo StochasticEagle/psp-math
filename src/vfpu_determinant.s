@@ -17,6 +17,7 @@ gfunc vfpu_Mat2Determinant_U
     mfv $t0, s100
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 gfunc vfpu_Mat3Determinant_U
     pushf $f28
@@ -26,6 +27,7 @@ gfunc vfpu_Mat3Determinant_U
     mfv $t0, s103
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Determinant_U
     pushf $f28
@@ -35,6 +37,7 @@ gfunc vfpu_Mat4Determinant_U
     mfv $t0, s300
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 gfunc vfpu_Mat2Determinant
     lv.q r700, 0($a0)
@@ -42,6 +45,7 @@ gfunc vfpu_Mat2Determinant
     mfv $t0, s100
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 gfunc vfpu_Mat3Determinant
     lm3_a 7, $a0
@@ -49,6 +53,7 @@ gfunc vfpu_Mat3Determinant
     mfv $t0, s103
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Determinant
     lm4_a 7, $a0
@@ -56,3 +61,4 @@ gfunc vfpu_Mat4Determinant
     mfv $t0, s300
     mtc1 $t0, $f0
     jr $ra
+    nop

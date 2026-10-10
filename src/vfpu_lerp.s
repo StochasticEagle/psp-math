@@ -23,6 +23,7 @@ gfunc vfpu_Vec2Lerp_U
     vadd.p r003, r000, r001
     svp s003, s013, $a2, 0
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Lerp_U
     pushf $f0
@@ -38,6 +39,7 @@ gfunc vfpu_Vec3Lerp_U
     vadd.t r003, r000, r001
     svt s003, s013, s023, $a2, 0
     jr $ra
+    nop
 
 gfunc vfpu_QuatLerp_U
 gfunc vfpu_Vec4Lerp_U
@@ -54,6 +56,7 @@ gfunc vfpu_Vec4Lerp_U
     vadd.q r003, r000, r001
     usv.q r003, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_QuatLerp
 gfunc vfpu_Vec2pLerp
@@ -69,6 +72,7 @@ gfunc vfpu_Vec4Lerp
     vadd.q r003, r000, r001
     sv.q r003, 0($a2)
     jr $ra
+    nop
 
 
 

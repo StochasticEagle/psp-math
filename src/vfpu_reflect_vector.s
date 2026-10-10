@@ -21,6 +21,7 @@ gfunc vfpu_Vec2Reflect_U
     vsub.p r000, r000, r001
     svp s000, s010, $a2, 0
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Reflect_U
     pushf $f0
@@ -34,6 +35,7 @@ gfunc vfpu_Vec3Reflect_U
     vsub.t r000, r000, r001
     svt s000, s010, s020, $a2, 0
     jr $ra
+    nop
 
 gfunc vfpu_Vec4Reflect_U
     pushf $f0
@@ -47,6 +49,7 @@ gfunc vfpu_Vec4Reflect_U
     vsub.q r000, r000, r001
     usv.q r000, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Vec2Reflect
     lv.q r000, 0($a0)
@@ -58,6 +61,7 @@ gfunc vfpu_Vec2Reflect
     vsub.p r000, r000, r001
     sv.q r000, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Vec2pReflect
     lv.q r000, 0($a0)
@@ -78,6 +82,7 @@ gfunc vfpu_Vec2pReflect
     sv.s s002, 8($a2)
     sv.s s012, 12($a2)
     jr $ra
+    nop
 
 
 gfunc vfpu_Vec3Reflect
@@ -90,6 +95,7 @@ gfunc vfpu_Vec3Reflect
     vsub.t r000, r000, r001
     sv.q r000, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Vec4Reflect
     lv.q r000, 0($a0)
@@ -101,3 +107,4 @@ gfunc vfpu_Vec4Reflect
     vsub.q r000, r000, r001
     sv.q r000, 0($a2)
     jr $ra
+    nop

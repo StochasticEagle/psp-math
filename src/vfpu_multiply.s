@@ -12,19 +12,23 @@
 gfunc vfpu_Vec2Multiply_U
     singleOpVec2_U vmul.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Multiply_U
     singleOpVec3_U vmul.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec4Multiply_U
     singleOpVec4_U vmul.q
     jr $ra
+    nop
 
 gfunc vfpu_Vec2pMultiply
 gfunc vfpu_Vec4Multiply
     singleOpVecV vmul.q
     jr $ra
+    nop
 
 
 
@@ -41,6 +45,7 @@ gfunc vfpu_Mat2Multiply_U
     vmov.p r220, r201
     usv.q r200, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Mat3Multiply_U
     sub $sp, $sp, 8
@@ -56,6 +61,7 @@ gfunc vfpu_Mat3Multiply_U
     usv.q r201, 12($a2)
     svt s202, s212, s222, $a2, 24
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Multiply_U
     sub $sp, $sp, 8
@@ -72,6 +78,7 @@ gfunc vfpu_Mat4Multiply_U
     usv.q r202, 32($a2)
     usv.q r203, 48($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Mat2Multiply
     lm2_a 0, $a0
@@ -80,6 +87,7 @@ gfunc vfpu_Mat2Multiply
     vmov.p r220, r201
     sv.q r200, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Mat3Multiply
     lm3_a 0, $a0
@@ -89,6 +97,7 @@ gfunc vfpu_Mat3Multiply
     usv.q r201, 12($a2)
     usv.q r202, 24($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Multiply
     lm4_a 0, $a0
@@ -99,6 +108,7 @@ gfunc vfpu_Mat4Multiply
     sv.q r202, 32($a2)
     sv.q r203, 48($a2)
     jr $ra
+    nop
 
 
 
@@ -111,6 +121,7 @@ gfunc vfpu_Mat2Vector2Multiply_U
     vdot.p s110, r001, r002
     svp s100, s110, $a2, 0
     jr $ra
+    nop
 
 gfunc vfpu_Mat3Vector3Multiply_U
     pushf $f0
@@ -122,6 +133,7 @@ gfunc vfpu_Mat3Vector3Multiply_U
     vdot.t s120, r002, r003
     svt s100, s110, s120, $a2, 0
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Vector4Multiply_U
     sub $sp, $sp, 8
@@ -138,6 +150,7 @@ gfunc vfpu_Mat4Vector4Multiply_U
     vdot.q s131, r003, r100
     usv.q r101, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Mat2Vector2Multiply
     lm2_a 0, $a0
@@ -146,6 +159,7 @@ gfunc vfpu_Mat2Vector2Multiply
     vdot.p s110, r001, r002
     sv.q r100, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Mat3Vector3Multiply
     lm3_a 0, $a0
@@ -155,6 +169,7 @@ gfunc vfpu_Mat3Vector3Multiply
     vdot.t s120, r002, r003
     sv.q r100, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Vector4Multiply
     lm4_a 0, $a0
@@ -165,6 +180,7 @@ gfunc vfpu_Mat4Vector4Multiply
     vdot.q s131, r003, r100
     sv.q r101, 0($a2)
     jr $ra
+    nop
 
 
 
@@ -189,6 +205,7 @@ gfunc vfpu_QuatMultiply_U
     vadd.t r110, r110, r012
     usv.q r100, 0($a2)
     jr $ra
+    nop
 
 gfunc vfpu_QuatMultiply
     lv.q r000, 0($a0)
@@ -203,3 +220,4 @@ gfunc vfpu_QuatMultiply
     vadd.t r110, r110, r012
     sv.q r100, 0($a2)
     jr $ra
+    nop

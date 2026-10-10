@@ -13,30 +13,37 @@
 gfunc vfpu_Vec2Sum_U
     singleOpScaV_U vfad.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Sum_U
     singleOpScaV_U vfad.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec4Sum_U
     singleOpScaV_U vfad.q
     jr $ra
+    nop
 
 gfunc vfpu_Vec2Sum
     singleOpScaV vfad.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec2pSum
     pair_reduce vfad
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Sum
     singleOpScaV vfad.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec4Sum
     singleOpScaV vfad.q
     jr $ra
+    nop
 
 
 

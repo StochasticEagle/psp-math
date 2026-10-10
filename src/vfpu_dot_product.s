@@ -13,18 +13,22 @@
 gfunc vfpu_Vec2DotProduct_U
     singleOpScaDV_U vdot.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec3DotProduct_U
     singleOpScaDV_U vdot.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec4DotProduct_U
     singleOpScaDV_U vdot.q
     jr $ra
+    nop
 
 gfunc vfpu_Vec2DotProduct
     singleOpScaDV vdot.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec2pDotProduct
     lv.q r000, 0($a0)
@@ -36,11 +40,14 @@ gfunc vfpu_Vec2pDotProduct
     sv.s s200, 0($a2)
     sv.s s210, 4($a2)
     jr $ra
+    nop
 
 gfunc vfpu_Vec3DotProduct
     singleOpScaDV vdot.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec4DotProduct
     singleOpScaDV vdot.q
     jr $ra
+    nop

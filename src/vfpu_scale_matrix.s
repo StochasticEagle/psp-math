@@ -20,6 +20,7 @@ gfunc vfpu_Mat3Scale_U
     usv.q r101, 12($a1)
     svt s102, s112, s122, $a1, 24
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Scale_U
     pushf $f0
@@ -33,6 +34,7 @@ gfunc vfpu_Mat4Scale_U
     usv.q r102, 32($a1)
     usv.q r103, 48($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat3Scale
     lm3_a 0, $a0
@@ -43,6 +45,7 @@ gfunc vfpu_Mat3Scale
     usv.q r101, 12($a1)
     usv.q r102, 24($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Scale
     lm4_a 0, $a0
@@ -54,3 +57,4 @@ gfunc vfpu_Mat4Scale
     sv.q r102, 32($a1)
     sv.q r103, 48($a1)
     jr $ra
+    nop

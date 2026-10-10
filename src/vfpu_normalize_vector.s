@@ -13,6 +13,7 @@ gfunc vfpu_Vec2Normalize_U
     vscl.p r000, r000, s002
     svp s000, s010, $a1, 0
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Normalize_U
     pushf $f0
@@ -23,6 +24,7 @@ gfunc vfpu_Vec3Normalize_U
     vscl.t r000, r000, s002
     svt s000, s010, s020, $a1, 0
     jr $ra
+    nop
 
 gfunc vfpu_QuatNormalize_U
 gfunc vfpu_Vec4Normalize_U
@@ -38,6 +40,7 @@ gfunc vfpu_Vec4Normalize_U
     vscl.q r000, r000, s002
     usv.q r000, 0($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Vec2Normalize
     lv.q r000, 0($a0)
@@ -46,6 +49,7 @@ gfunc vfpu_Vec2Normalize
     vscl.p r000, r000, s002
     sv.q r000, 0($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Vec2pNormalize
     lv.q r000, 0($a0)
@@ -61,6 +65,7 @@ gfunc vfpu_Vec2pNormalize
     sv.s s001, 8($a1)
     sv.s s011, 12($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Normalize
     lv.q r000, 0($a0)
@@ -69,6 +74,7 @@ gfunc vfpu_Vec3Normalize
     vscl.t r000, r000, s002
     sv.q r000, 0($a1)
     jr $ra
+    nop
 
 gfunc vfpu_QuatNormalize
 gfunc vfpu_Vec4Normalize
@@ -82,3 +88,4 @@ gfunc vfpu_Vec4Normalize
     vscl.q r000, r000, s002
     sv.q r000, 0($a1)
     jr $ra
+    nop

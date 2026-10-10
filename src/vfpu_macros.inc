@@ -121,8 +121,6 @@
     sv.q r002, 0($a2)
 .endm
 
-
-
 # For functions that take a single vector and output a scalar
 .macro singleOpScaV_U op
     pushf $f0

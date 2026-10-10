@@ -31,6 +31,7 @@ gfunc vfpu_Vec3RotationMatrix_U
     usv.q r501, 12($a1)
     usv.q r502, 24($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Vec3RotationMatrix
     lv.q r001, 0($a0)
@@ -51,6 +52,7 @@ gfunc vfpu_Vec3RotationMatrix
     usv.q r501, 12($a1)
     usv.q r502, 24($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Vec3RotationQuaternion_U
     pushf $f0
@@ -73,6 +75,7 @@ gfunc vfpu_Vec3RotationQuaternion_U
     vadd.q c220, c200, c210[-x,y,-z,w]
     usv.q c220, 0($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Vec3RotationQuaternion
     lv.q r000, 0($a0)
@@ -93,6 +96,7 @@ gfunc vfpu_Vec3RotationQuaternion
     vadd.q c220, c200, c210[-x,y,-z,w]
     sv.q c220, 0($a1)
     jr $ra
+    nop
 
 
 
@@ -121,6 +125,7 @@ gfunc vfpu_QuatRotationMatrix_U
     usv.q r202, 12($a1)
     svt s302, s312, s322, $a1, 24
     jr $ra
+    nop
 
 gfunc vfpu_QuatRotationMatrix
     lv.q r000, 0($a0)
@@ -145,6 +150,7 @@ gfunc vfpu_QuatRotationMatrix
     usv.q r202, 12($a1)
     svt s302, s312, s322, $a1, 24
     jr $ra
+    nop
 
 
 

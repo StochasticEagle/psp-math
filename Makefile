@@ -29,7 +29,6 @@ SRCS = \
     vfpu_cosine.o \
     vfpu_cross_product.o \
     vfpu_determinant.o \
-    vfpu_direction.o \
     vfpu_distance_vector.o \
     vfpu_divide_vector.o \
     vfpu_dot_product.o \
@@ -90,6 +89,7 @@ SRCS = \
     vfpu_tanhf.o \
     vfpu_translate_matrix.o \
     vfpu_transpose_matrix.o \
+    vfpu_vector_embedding.o \
     vfpu_zero_vector.o
 
 OBJS = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(basename $(SRCS))))

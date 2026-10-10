@@ -110,7 +110,7 @@ def main():
     if cc_result == 0:
         link_result = run([args.cc, '-o', str(out / 'api-coverage.elf'), str(obj), str(archive), '-lm'],
                           out / 'link.log', allow_failure=True)
-    print(f'Public declarations: {len(public)}; defined function symbols: {len(defined_set)}; missing: {len(missing)}; undeclared exported vfpu/print functions: {len(excess)}')
+    print(f'Public declarations: {len(public)}; defined function symbols: {len(defined_set)}; missing: {len(missing)}; undeclared exported functions: {len(excess)}')
     compile_status = "PASS" if cc_result == 0 else "FAIL"
     link_status = "NOT ATTEMPTED" if link_result is None else "PASS" if link_result == 0 else "FAIL"
     print(f"Compile: {color_status(compile_status)}; link: {color_status(link_status)}")

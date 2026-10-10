@@ -14,27 +14,34 @@
 gfunc vfpu_Vec2Average_U
     singleOpScaV_U vavg.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Average_U
     singleOpScaV_U vavg.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec4Average_U
     singleOpScaV_U vavg.q
     jr $ra
+    nop
 
 gfunc vfpu_Vec2Average
     singleOpScaV vavg.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec2pAverage
     pair_reduce vavg
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Average
     singleOpScaV vavg.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec4Average
     singleOpScaV vavg.q
     jr $ra
+    nop

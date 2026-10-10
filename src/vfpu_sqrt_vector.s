@@ -13,28 +13,35 @@
 gfunc vfpu_SquareRoot
     singleOpSca2Sca vsqrt.s
     jr $ra
+    nop
 
 gfunc vfpu_Vec2SquareRoot_U
     singleOpSVec2_U vsqrt.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec3SquareRoot_U
     singleOpSVec3_U vsqrt.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec4SquareRoot_U
     singleOpSVec4_U vsqrt.q
     jr $ra
+    nop
 
 gfunc vfpu_Vec2SquareRoot
     singleOpSVecV vsqrt.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec3SquareRoot
     singleOpSVecV vsqrt.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec2pSquareRoot
 gfunc vfpu_Vec4SquareRoot
     singleOpSVecV vsqrt.q
     jr $ra
+    nop

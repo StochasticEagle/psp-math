@@ -29,6 +29,7 @@ Arccosine_loop:
     mfv $t0, s001
     mtc1 $t0, $f0
     jr $ra
+    nop
 
 
 

@@ -21,6 +21,7 @@ gfunc vfpu_Mat2Inverse_U
     vmov.q r101, r101[w,-y,-z,x]
     usv.q r101, 0($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat3Inverse_U
     pushf $f28
@@ -47,6 +48,7 @@ gfunc vfpu_Mat3Inverse_U
     usv.q r201, 12($a1)
     svt s202, s212, s222, $a1, 24
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Inverse_U
     pushf $f28
@@ -82,6 +84,7 @@ gfunc vfpu_Mat4Inverse_U
     usv.q r302, 32($a1)
     usv.q r303, 48($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat2Inverse
     mfc1 $t0, $f12
@@ -93,6 +96,7 @@ gfunc vfpu_Mat2Inverse
     vmov.q r101, r101[w,-y,-z,x]
     sv.q r101, 0($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat3Inverse
     lm3_a 7, $a0
@@ -117,6 +121,7 @@ gfunc vfpu_Mat3Inverse
     usv.q r201, 12($a1)
     usv.q r202, 24($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat4Inverse
     lm4_a 7, $a0
@@ -150,3 +155,4 @@ gfunc vfpu_Mat4Inverse
     sv.q r302, 32($a1)
     sv.q r303, 48($a1)
     jr $ra
+    nop

@@ -25,6 +25,7 @@ gfunc vfpu_Vec2Clamp_U
     vcmovt.p r000, r003, 6
     svp s000, s010, $a1, 0
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Clamp_U
     pushf $f0
@@ -42,6 +43,7 @@ gfunc vfpu_Vec3Clamp_U
     vcmovt.t r000, r003, 6
     svt s000, s010, s020, $a1, 0
     jr $ra
+    nop
 
 gfunc vfpu_Vec4Clamp_U
     pushf $f0
@@ -59,6 +61,7 @@ gfunc vfpu_Vec4Clamp_U
     vcmovt.q r000, r003, 6
     usv.q r000, 0($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Vec2pClamp
 gfunc vfpu_Vec4Clamp
@@ -75,3 +78,4 @@ gfunc vfpu_Vec4Clamp
     vcmovt.q r000, r003, 6
     sv.q r000, 0($a1)
     jr $ra
+    nop

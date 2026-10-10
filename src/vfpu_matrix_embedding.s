@@ -19,6 +19,7 @@ gfunc vfpu_Mat2ToMat3_U
     usv.q r001, 12($a1)
     svt s002, s012, s022, $a1, 24
     jr $ra
+    nop
 
 gfunc vfpu_Mat2ToMat3
     lm2_a 0, $a0
@@ -28,6 +29,7 @@ gfunc vfpu_Mat2ToMat3
     usv.q r001, 12($a1)
     usv.q r002, 24($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat2ToMat4_U
     pushf $f0
@@ -42,6 +44,7 @@ gfunc vfpu_Mat2ToMat4_U
     usv.q r002, 32($a1)
     usv.q r003, 48($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat2ToMat4
     lm2_a 0, $a0
@@ -54,6 +57,7 @@ gfunc vfpu_Mat2ToMat4
     sv.q r002, 32($a1)
     sv.q r003, 48($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat3ToMat4_U
     pushf $f0
@@ -66,6 +70,7 @@ gfunc vfpu_Mat3ToMat4_U
     usv.q r002, 32($a1)
     usv.q r003, 48($a1)
     jr $ra
+    nop
 
 gfunc vfpu_Mat3ToMat4
     lm3_a 0, $a0
@@ -76,5 +81,6 @@ gfunc vfpu_Mat3ToMat4
     sv.q r002, 32($a1)
     sv.q r003, 48($a1)
     jr $ra
+    nop
 
 

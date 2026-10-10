@@ -13,30 +13,35 @@
 gfunc vfpu_Cosine
     singleOpSca2Sca vcos.s
     jr $ra
-
-
+    nop
 
 gfunc vfpu_Vec2Cosine_U
     singleOpSVec2_U vcos.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Cosine_U
     singleOpSVec3_U vcos.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec4Cosine_U
     singleOpSVec4_U vcos.q
     jr $ra
+    nop
 
 gfunc vfpu_Vec2Cosine
     singleOpSVecV vcos.p
     jr $ra
+    nop
 
 gfunc vfpu_Vec3Cosine
     singleOpSVecV vcos.t
     jr $ra
+    nop
 
 gfunc vfpu_Vec2pCosine
 gfunc vfpu_Vec4Cosine
     singleOpSVecV vcos.q
     jr $ra
+    nop

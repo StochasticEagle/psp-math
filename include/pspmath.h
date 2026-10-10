@@ -1017,6 +1017,31 @@ void vfpu_Vec4AbsoluteValue_U(float *v1, float *vout);
 void vfpu_Vec4AbsoluteValue(float *v1, float *vout);
 
 
+
+/**
+ * @brief Calculate the 2D cross product (wedge product) of two vectors
+ * @param v1 Pointer to first vector
+ * @param v2 Pointer to second vector
+ * @return Scalar float (v1.x * v2.y - v1.y * v2.x)
+ */
+float vfpu_Vec2Cross_U(const ScePspFVector2 *v1, const ScePspFVector2 *v2);
+
+/**
+ * @brief Calculate the 2D cross product (wedge product) of two vectors
+ * @param v1 Pointer to first vector
+ * @param v2 Pointer to second vector
+ * @return Scalar float (v1.x * v2.y - v1.y * v2.x)
+ */
+float vfpu_Vec2Cross(const ScePspFVector2 *v1, const ScePspFVector2 *v2);
+
+/**
+ * @brief Calculate two 2D cross products in parallel from packed vector pairs
+ * @param v1 Pointer to first packed vector pair [x1, y1, z1, w1]
+ * @param v2 Pointer to second packed vector pair [x2, y2, z2, w2]
+ * @param vout Pointer to output float[2] array for the two scalar results
+ */
+void vfpu_Vec2pCross(const ScePspFVector4 *v1, const ScePspFVector4 *v2, float *vout);
+
 /**
   *  Get the cross product of two vectors - Unaligned
   *  @param v1 first vector

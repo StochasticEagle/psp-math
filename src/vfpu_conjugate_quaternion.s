@@ -16,9 +16,12 @@ gfunc vfpu_QuatConjugate_U
     popf $f0
     vneg.t r010, r010
     usv.q r000, 0($a1)
+    jr $ra
+    nop
 
 gfunc vfpu_QuatConjugate
     lv.q r000, 0($a0)
     vneg.t r010, r010
     sv.q r000, 0($a1)
     jr $ra
+    nop

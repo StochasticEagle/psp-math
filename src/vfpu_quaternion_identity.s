@@ -13,8 +13,10 @@ gfunc vfpu_QuatIdentity_U
     vidt.q r000
     usv.q r000, 0($a0)
     jr $ra
+    nop
 
 gfunc vfpu_QuatIdentity
     vidt.q r000
     sv.q r000, 0($a0)
     jr $ra
+    nop
