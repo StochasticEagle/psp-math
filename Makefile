@@ -69,6 +69,7 @@ SRCS = \
     vfpu_quaternion_sample_linear.o \
     vfpu_quaternion_to_matrix.o \
     vfpu_rand_8888.o \
+    vfpu_rand_565.o \
     vfpu_randf.o \
     vfpu_random.o \
     vfpu_reflect_vector.o \
