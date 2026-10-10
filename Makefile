@@ -78,7 +78,6 @@ SRCS = \
     vfpu_sinhf.o \
     vfpu_sphere_to_cartesian.o \
     vfpu_sqrt_vector.o \
-    vfpu_srand.o \
     vfpu_subtract.o \
     vfpu_sum.o \
     vfpu_tanf.o \

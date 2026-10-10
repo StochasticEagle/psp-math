@@ -253,7 +253,7 @@ static inline void psplaQuatMultiplyU(const float *a, const float *b, float *out
 
 /* Random */
 
-#define psplaRandomSeed                vfpu_RandomSeed
+#define psplaRandomSeed                vfpu_srand
 
 
 /* Vector 2 */

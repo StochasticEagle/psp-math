@@ -2054,8 +2054,6 @@ void vfpu_Vec4Random(float *vout);
   *  Set the VFPU's RNG seed
   *  @param s1 seed
 **/
-void vfpu_RandomSeed(int s1);
-
 /**
   *  Get the reflection of a vector off of a surface normal - Unaligned
   *  @param v1 input vector

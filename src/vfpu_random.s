@@ -17,7 +17,7 @@ gfunc vfpu_Random
     jr $ra
     nop
 
-gfunc vfpu_RandomSeed
+gfunc vfpu_srand
     mtv $a0, s000
     vrnds.s s000
     jr $ra
