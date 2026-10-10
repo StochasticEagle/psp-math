@@ -60,19 +60,10 @@ void vfpu_Vec4Distance(const ScePspFVector4 *va, const ScePspFVector4 *vb, ScePs
         "lv.q      C000, 0(%1)\n"        // Load va
         "lv.q      C010, 0(%2)\n"        // Load vb
         "vsub.q    C020, C000, C010\n"
+        "vabs.q C020, C020\n"            // Absolute value
         "sv.q      C020, 0(%0)\n"        // Store vout
         : : "r"(vout), "r"(va), "r"(vb) : "memory"
     );
 }
 
-
-void vfpu_Vec2pDistance(const ScePspFVector2 *va, const ScePspFVector2 *vb, ScePspFVector2 *vout)
-{
-    __asm__ volatile (
-        "lv.q C000, 0(%1)\n"
-        "lv.q C010, 0(%2)\n"
-        "vsub.q C020, C000, C010\n"
-        "sv.q C020, 0(%0)\n"
-        : : "r"(vout), "r"(va), "r"(vb) : "memory"
-    );
-}
+void vfpu_Vec2pDistance(const ScePspFVector2 *va, const ScePspFVector2 *vb, ScePspFVector2 *vout) __attribute__((alias("vfpu_Vec4Distance")));
