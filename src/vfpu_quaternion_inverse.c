@@ -12,7 +12,7 @@ void vfpu_QuatInverse_U(float *q1, float *qout)
 {
     float conjugate[4] PSPMATH_ALIGN;
     vfpu_QuatConjugate_U(q1, conjugate);
-    float norm PSPMATH_ALIGN = vfpu_QuatNorm_U(q1);
+    float norm PSPMATH_ALIGN = vfpu_QuatNormalize_U(q1);
 
     norm = 1/(norm * norm);
 
@@ -23,7 +23,7 @@ void vfpu_QuatInverse(float *q1, float *qout)
 {
     float conjugate[4] PSPMATH_ALIGN;
     vfpu_QuatConjugate(q1, conjugate);
-    float norm PSPMATH_ALIGN = vfpu_QuatNorm(q1);
+    float norm PSPMATH_ALIGN = vfpu_QuatNormalize(q1);
 
     norm = 1/(norm * norm);
 

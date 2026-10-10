@@ -30,5 +30,5 @@ void vfpu_quaternion_from_euler(ScePspQuatMatrix *res, float x, float y, float z
 		"vadd.q C000, C000, R101[0,0,-y,w]\n"
 		"usv.q  C000, %0\n\t"
 		:"=m"(*res) : "r"(x), "r"(y), "r"(z), "r"(&piover180));
-	vfpu_quaternion_normalize(res);
+	vfpu_QuatNormalize((const float *)res, (float *)res);
 }

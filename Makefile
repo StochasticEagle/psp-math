@@ -35,9 +35,6 @@ SRCS = \
     vfpu_ease_in_out.o \
     vfpu_envmap_matrix.o \
     vfpu_expf.o \
-    vfpu_fabsf.o \
-    vfpu_fmaxf.o \
-    vfpu_fminf.o \
     vfpu_fmodf.o \
     vfpu_identity_matrix.o \
     vfpu_inverse_matrix.o \
@@ -60,10 +57,8 @@ SRCS = \
     vfpu_quaternion_from_euler.o \
     vfpu_quaternion_hermite_tangent.o \
     vfpu_quaternion_identity.o \
-    vfpu_quaternion_inverse.o \
     vfpu_quaternion_ln.o \
     vfpu_quaternion_multiply.o \
-    vfpu_quaternion_normalize.o \
     vfpu_quaternion_rotate.o \
     vfpu_quaternion_sample_hermite.o \
     vfpu_quaternion_sample_linear.o \
@@ -85,10 +80,10 @@ SRCS = \
     vfpu_sinf.o \
     vfpu_sinhf.o \
     vfpu_sphere_to_cartesian.o \
-    vfpu_sqrtf.o \
     vfpu_sqrt_vector.o \
     vfpu_srand.o \
     vfpu_subtract.o \
+    vfpu_sum.o \
     vfpu_tanf.o \
     vfpu_tanhf.o \
     vfpu_translate_matrix.o \
@@ -109,7 +104,7 @@ $(shell mkdir -p $(BUILD_DIR) $(BIN_DIR))
 all: $(TARGET_LIB)
 	@echo "Successfully built $(TARGET_LIB)"
 
-# Pattern rules directing compiler/assembler to pull from src/ and output to build/
+# Pattern rules directing compilevfpu_QuatNorm_Ur/assembler to pull from src/ and output to build/
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 

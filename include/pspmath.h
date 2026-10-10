@@ -319,6 +319,16 @@ void vfpu_transform_vector(ScePspFMatrix4 *m, ScePspFVector4 *vin, ScePspFVector
 void vfpu_sphere_to_cartesian(float az, float ze, float rad, float *x, float *y, float *z);
 
 /**
+ * @brief Initialize a quaternion to the identity using unaligned access.
+ *
+ * Writes the quaternion components (0, 0, 0, 1).
+ * The destination requires only normal float alignment.
+ *
+ * @param q Output quaternion (four floats).
+ */
+void vfpu_quaternion_identity_U(float *q);
+
+/**
   * Generate an identity quaternion
   *
   * @param q - pointer to quaternion
@@ -336,14 +346,6 @@ void vfpu_quaternion_identity(ScePspQuatMatrix *q);
   *
 **/
 void vfpu_quaternion_copy(ScePspQuatMatrix *dst, ScePspQuatMatrix *src);
-
-/**
-  * Normalize a quaternion
-  *
-  * @param res - pointer to quaternion to normalize
-  *
-**/
-void vfpu_quaternion_normalize(ScePspQuatMatrix *res);
 
 /**
   * Multiply 2 quaternions
@@ -858,6 +860,16 @@ void vfpu_Vec3AbsoluteValue_U(float *v1, float *vout);
 void vfpu_Vec4AbsoluteValue_U(float *v1, float *vout);
 
 /**
+ * @brief Compute the component-wise absolute value of a Vec4.
+ *
+ * Both input and output must be 16-byte aligned.
+ *
+ * @param v1 Input vector (four floats).
+ * @param vout Output vector containing the absolute values.
+ */
+void vfpu_Vec4AbsoluteValue(float *v1, float *vout);
+
+/**
   *  Get the absolute value of each element in a vector - Aligned
   *  @param v1 input vector
   *  @param vout output vector
@@ -1249,6 +1261,17 @@ void vfpu_Vec3Sine(float *v1, float *vout);
 void vfpu_Vec4Sine(float *v1, float *vout);
 
 /**
+ * @brief Compute the component-wise sine of an aligned Vec4.
+ *
+ * Angles use native VFPU units, where 1.0 corresponds to pi/2 radians.
+ * Both input and output must be 16-byte aligned.
+ *
+ * @param v1 Input vector containing four angles.
+ * @param vout Output vector containing four sine values.
+ */
+void vfpu_VecVSine(float *v1, float *vout);
+
+/**
   *  Get the cosine of each element in a vector in π/2 radians - Unaligned
   *  @param v1 input vector
   *  @param vout output vector
@@ -1289,6 +1312,17 @@ void vfpu_Vec3Cosine(float *v1, float *vout);
   *  @param vout output vector
 **/
 void vfpu_Vec4Cosine(float *v1, float *vout);
+
+/**
+ * @brief Compute the component-wise cosine of an aligned Vec4.
+ *
+ * Angles use native VFPU units, where 1.0 corresponds to pi/2 radians.
+ * Both input and output must be 16-byte aligned.
+ *
+ * @param v1 Input vector containing four angles.
+ * @param vout Output vector containing four cosine values.
+ */
+void vfpu_VecVCosine(float *v1, float *vout);
 
 /**
   *  Get the arcsine of a value
@@ -1885,18 +1919,32 @@ void vfpu_QuatConjugate_U(float *q1, float *qout);
 void vfpu_QuatConjugate(float *q1, float *qout);
 
 /**
-  *  Get the norm of a quaternion - Unaligned
-  *  @param q1 input quaternion
-  *  @return The quaternion norm
-**/
-float vfpu_QuatNorm_U(float* q1);
+ *  Get the norm of a quaternion - Unaligned
+ *  @param q1 input quaternion
+ *  @return The quaternion norm
+ **/
+float vfpu_QuatMagnitude_U(float* q1);
 
 /**
-  *  Get the norm of a quaternion - Aligned
+ *  Get the norm of a quaternion - Aligned
+ *  @param q1 input quaternion
+ *  @return The quaternion norm
+ **/
+void vfpu_QuatMagnitude(const float *q1, float *qout);
+
+/**
+  *  Get the normalized of a quaternion - Unaligned
   *  @param q1 input quaternion
-  *  @return The quaternion norm
+  *  @return The quaternion with magnitude = 1
 **/
-float vfpu_QuatNorm(float* q1);
+float vfpu_QuatNormalize_U(float* q1);
+
+/**
+  *  Get the normalized quaternion - Aligned
+  *  @param q1 input quaternion
+  *  @return The quaternion with magnitude = 1
+**/
+void vfpu_QuatNormalize(const float *q1, float *qout);
 
 /**
   *  Get the inverse of a quaternion - Unaligned
