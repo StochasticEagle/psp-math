@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_Vec3SetPosition(ScePspFVector4 *dst, const ScePspFVector3 *src)
+void vfpu_Vec3SetPosition(const ScePspFVector3 *src, ScePspFVector4 *dst)
 {
     dst->x = src->x;
     dst->y = src->y;
@@ -8,7 +8,7 @@ void vfpu_Vec3SetPosition(ScePspFVector4 *dst, const ScePspFVector3 *src)
     dst->w = 1.0f;
 }
 
-void vfpu_Vec3SetDirection(ScePspFVector4 *dst, const ScePspFVector3 *src)
+void vfpu_Vec3SetDirection(const ScePspFVector3 *src, ScePspFVector4 *dst)
 {
     dst->x = src->x;
     dst->y = src->y;

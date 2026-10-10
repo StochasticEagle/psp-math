@@ -8,7 +8,7 @@ ScePspFMatrix4 hermite = {
 	{  1, -1,  0,  0 }
 };
 
-void vfpu_QuatSampleHermite(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, ScePspQuatMatrix *at, ScePspQuatMatrix *bt, float t) {
+void vfpu_QuatSampleHermite(ScePspQuatMatrix *a, ScePspQuatMatrix *b, ScePspQuatMatrix *at, ScePspQuatMatrix *bt, float t, ScePspQuatMatrix *qout) {
 	__asm__ volatile (
 		// load hermite transform matrix
 		"lv.q    C000,  0(%6)\n"

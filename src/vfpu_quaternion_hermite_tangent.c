@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_QuatHermiteTangent(ScePspQuatMatrix *qout, ScePspQuatMatrix *p1, ScePspQuatMatrix *p2, float bias) {
+void vfpu_QuatHermiteTangent(ScePspQuatMatrix *p1, ScePspQuatMatrix *p2, float bias, ScePspQuatMatrix *qout) {
 	__asm__ volatile (
 		// load p1 and p2
 		"lv.q    C000, 0(%1)\n"

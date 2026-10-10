@@ -435,22 +435,22 @@ static inline void psplaQuatMultiplyU(const float *a, const float *b, float *out
 #define vfpu_sphere_to_cartesian                vfpu_Vec3FromSpherical
 #define vfpu_quaternion_identity_U              vfpu_QuatIdentity_U
 #define vfpu_quaternion_identity                vfpu_QuatIdentity
-#define psplaQuatCopyA                          vfpu_QuatCopy
-#define vfpu_quaternion_copy                    vfpu_QuatCopy
+#define psplaQuatCopyA                          pspmath_compat_quat_copy
+#define vfpu_quaternion_copy                    pspmath_compat_quat_copy
 #define psplaQuatMultiplyOutFirstA              pspmath_compat_quat_multiply_out_first
 #define vfpu_quaternion_multiply                pspmath_compat_quat_multiply_out_first
 #define psplaQuatFromEulerA                     vfpu_QuatFromEuler
 #define vfpu_quaternion_from_euler              vfpu_QuatFromEuler
-#define psplaQuatExpA                           vfpu_QuatExp
-#define vfpu_quaternion_exp                     vfpu_QuatExp
-#define psplaQuatLnA                            vfpu_QuatLn
-#define vfpu_quaternion_ln                      vfpu_QuatLn
+#define psplaQuatExpA                           pspmath_compat_quat_exp
+#define vfpu_quaternion_exp                     pspmath_compat_quat_exp
+#define psplaQuatLnA                            pspmath_compat_quat_ln
+#define vfpu_quaternion_ln                      pspmath_compat_quat_ln
 #define psplaQuatSampleLinearA                  pspmath_compat_quat_sample_linear
 #define vfpu_quaternion_sample_linear           pspmath_compat_quat_sample_linear
-#define psplaQuatSampleHermiteA                 vfpu_QuatSampleHermite
-#define vfpu_quaternion_sample_hermite          vfpu_QuatSampleHermite
-#define psplaQuatHermiteTangentA                vfpu_QuatHermiteTangent
-#define vfpu_quaternion_hermite_tangent         vfpu_QuatHermiteTangent
+#define psplaQuatSampleHermiteA                 pspmath_compat_quat_sample_hermite
+#define vfpu_quaternion_sample_hermite          pspmath_compat_quat_sample_hermite
+#define psplaQuatHermiteTangentA                pspmath_compat_quat_hermite_tangent
+#define vfpu_quaternion_hermite_tangent         pspmath_compat_quat_hermite_tangent
 #define psplaQuatToMat4A                        vfpu_QuatToMat4
 #define vfpu_quaternion_to_matrix               vfpu_QuatToMat4
 #define psplaQuatNormalizeU                     vfpu_QuatNormalize_U
@@ -502,6 +502,13 @@ static inline void pspmath_compat_quat_sample_linear(ScePspQuatMatrix *out, SceP
 {
     vfpu_QuatLerp((float *)a, (float *)b, t, (float *)out);
 }
+
+/* Preserve original destination-first calling conventions. */
+static inline void pspmath_compat_quat_copy(ScePspQuatMatrix *dst, ScePspQuatMatrix *src) { vfpu_QuatCopy(src, dst); }
+static inline void pspmath_compat_quat_exp(ScePspQuatMatrix *out, ScePspQuatMatrix *in) { vfpu_QuatExp(in, out); }
+static inline void pspmath_compat_quat_ln(ScePspQuatMatrix *out, ScePspQuatMatrix *in) { vfpu_QuatLn(in, out); }
+static inline void pspmath_compat_quat_sample_hermite(ScePspQuatMatrix *out, ScePspQuatMatrix *a, ScePspQuatMatrix *b, ScePspQuatMatrix *at, ScePspQuatMatrix *bt, float t) { vfpu_QuatSampleHermite(a, b, at, bt, t, out); }
+static inline void pspmath_compat_quat_hermite_tangent(ScePspQuatMatrix *out, ScePspQuatMatrix *a, ScePspQuatMatrix *b, float bias) { vfpu_QuatHermiteTangent(a, b, bias, out); }
 
 /* Original libpspmath and pre-normalization vfpu names. */
 #define vfpu_VecVCopy                           vfpu_Vec4Copy

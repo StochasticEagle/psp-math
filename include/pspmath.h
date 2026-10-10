@@ -444,7 +444,7 @@ void vfpu_QuatIdentity(ScePspQuatMatrix *q);
   * @param src - pointer to quaternion to copy from
   *
 **/
-void vfpu_QuatCopy(ScePspQuatMatrix *dst, ScePspQuatMatrix *src);
+void vfpu_QuatCopy(ScePspQuatMatrix *src, ScePspQuatMatrix *dst);
 
 
 /**
@@ -464,7 +464,7 @@ void vfpu_QuatFromEuler(ScePspQuatMatrix *qout, float rx, float ry, float rz);
   * @param qin  - pointer to input quaternion
   *
 **/
-void vfpu_QuatExp(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
+void vfpu_QuatExp(ScePspQuatMatrix *qin, ScePspQuatMatrix *qout);
 
 /**
   * Calculate logarithm of a quaternion
@@ -473,7 +473,7 @@ void vfpu_QuatExp(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
   * @param qin  - pointer to input quaternion
   *
 **/
-void vfpu_QuatLn(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
+void vfpu_QuatLn(ScePspQuatMatrix *qin, ScePspQuatMatrix *qout);
 
 
 /**
@@ -487,7 +487,7 @@ void vfpu_QuatLn(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
   * @param t    - time value to sample, from 0 to 1
   *
 **/
-void vfpu_QuatSampleHermite(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, ScePspQuatMatrix *at, ScePspQuatMatrix *bt, float t);
+void vfpu_QuatSampleHermite(ScePspQuatMatrix *a, ScePspQuatMatrix *b, ScePspQuatMatrix *at, ScePspQuatMatrix *bt, float t, ScePspQuatMatrix *qout);
 
 /**
   * Return a tangent point for hermite spline interpolation
@@ -500,7 +500,7 @@ void vfpu_QuatSampleHermite(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQ
   *
 **/
 
-void vfpu_QuatHermiteTangent(ScePspQuatMatrix *qout, ScePspQuatMatrix *p1, ScePspQuatMatrix *p2, float bias);
+void vfpu_QuatHermiteTangent(ScePspQuatMatrix *p1, ScePspQuatMatrix *p2, float bias, ScePspQuatMatrix *qout);
 
 /**
   * Convert quaternion to rotation matrix
@@ -2819,14 +2819,14 @@ void vfpu_Mat4LookAt(const ScePspFVector3 *eye, const ScePspFVector3 *center, co
  * @param dst Pointer to destination 4D vector
  * @param src Pointer to source 3D vector
  */
-void vfpu_Vec3SetPosition(ScePspFVector4 *dst, const ScePspFVector3 *src);
+void vfpu_Vec3SetPosition(const ScePspFVector3 *src, ScePspFVector4 *dst);
 
 /**
  * @brief Convert a 3D vector to a 4D direction vector (w = 0.0)
  * @param dst Pointer to destination 4D vector
  * @param src Pointer to source 3D vector
  */
-void vfpu_Vec3SetDirection(ScePspFVector4 *dst, const ScePspFVector3 *src);
+void vfpu_Vec3SetDirection(const ScePspFVector3 *src, ScePspFVector4 *dst);
 
 
 #if defined(__cplusplus)

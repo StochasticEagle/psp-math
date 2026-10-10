@@ -4,7 +4,7 @@
  * C000 holds the input until the final output; all temporaries use matrix 1.
  * At vanishing vector magnitude, saturate the vector part to zero.
  * Clamp the squared norm to avoid log(0) and division by zero. */
-void vfpu_QuatLn(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin)
+void vfpu_QuatLn(ScePspQuatMatrix *qin, ScePspQuatMatrix *qout)
 {
     const float epsilon2 = 1.1e-19f;  /* ( slightly greater than sqrt(FLT_MIN) ) */
     const float norm_min = 1.0e-20f;

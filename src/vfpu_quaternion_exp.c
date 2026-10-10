@@ -2,7 +2,7 @@
 
 /* VFPU calculations are confined to this function; no live VFPU values
  * cross calls. Guard the removable sin(r)/r singularity explicitly. */
-void vfpu_QuatExp(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin)
+void vfpu_QuatExp(ScePspQuatMatrix *qin, ScePspQuatMatrix *qout)
 {
     const float x = qin->a, y = qin->b, z = qin->c, w = qin->d;
     const float r2 = x*x + y*y + z*z;
