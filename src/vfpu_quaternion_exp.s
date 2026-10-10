@@ -7,8 +7,7 @@ gfunc vfpu_QuatExp
     vsqrt.s S100, S100
     vcst.s S101, VFPU_2_PI
     vmul.s S102, S100, S101
-    vsin.s S110, S102
-    vcos.s S111, S102
+    vrot.p C110, S102, [s, c]
     lui $t0, %hi(.Lexp_epsilon)
     lw $t0, %lo(.Lexp_epsilon)($t0)
     mtv $t0, S120
@@ -21,9 +20,10 @@ gfunc vfpu_QuatExp
     vcst.s S103, VFPU_LOG2E
     vmul.s S103, S030, S103
     vexp2.s S103, S103
-    vmul.s S110, S110, S103
-    vscl.t C000, C000, S110
-    vmul.s S030, S111, S103
+    # [e^w*sin(r)/r, e^w*sin(r)/r, e^w*sin(r)/r, e^w*cos(r)]
+    vmov.q C200, C110[x,x,x,y]
+    vscl.q C200, C200, S103
+    vmul.q C000, C000, C200
     sv.q C000, 0($a1)
     jr $ra
     nop
