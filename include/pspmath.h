@@ -30,12 +30,18 @@ extern "C" {
 **/
 #define PSPMATH_ALIGN __attribute__((aligned(16)))
 
+/* Canonical API conventions:
+ * - Source operands precede the destination for arithmetic and transforms.
+ * - Quaternion storage is [x,y,z,w] (scalar last).
+ * - Aligned functions use 16-byte VFPU accesses; _U accepts unaligned data.
+ * - Scalar trigonometric functions accept radians.
+ * - Matrix construction and some original pspmath APIs retain destination-first
+ *   signatures; see pspmath-compatibility.h for historical aliases.
+ */
 typedef struct quat {
 	float a, b, c, d;
 } PSPMATH_ALIGN ScePspQuatMatrix;
 
-
-#define PSPMATH_ALIGN __attribute__((aligned(16)))
 
 // --- Vector Constants ---
 

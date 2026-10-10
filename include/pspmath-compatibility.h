@@ -437,16 +437,16 @@ static inline void psplaQuatMultiplyU(const float *a, const float *b, float *out
 #define vfpu_quaternion_identity                vfpu_QuatIdentity
 #define psplaQuatCopyA                          vfpu_QuatCopy
 #define vfpu_quaternion_copy                    vfpu_QuatCopy
-#define psplaQuatMultiplyOutFirstA              vfpu_QuatMultiplyOutFirst
-#define vfpu_quaternion_multiply                vfpu_QuatMultiplyOutFirst
+#define psplaQuatMultiplyOutFirstA              pspmath_compat_quat_multiply_out_first
+#define vfpu_quaternion_multiply                pspmath_compat_quat_multiply_out_first
 #define psplaQuatFromEulerA                     vfpu_QuatFromEuler
 #define vfpu_quaternion_from_euler              vfpu_QuatFromEuler
 #define psplaQuatExpA                           vfpu_QuatExp
 #define vfpu_quaternion_exp                     vfpu_QuatExp
 #define psplaQuatLnA                            vfpu_QuatLn
 #define vfpu_quaternion_ln                      vfpu_QuatLn
-#define psplaQuatSampleLinearA                  vfpu_QuatSampleLinear
-#define vfpu_quaternion_sample_linear           vfpu_QuatSampleLinear
+#define psplaQuatSampleLinearA                  pspmath_compat_quat_sample_linear
+#define vfpu_quaternion_sample_linear           pspmath_compat_quat_sample_linear
 #define psplaQuatSampleHermiteA                 vfpu_QuatSampleHermite
 #define vfpu_quaternion_sample_hermite          vfpu_QuatSampleHermite
 #define psplaQuatHermiteTangentA                vfpu_QuatHermiteTangent
@@ -490,6 +490,18 @@ static inline void psplaQuatMultiplyU(const float *a, const float *b, float *out
 #define psplaMat2ToMat4A                        vfpu_Mat2ToMat4
 #define psplaMat3ToMat4U                        vfpu_Mat3ToMat4_U
 #define psplaMat3ToMat4A                        vfpu_Mat3ToMat4
+
+/* Original pspmath entry points take the destination first; the unified
+ * quaternion primitives take inputs first and destination last.  These
+ * compatibility adapters preserve the original API without exported duplicates. */
+static inline void pspmath_compat_quat_multiply_out_first(ScePspQuatMatrix *out, ScePspQuatMatrix *a, ScePspQuatMatrix *b)
+{
+    vfpu_QuatMultiply((float *)a, (float *)b, (float *)out);
+}
+static inline void pspmath_compat_quat_sample_linear(ScePspQuatMatrix *out, ScePspQuatMatrix *a, ScePspQuatMatrix *b, float t)
+{
+    vfpu_QuatLerp((float *)a, (float *)b, t, (float *)out);
+}
 
 /* Original libpspmath and pre-normalization vfpu names. */
 #define vfpu_VecVCopy                           vfpu_Vec4Copy
