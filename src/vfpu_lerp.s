@@ -49,10 +49,8 @@ gfunc vfpu_Vec4Lerp_U
     popf $f0
     mfc1 $t0, $f12
     mtv $t0, s002
-    vfim.s s012, 1
+    vsub.q r001, r001, r000
     vscl.q r001, r001, s002
-    vsub.s s012, s012, s002
-    vscl.q r000, r000, s012
     vadd.q r003, r000, r001
     usv.q r003, 0($a2)
     jr $ra
@@ -65,10 +63,8 @@ gfunc vfpu_Vec4Lerp
     lv.q r001, 0($a1)
     mfc1 $t0, $f12
     mtv $t0, s002
-    vfim.s s012, 1
+    vsub.q r001, r001, r000
     vscl.q r001, r001, s002
-    vsub.s s012, s012, s002
-    vscl.q r000, r000, s012
     vadd.q r003, r000, r001
     sv.q r003, 0($a2)
     jr $ra

@@ -195,29 +195,21 @@ gfunc vfpu_QuatMultiply_U
     ulv.q r000, 0($a0)
     ulv.q r001, 0($a1)
     popf $f0
-    vdot.t s002, r010, r011
-    vcrsp.t r012, r010, r011
-    vmul.s s100, s000, s001
-    vsub.s s100, s100, s002
-    vscl.t r110, r010, s001
-    vscl.t r111, r011, s000
-    vadd.t r110, r110, r111
-    vadd.t r110, r110, r012
-    usv.q r100, 0($a2)
+    vmov.q r100, r000[y,z,w,x]
+    vmov.q r101, r001[y,z,w,x]
+    vqmul.q r200, r100, r101
+    vmov.q r201, r200[w,x,y,z]
+    usv.q r201, 0($a2)
     jr $ra
     nop
 
 gfunc vfpu_QuatMultiply
     lv.q r000, 0($a0)
     lv.q r001, 0($a1)
-    vdot.t s002, r010, r011
-    vcrsp.t r012, r010, r011
-    vmul.s s100, s000, s001
-    vsub.s s100, s100, s002
-    vscl.t r110, r010, s001
-    vscl.t r111, r011, s000
-    vadd.t r110, r110, r111
-    vadd.t r110, r110, r012
-    sv.q r100, 0($a2)
+    vmov.q r100, r000[y,z,w,x]
+    vmov.q r101, r001[y,z,w,x]
+    vqmul.q r200, r100, r101
+    vmov.q r201, r200[w,x,y,z]
+    sv.q r201, 0($a2)
     jr $ra
     nop

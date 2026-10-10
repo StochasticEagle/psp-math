@@ -440,15 +440,6 @@ void vfpu_QuatIdentity(ScePspQuatMatrix *q);
 **/
 void vfpu_QuatCopy(ScePspQuatMatrix *dst, ScePspQuatMatrix *src);
 
-/**
-  * Multiply 2 quaternions
-  *
-  * @param qout - pointer to result quaternion
-  * @param a    - pointer to first quaternion to multiply
-  * @param b    - pointer to second quaternion to multiply
-  *
-**/
-void vfpu_QuatMultiplyOutFirst(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b);
 
 /**
   * Make a quaternion from euler angles
@@ -478,16 +469,6 @@ void vfpu_QuatExp(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
 **/
 void vfpu_QuatLn(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
 
-/**
-  * Return a sample from a linear interpolation of 2 quaternions
-  *
-  * @param qout - pointer to output quaternion
-  * @param a    - pointer to starting quaternion
-  * @param b    - pointer to ending quaternion
-  * @param t    - time value to sample, from 0 to 1
-  *
-**/
-void vfpu_QuatSampleLinear(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, float t);
 
 /**
   * Return a sample from a hermite spline interpolation

@@ -59,10 +59,8 @@ SRCS = \
     vfpu_quaternion_identity.o \
     vfpu_quaternion_inverse.o \
     vfpu_quaternion_ln.o \
-    vfpu_quaternion_multiply.o \
     vfpu_quaternion_rotate.o \
     vfpu_quaternion_sample_hermite.o \
-    vfpu_quaternion_sample_linear.o \
     vfpu_quaternion_slerp.o \
     vfpu_quaternion_to_matrix.o \
     vfpu_rand_8888.o \
