@@ -239,6 +239,16 @@
 .endm
 
 
+/* Two independent XY vectors in each aligned 128-bit quad. */
+.macro pair_reduce op
+    lv.q r000, 0($a0)
+    \op\().p s200, r000
+    vmov.q r001, r000[z,w,z,w]
+    \op\().p s210, r001
+    sv.s s200, 0($a1)
+    sv.s s210, 4($a1)
+.endm
+
 
 # For Round, Floor, and Ceiling functions
 .macro truncateOpVec_U op

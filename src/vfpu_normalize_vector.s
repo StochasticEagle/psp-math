@@ -47,6 +47,21 @@ gfunc vfpu_Vec2Normalize
     sv.q r000, 0($a1)
     jr $ra
 
+gfunc vfpu_Vec2pNormalize
+    lv.q r000, 0($a0)
+    vdot.p s200, r000, r000
+    vmov.q r001, r000[z,w,z,w]
+    vdot.p s210, r001, r001
+    vrsq.s s200, s200
+    vrsq.s s210, s210
+    vscl.p r000, r000, s200
+    vscl.p r001, r001, s210
+    sv.s s000, 0($a1)
+    sv.s s010, 4($a1)
+    sv.s s001, 8($a1)
+    sv.s s011, 12($a1)
+    jr $ra
+
 gfunc vfpu_Vec3Normalize
     lv.q r000, 0($a0)
     vdot.t s002, r000, r000

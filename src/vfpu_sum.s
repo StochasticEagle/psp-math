@@ -26,6 +26,10 @@ gfunc vfpu_Vec2Sum
     singleOpScaV vfad.p
     jr $ra
 
+gfunc vfpu_Vec2pSum
+    pair_reduce vfad
+    jr $ra
+
 gfunc vfpu_Vec3Sum
     singleOpScaV vfad.t
     jr $ra

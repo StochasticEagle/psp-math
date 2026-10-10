@@ -289,6 +289,14 @@ float vfpu_EaseInOut(float t);
 void vfpu_Vec2Zero(ScePspFVector2 *v);
 
 /**
+ * Zero a packed 2d vector pair
+ *
+ * @param v - pointer to vector
+ *
+ **/
+void vfpu_Vec2pZero(ScePspFVector2 *v);
+
+/**
   * Zero a 3d vector
   *
   * @param v - pointer to vector

@@ -48,6 +48,17 @@ gfunc vfpu_Vec2Magnitude
     mtc1 $t0, $f0
     jr $ra
 
+gfunc vfpu_Vec2pMagnitude
+    lv.q r000, 0($a0)
+    vdot.p s200, r000, r000
+    vmov.q r001, r000[z,w,z,w]
+    vdot.p s210, r001, r001
+    vsqrt.s s200, s200
+    vsqrt.s s210, s210
+    sv.s s200, 0($a1)
+    sv.s s210, 4($a1)
+    jr $ra
+
 gfunc vfpu_Vec3Magnitude
     lv.q r000, 0($a0)
     vdot.t s002, r000, r000
