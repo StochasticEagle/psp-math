@@ -43,7 +43,7 @@ typedef struct quat {
   * @param blockid - register block id (0 to 7)
   *
 **/
-void printVFPURegisters(int blockid);
+void vfpu_PrintRegisters(int blockid);
 
 /**
  * Print a formatted block of 16 vfpu registers
@@ -51,7 +51,7 @@ void printVFPURegisters(int blockid);
  * @param matId - matrix id (0 to 7)
  *
  **/
-void printMatrixFloat(int matId);
+void vfpu_PrintMatrix(int matId);
 
 /**
  * Print a formatted block of 16 vfpu registers
@@ -60,7 +60,7 @@ void printMatrixFloat(int matId);
  * @param vecSize - vector dimension (2 to 4)
  *
  **/
-void printVectorFloat(int vecId, int vecSize);
+void vfpu_PrintVector(int vecId, int vecSize);
 
 /**
  * Print a formatted quaternion
@@ -68,7 +68,7 @@ void printVectorFloat(int vecId, int vecSize);
  * @param quatId - quaternion id (0 to 7)
  *
  **/
-void printQuaternionFloat(int quatId);
+void vfpu_PrintQuaternion(int quatId);
 
 
 /**
@@ -120,7 +120,7 @@ unsigned short vfpu_rand_565(int minS, int minL, int maxS, int maxL);
   * @param z - translation on z axis
   *
 **/
-void vfpu_translate_matrix(ScePspFMatrix4 *m, float x, float y, float z);
+void vfpu_Mat4Translate(ScePspFMatrix4 *m, float x, float y, float z);
 
 /**
   * Generate a perspective projection matrix
@@ -132,7 +132,7 @@ void vfpu_translate_matrix(ScePspFMatrix4 *m, float x, float y, float z);
   * @param far    - far clipping plane
   *
 **/
-void vfpu_perspective_matrix(ScePspFMatrix4 *m, float fovy, float aspect, float near, float far);
+void vfpu_Mat4Perspective(ScePspFMatrix4 *m, float fovy, float aspect, float near, float far);
 
 /**
   * Generate an orthogonal  projection matrix
@@ -146,7 +146,7 @@ void vfpu_perspective_matrix(ScePspFMatrix4 *m, float fovy, float aspect, float 
   * @param far    - far clipping plane
   *
 **/
-void vfpu_ortho_matrix(ScePspFMatrix4 *m, float left, float right, float bottom, float top, float near, float far);
+void vfpu_Mat4Orthographic(ScePspFMatrix4 *m, float left, float right, float bottom, float top, float near, float far);
 
 /**
   * Calculate sine
@@ -278,7 +278,7 @@ float vfpu_fmodf(float x, float y);
   * @param t - input (0 to 1 float)
   *
 **/
-float vfpu_ease_in_out(float t);
+float vfpu_EaseInOut(float t);
 
 /**
   * Zero a 3d vector
@@ -286,7 +286,7 @@ float vfpu_ease_in_out(float t);
   * @param v - pointer to vector
   *
 **/
-void vfpu_zero_vector(ScePspFVector4 *v);
+void vfpu_Vec4Zero(ScePspFVector4 *v);
 
 /**
   * Generate rotation matrix for environment map.
@@ -294,7 +294,7 @@ void vfpu_zero_vector(ScePspFVector4 *v);
   * @param envmat - pointer to array of 2 vectors to store envmap matrix
   * @param r      - angle to rotate in radians
 **/
-void vfpu_envmap_matrix(ScePspFVector4 *envmat, float r);
+void vfpu_Vec4EnvironmentMap(ScePspFVector4 *envmat, float r);
 
 /**
   * Transform 3d vector by 4x4 matrix
@@ -303,7 +303,7 @@ void vfpu_envmap_matrix(ScePspFVector4 *envmat, float r);
   * @param vin  - pointer to vector to transform
   * @param vout - pointer to result vector
 **/
-void vfpu_transform_vector(ScePspFMatrix4 *m, ScePspFVector4 *vin, ScePspFVector4 *vout);
+void vfpu_Mat4TransformVec4(ScePspFMatrix4 *m, ScePspFVector4 *vin, ScePspFVector4 *vout);
 
 /**
   * Convert input sphere coordinates to cartesian coordinates
@@ -316,7 +316,7 @@ void vfpu_transform_vector(ScePspFMatrix4 *m, ScePspFVector4 *vin, ScePspFVector
   * @param z   - pointer to float for z coordinate
   *
 **/
-void vfpu_sphere_to_cartesian(float az, float ze, float rad, float *x, float *y, float *z);
+void vfpu_Vec3FromSpherical(float az, float ze, float rad, float *x, float *y, float *z);
 
 /**
  * @brief Initialize a quaternion to the identity using unaligned access.
@@ -326,7 +326,7 @@ void vfpu_sphere_to_cartesian(float az, float ze, float rad, float *x, float *y,
  *
  * @param q Output quaternion (four floats).
  */
-void vfpu_quaternion_identity_U(float *q);
+void vfpu_QuatIdentity_U(float *q);
 
 /**
   * Generate an identity quaternion
@@ -336,7 +336,7 @@ void vfpu_quaternion_identity_U(float *q);
   * this will set the quaternion's components to 0,0,0,1
   *
 **/
-void vfpu_quaternion_identity(ScePspQuatMatrix *q);
+void vfpu_QuatIdentity(ScePspQuatMatrix *q);
 
 /**
   * Copy a quaternion
@@ -345,7 +345,7 @@ void vfpu_quaternion_identity(ScePspQuatMatrix *q);
   * @param src - pointer to quaternion to copy from
   *
 **/
-void vfpu_quaternion_copy(ScePspQuatMatrix *dst, ScePspQuatMatrix *src);
+void vfpu_QuatCopy(ScePspQuatMatrix *dst, ScePspQuatMatrix *src);
 
 /**
   * Multiply 2 quaternions
@@ -355,7 +355,7 @@ void vfpu_quaternion_copy(ScePspQuatMatrix *dst, ScePspQuatMatrix *src);
   * @param b    - pointer to second quaternion to multiply
   *
 **/
-void vfpu_quaternion_multiply(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b);
+void vfpu_QuatMultiplyOutFirst(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b);
 
 /**
   * Make a quaternion from euler angles
@@ -365,7 +365,7 @@ void vfpu_quaternion_multiply(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePs
   * @param ry   - rotation on y axis, in degrees
   * @param rz   - rotation on z axis, in degrees
 **/
-void vfpu_quaternion_from_euler(ScePspQuatMatrix *qout, float rx, float ry, float rz);
+void vfpu_QuatFromEuler(ScePspQuatMatrix *qout, float rx, float ry, float rz);
 
 /**
   * Calculate exponent of a quaternion
@@ -374,7 +374,7 @@ void vfpu_quaternion_from_euler(ScePspQuatMatrix *qout, float rx, float ry, floa
   * @param qin  - pointer to input quaternion
   *
 **/
-void vfpu_quaternion_exp(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
+void vfpu_QuatExp(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
 
 /**
   * Calculate logarithm of a quaternion
@@ -383,7 +383,7 @@ void vfpu_quaternion_exp(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
   * @param qin  - pointer to input quaternion
   *
 **/
-void vfpu_quaternion_ln(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
+void vfpu_QuatLn(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
 
 /**
   * Return a sample from a linear interpolation of 2 quaternions
@@ -394,7 +394,7 @@ void vfpu_quaternion_ln(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin);
   * @param t    - time value to sample, from 0 to 1
   *
 **/
-void vfpu_quaternion_sample_linear(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, float t);
+void vfpu_QuatSampleLinear(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, float t);
 
 /**
   * Return a sample from a hermite spline interpolation
@@ -407,7 +407,7 @@ void vfpu_quaternion_sample_linear(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, 
   * @param t    - time value to sample, from 0 to 1
   *
 **/
-void vfpu_quaternion_sample_hermite(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, ScePspQuatMatrix *at, ScePspQuatMatrix *bt, float t);
+void vfpu_QuatSampleHermite(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, ScePspQuatMatrix *at, ScePspQuatMatrix *bt, float t);
 
 /**
   * Return a tangent point for hermite spline interpolation
@@ -420,7 +420,7 @@ void vfpu_quaternion_sample_hermite(ScePspQuatMatrix *qout, ScePspQuatMatrix *a,
   *
 **/
 
-void vfpu_quaternion_hermite_tangent(ScePspQuatMatrix *qout, ScePspQuatMatrix *p1, ScePspQuatMatrix *p2, float bias);
+void vfpu_QuatHermiteTangent(ScePspQuatMatrix *qout, ScePspQuatMatrix *p1, ScePspQuatMatrix *p2, float bias);
 
 /**
   * Convert quaternion to rotation matrix
@@ -429,7 +429,7 @@ void vfpu_quaternion_hermite_tangent(ScePspQuatMatrix *qout, ScePspQuatMatrix *p
   * @param m - pointer to output matrix
   *
 **/
-void vfpu_quaternion_to_matrix(ScePspQuatMatrix *q, ScePspFMatrix4 *m);
+void vfpu_QuatToMat4(ScePspQuatMatrix *q, ScePspFMatrix4 *m);
 
 
 
@@ -521,7 +521,7 @@ void vfpu_Vec4Copy_U(float *v1, float *vout);
   *  @param v1 source vector
   *  @param vout destination vector
 **/
-void vfpu_VecVCopy(float *v1, float *vout);
+void vfpu_Vec4Copy(float *v1, float *vout);
 
 /**
   *  Add two vectors - Unaligned
@@ -555,13 +555,6 @@ void vfpu_Vec4Add_U(float *v1, float *v2, float *vout);
  **/
 void vfpu_Vec4Add(float *v1, float *v2, float *vout);
 
-/**
-  *  Add two vectors - Aligned
-  *  @param v1 first vector
-  *  @param v2 second vector
-  *  @param vout result vector
-**/
-void vfpu_VecVAdd(float *v1, float *v2, float *vout);
 
 /**
   *  Subtract two vectors - Unaligned
@@ -593,7 +586,7 @@ void vfpu_Vec4Subtract_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout result vector
 **/
-void vfpu_VecVSubtract(float *v1, float *v2, float *vout);
+void vfpu_Vec4Subtract(float *v1, float *v2, float *vout);
 
 /**
   *  Multiply two vectors - Unaligned
@@ -625,7 +618,7 @@ void vfpu_Vec4Multiply_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout result vector
 **/
-void vfpu_VecVMultiply(float *v1, float *v2, float *vout);
+void vfpu_Vec4Multiply(float *v1, float *v2, float *vout);
 
 /**
   *  Divide two vectors - Unaligned
@@ -675,13 +668,6 @@ void vfpu_Vec3Divide(float *v1, float *v2, float *vout);
 **/
 void vfpu_Vec4Divide(float *v1, float *v2, float *vout);
 
-/**
-  *  Divide two vectors - Aligned
-  *  @param v1 first vector
-  *  @param v2 second vector
-  *  @param vout result vector
-**/
-void vfpu_VecVDivide(float *v1, float *v2, float *vout);
 
 /**
   *  Construct a vector from the the element-wise minimum of two vectors - Unaligned
@@ -713,7 +699,7 @@ void vfpu_Vec4Minimum_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout output vector
 **/
-void vfpu_VecVMinimum(float *v1, float *v2, float *vout);
+void vfpu_Vec4Minimum(float *v1, float *v2, float *vout);
 
 /**
   *  Construct a vector from the the element-wise maximum of two vectors - Unaligned
@@ -745,7 +731,7 @@ void vfpu_Vec4Maximum_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout output vector
 **/
-void vfpu_VecVMaximum(float *v1, float *v2, float *vout);
+void vfpu_Vec4Maximum(float *v1, float *v2, float *vout);
 
 /**
   *  Get the average of the elements in a vector - Unaligned
@@ -869,12 +855,6 @@ void vfpu_Vec4AbsoluteValue_U(float *v1, float *vout);
  */
 void vfpu_Vec4AbsoluteValue(float *v1, float *vout);
 
-/**
-  *  Get the absolute value of each element in a vector - Aligned
-  *  @param v1 input vector
-  *  @param vout output vector
-**/
-void vfpu_VecVAbsoluteValue(float *v1, float *vout);
 
 /**
   *  Get the cross product of two vectors - Unaligned
@@ -924,13 +904,6 @@ void vfpu_Vec4Scale_U(float *v1, float s1, float *vout);
  **/
 void vfpu_Vec4Scale(float *v1, float s1, float *vout);
 
-/**
-  *  Scale a vector by a scalar value - Aligned
-  *  @param v1 input vector
-  *  @param s1 scale value
-  *  @param vout output vector
-**/
-void vfpu_VecVScale(float *v1, float s1, float *vout);
 
 /**
   *  Get the dot product of two vectors - Unaligned
@@ -1029,12 +1002,6 @@ void vfpu_Vec3SquareRoot(float *v1, float *vout);
 **/
 void vfpu_Vec4SquareRoot(float *v1, float *vout);
 
-/**
-  *  Find the square roots of each element in a vector - Aligned
-  *  @param v1 input vector
-  *  @param vout output vector
-**/
-void vfpu_VecVSquareRoot(float *v1, float *vout);
 
 /**
   *  Get the magnitude of a vector - Unaligned
@@ -1146,7 +1113,7 @@ void vfpu_Vec4Round_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout rounded vector
 **/
-void vfpu_VecVRound(float *v1, float *vout);
+void vfpu_Vec4Round(float *v1, float *vout);
 
 /**
   *  Round each element in a vector to zero - Unaligned
@@ -1174,7 +1141,7 @@ void vfpu_Vec4Floor_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout truncated vector
 **/
-void vfpu_VecVFloor(float *v1, float *vout);
+void vfpu_Vec4Floor(float *v1, float *vout);
 
 /**
   *  Round each element in a vector to the next whole number - Unaligned
@@ -1202,7 +1169,7 @@ void vfpu_Vec4Ceiling_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout truncated vector
 **/
-void vfpu_VecVCeiling(float *v1, float *vout);
+void vfpu_Vec4Ceiling(float *v1, float *vout);
 
 /**
   *  Get the sine of a value in π/2 radians
@@ -1260,16 +1227,6 @@ void vfpu_Vec3Sine(float *v1, float *vout);
 **/
 void vfpu_Vec4Sine(float *v1, float *vout);
 
-/**
- * @brief Compute the component-wise sine of an aligned Vec4.
- *
- * Angles use native VFPU units, where 1.0 corresponds to pi/2 radians.
- * Both input and output must be 16-byte aligned.
- *
- * @param v1 Input vector containing four angles.
- * @param vout Output vector containing four sine values.
- */
-void vfpu_VecVSine(float *v1, float *vout);
 
 /**
   *  Get the cosine of each element in a vector in π/2 radians - Unaligned
@@ -1313,16 +1270,6 @@ void vfpu_Vec3Cosine(float *v1, float *vout);
 **/
 void vfpu_Vec4Cosine(float *v1, float *vout);
 
-/**
- * @brief Compute the component-wise cosine of an aligned Vec4.
- *
- * Angles use native VFPU units, where 1.0 corresponds to pi/2 radians.
- * Both input and output must be 16-byte aligned.
- *
- * @param v1 Input vector containing four angles.
- * @param vout Output vector containing four cosine values.
- */
-void vfpu_VecVCosine(float *v1, float *vout);
 
 /**
   *  Get the arcsine of a value
@@ -1364,7 +1311,7 @@ void vfpu_Vec4Negate_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout negated vector
 **/
-void vfpu_VecVNegate(float *v1, float *vout);
+void vfpu_Vec4Negate(float *v1, float *vout);
 
 /**
   *  Get the element-wise '==' comparison of two vectors - Unaligned
@@ -1636,7 +1583,7 @@ void vfpu_Vec4Compare_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout output vector
 **/
-void vfpu_VecVCompare(float *v1, float *v2, float *vout);
+void vfpu_Vec4Compare(float *v1, float *v2, float *vout);
 
 /**
   *  Get a linear interpolation between two vectors - Unaligned
@@ -1672,7 +1619,7 @@ void vfpu_Vec4Lerp_U(float *v1, float *v2, float s1, float *vout);
   *  @param s1 weight
   *  @param vout interpolated vector
 **/
-void vfpu_VecVLerp(float *v1, float *v2, float s1, float *vout);
+void vfpu_Vec4Lerp(float *v1, float *v2, float s1, float *vout);
 
 /**
   *  Clamp each element in a vector to a specified range - Unaligned
@@ -1708,7 +1655,7 @@ void vfpu_Vec4Clamp_U(float *v1, float s1, float s2, float *vout);
   *  @param s2 maximum
   *  @param vout clamped vector
 **/
-void vfpu_VecVClamp(float *v1, float s1, float s2, float *vout);
+void vfpu_Vec4Clamp(float *v1, float s1, float s2, float *vout);
 
 /**
   *  Create a new vector by reordering elements of the input vector - Unaligned
@@ -1800,11 +1747,6 @@ void vfpu_Vec3Random(float *vout);
 **/
 void vfpu_Vec4Random(float *vout);
 
-/**
-  *  Generate a vector of random floating point numbers (0 <= x < 1) - Aligned
-  *  @param vout output vector
-**/
-void vfpu_VecVRandom(float *vout);
 
 /**
   *  Set the VFPU's RNG seed
@@ -2380,42 +2322,42 @@ void vfpu_Mat4Inverse(float *m1, float s1, float *mout);
   *  @param m1 input matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat2ToMatrix3_U(float *m1, float *mout);
+void vfpu_Mat2ToMat3_U(float *m1, float *mout);
 
 /**
   *  Convert a matrix 2 to a matrix 3 - Aligned
   *  @param m1 input matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat2ToMatrix3(float *m1, float *mout);
+void vfpu_Mat2ToMat3(float *m1, float *mout);
 
 /**
   *  Convert a matrix 2 to a matrix 4 - Unaligned
   *  @param m1 input matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat2ToMatrix4_U(float *m1, float *mout);
+void vfpu_Mat2ToMat4_U(float *m1, float *mout);
 
 /**
   *  Convert a matrix 2 to a matrix 4 - Aligned
   *  @param m1 input matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat2ToMatrix4(float *m1, float *mout);
+void vfpu_Mat2ToMat4(float *m1, float *mout);
 
 /**
   *  Convert a matrix 3 to a matrix 4 - Unaligned
   *  @param m1 input matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat3ToMatrix4_U(float *m1, float *mout);
+void vfpu_Mat3ToMat4_U(float *m1, float *mout);
 
 /**
   *  Convert a matrix 3 to a matrix 4 - Aligned
   *  @param m1 input matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat3ToMatrix4(float *m1, float *mout);
+void vfpu_Mat3ToMat4(float *m1, float *mout);
 
 /**
   *  Multiply a matrix by a vector - Unaligned
@@ -2539,4 +2481,4 @@ void vfpu_Mat4LookAt(const ScePspFVector3 *eye, const ScePspFVector3 *center, co
 }
 #endif
 
-#endif
+#endif

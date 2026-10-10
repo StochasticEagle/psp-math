@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_envmap_matrix(ScePspFVector4 *envmat, float r) {
+void vfpu_Vec4EnvironmentMap(ScePspFVector4 *envmat, float r) {
 	__asm__ volatile (
 		"mtv      %1, S000\n"
 		"vcst.s   S001, VFPU_2_PI\n"

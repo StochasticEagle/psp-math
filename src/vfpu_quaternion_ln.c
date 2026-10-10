@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_quaternion_ln(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin) {
+void vfpu_QuatLn(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin) {
 	//float r  = sqrt(a[0]*a[0]+a[1]*a[1]+a[2]*a[2]);
 	//float t  = r>0.00001f? atan2(r,a[3])/r: 0.f;
 	//return quat(t*a[0],t*a[1],t*a[2],0.5*log(norm(a)));

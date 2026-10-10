@@ -41,7 +41,7 @@ void vfpu_QuatSlerp(float *q1, float *q2, float s1, float *qout)
 
     if(vfpu_AbsoluteValue(cosOmega) >= 1.0)
     {
-        vfpu_VecVCopy(q1, qout);
+        vfpu_Vec4Copy(q1, qout);
         return;
     }
 

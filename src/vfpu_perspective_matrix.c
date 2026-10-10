@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_perspective_matrix(ScePspFMatrix4 *m, float fovy, float aspect, float near, float far) {
+void vfpu_Mat4Perspective(ScePspFMatrix4 *m, float fovy, float aspect, float near, float far) {
 	__asm__ volatile (
 		"vmzero.q M100\n"					// set M100 to all zeros
 		"mtv     %1, S000\n"				// S000 = fovy

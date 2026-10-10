@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_ortho_matrix(ScePspFMatrix4 *m, float left, float right, float bottom, float top, float near, float far) {
+void vfpu_Mat4Orthographic(ScePspFMatrix4 *m, float left, float right, float bottom, float top, float near, float far) {
 	__asm__ volatile (
 		"vmidt.q M100\n"						// set M100 to identity
 		"mtv     %2, S000\n"					// C000 = [right, ?,      ?,  ]
@@ -25,7 +25,7 @@ void vfpu_ortho_matrix(ScePspFMatrix4 *m, float left, float right, float bottom,
 }
 
 
-void vfpu_transform_vector(ScePspFMatrix4 *m, ScePspFVector4 *vin, ScePspFVector4 *vout) {
+void vfpu_Mat4TransformVec4(ScePspFMatrix4 *m, ScePspFVector4 *vin, ScePspFVector4 *vout) {
 	__asm__ volatile (
 		"lv.q    C000, 0  + %1\n"
 		"lv.q    C010, 16 + %1\n"

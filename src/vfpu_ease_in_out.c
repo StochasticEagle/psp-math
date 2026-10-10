@@ -3,7 +3,7 @@
 // simple ease in/out function
 // input will be clamped to range of 0 < t < 1
 
-float vfpu_ease_in_out(float t) {
+float vfpu_EaseInOut(float t) {
 	float r;
 	__asm__ volatile (
 		"mtv     %1, S000\n"

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "pspmath.h"
 
-void printVectorFloat(const int vecId, const int vecSize)
+void vfpu_PrintVector(const int vecId, const int vecSize)
 {
 	float v[4] PSPMATH_ALIGN;
 

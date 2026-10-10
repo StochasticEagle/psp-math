@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_translate_matrix(ScePspFMatrix4 *m, float x, float y, float z)
+void vfpu_Mat4Translate(ScePspFMatrix4 *m, float x, float y, float z)
 {
 	__asm__ volatile (
 		"vmidt.q M000\n"

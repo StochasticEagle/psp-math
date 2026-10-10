@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_quaternion_exp(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin) {
+void vfpu_QuatExp(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin) {
 	//float r  = sqrt(a[0]*a[0]+a[1]*a[1]+a[2]*a[2]);
 	//float et = exp(a[3]);
 	//float s  = r>=0.00001f? et*sin(r)/r: 0.f;

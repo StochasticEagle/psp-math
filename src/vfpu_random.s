@@ -54,7 +54,6 @@ gfunc vfpu_Vec3Random
     sv.q r000, 0($a0)
     jr $ra
 
-gfunc vfpu_VecVRandom
 gfunc vfpu_Vec4Random
     vrndf1.q r000
     vsub.q r000, r000, r000[1,1,1,1]

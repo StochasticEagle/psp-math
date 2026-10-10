@@ -24,7 +24,7 @@ gfunc vfpu_Vec4Subtract_U
     jr $ra
 
 gfunc vfpu_Mat2Subtract
-gfunc vfpu_VecVSubtract
+gfunc vfpu_Vec4Subtract
     singleOpVecV vsub.q
     jr $ra
 

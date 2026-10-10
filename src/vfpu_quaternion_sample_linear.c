@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_quaternion_sample_linear(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, float t) {
+void vfpu_QuatSampleLinear(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b, float t) {
 	__asm__ volatile (
 		"lv.q     C000, 0 + %1\n"
 		"lv.q     C010, 0 + %2\n"

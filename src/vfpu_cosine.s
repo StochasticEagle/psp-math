@@ -36,7 +36,6 @@ gfunc vfpu_Vec3Cosine
     singleOpsVecV vcos.t
     jr $ra
 
-gfunc vfpu_VecVCosine
 gfunc vfpu_Vec4Cosine
     singleOpsVecV vcos.q
     jr $ra

@@ -25,6 +25,5 @@ gfunc vfpu_Vec4Scale_U
 
 gfunc vfpu_Mat2Scale
 gfunc vfpu_Vec4Scale
-gfunc vfpu_VecVScale
     singleOpVecVSca vscl.q
     jr $ra

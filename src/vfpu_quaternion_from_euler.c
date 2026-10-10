@@ -3,7 +3,7 @@
 #define PI 3.14159265358979323846f
 const float piover180 = PI/180.0f;
 
-void vfpu_quaternion_from_euler(ScePspQuatMatrix *res, float x, float y, float z) {
+void vfpu_QuatFromEuler(ScePspQuatMatrix *res, float x, float y, float z) {
 	__asm__ volatile (
 		"mtv	%1, S000\n\t"				// S000 = x
 		"mtv	%2, S001\n\t"				// S001 = y

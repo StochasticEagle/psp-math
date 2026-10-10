@@ -146,10 +146,10 @@ extern "C" {
 #define psplaMat2ScaleU                vfpu_Mat2Scale_U
 #define psplaMat2SubtractA             vfpu_Mat2Subtract
 #define psplaMat2SubtractU             vfpu_Mat2Subtract_U
-#define psplaMat2ToMatrix3A            vfpu_Mat2ToMatrix3
-#define psplaMat2ToMatrix3U            vfpu_Mat2ToMatrix3_U
-#define psplaMat2ToMatrix4A            vfpu_Mat2ToMatrix4
-#define psplaMat2ToMatrix4U            vfpu_Mat2ToMatrix4_U
+#define psplaMat2ToMatrix3A            vfpu_Mat2ToMat3
+#define psplaMat2ToMatrix3U            vfpu_Mat2ToMat3_U
+#define psplaMat2ToMatrix4A            vfpu_Mat2ToMat4
+#define psplaMat2ToMatrix4U            vfpu_Mat2ToMat4_U
 #define psplaMat2TransposeU            vfpu_Mat2Transpose_U
 #define psplaMat2Vector2MultiplyA      vfpu_Mat2Vector2Multiply
 #define psplaMat2Vector2MultiplyU      vfpu_Mat2Vector2Multiply_U
@@ -174,8 +174,8 @@ extern "C" {
 #define psplaMat3ScaleU                vfpu_Mat3Scale_U
 #define psplaMat3SubtractA             vfpu_Mat3Subtract
 #define psplaMat3SubtractU             vfpu_Mat3Subtract_U
-#define psplaMat3ToMatrix4A            vfpu_Mat3ToMatrix4
-#define psplaMat3ToMatrix4U            vfpu_Mat3ToMatrix4_U
+#define psplaMat3ToMatrix4A            vfpu_Mat3ToMat4
+#define psplaMat3ToMatrix4U            vfpu_Mat3ToMat4_U
 #define psplaMat3TransposeU            vfpu_Mat3Transpose_U
 #define psplaMat3Vector3MultiplyA      vfpu_Mat3Vector3Multiply
 #define psplaMat3Vector3MultiplyU      vfpu_Mat3Vector3Multiply_U
@@ -212,8 +212,8 @@ extern "C" {
 
 #define psplaQuatConjugateA            vfpu_QuatConjugate
 #define psplaQuatConjugateU            vfpu_QuatConjugate_U
-#define psplaQuatIdentityA             vfpu_quaternion_identity
-#define psplaQuatIdentityU             vfpu_quaternion_identity_U
+#define psplaQuatIdentityA             vfpu_QuatIdentity
+#define psplaQuatIdentityU             vfpu_QuatIdentity_U
 #define psplaQuatInverseA              vfpu_QuatInverse
 #define psplaQuatInverseU              vfpu_QuatInverse_U
 #define psplaQuatLerpA                 vfpu_QuatLerp
@@ -346,24 +346,24 @@ extern "C" {
 
 /* Generic vector operations */
 
-#define psplaVecVAbsoluteValueA        vfpu_VecVAbsoluteValue
-#define psplaVecVAddA                  vfpu_VecVAdd
-#define psplaVecVCeilingA              vfpu_VecVCeiling
-#define psplaVecVClampA                vfpu_VecVClamp
-#define psplaVecVCompareA              vfpu_VecVCompare
-#define psplaVecVCopyA                 vfpu_VecVCopy
-#define psplaVecVDivideA               vfpu_VecVDivide
-#define psplaVecVFloorA                vfpu_VecVFloor
-#define psplaVecVLerpA                 vfpu_VecVLerp
-#define psplaVecVMaximumA              vfpu_VecVMaximum
-#define psplaVecVMinimumA              vfpu_VecVMinimum
-#define psplaVecVMultiplyA             vfpu_VecVMultiply
-#define psplaVecVNegateA               vfpu_VecVNegate
-#define psplaVecVRandomA               vfpu_VecVRandom
-#define psplaVecVRoundA                vfpu_VecVRound
-#define psplaVecVScaleA                vfpu_VecVScale
-#define psplaVecVSquareRootA           vfpu_VecVSquareRoot
-#define psplaVecVSubtractA             vfpu_VecVSubtract
+#define psplaVecVAbsoluteValueA        vfpu_Vec4AbsoluteValue
+#define psplaVecVAddA                  vfpu_Vec4Add
+#define psplaVecVCeilingA              vfpu_Vec4Ceiling
+#define psplaVecVClampA                vfpu_Vec4Clamp
+#define psplaVecVCompareA              vfpu_Vec4Compare
+#define psplaVecVCopyA                 vfpu_Vec4Copy
+#define psplaVecVDivideA               vfpu_Vec4Divide
+#define psplaVecVFloorA                vfpu_Vec4Floor
+#define psplaVecVLerpA                 vfpu_Vec4Lerp
+#define psplaVecVMaximumA              vfpu_Vec4Maximum
+#define psplaVecVMinimumA              vfpu_Vec4Minimum
+#define psplaVecVMultiplyA             vfpu_Vec4Multiply
+#define psplaVecVNegateA               vfpu_Vec4Negate
+#define psplaVecVRandomA               vfpu_Vec4Random
+#define psplaVecVRoundA                vfpu_Vec4Round
+#define psplaVecVScaleA                vfpu_Vec4Scale
+#define psplaVecVSquareRootA           vfpu_Vec4SquareRoot
+#define psplaVecVSubtractA             vfpu_Vec4Subtract
 
 
 #if defined(__cplusplus)

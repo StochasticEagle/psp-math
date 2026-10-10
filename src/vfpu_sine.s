@@ -34,7 +34,6 @@ gfunc vfpu_Vec3Sine
     singleOpsVecV vsin.t
     jr $ra
 
-gfunc vfpu_VecVSine
 gfunc vfpu_Vec4Sine
     singleOpsVecV vsin.q
     jr $ra

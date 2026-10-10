@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "pspmath.h"
 
-void printVFPURegisters(const int blockid)
+void vfpu_PrintRegisters(const int blockid)
 {
 	float m[16] PSPMATH_ALIGN;
 

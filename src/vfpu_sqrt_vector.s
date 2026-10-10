@@ -34,7 +34,6 @@ gfunc vfpu_Vec3SquareRoot
     singleOpsVecV vsqrt.t
     jr $ra
 
-gfunc vfpu_VecVSquareRoot
 gfunc vfpu_Vec4SquareRoot
     singleOpsVecV vsqrt.q
     jr $ra

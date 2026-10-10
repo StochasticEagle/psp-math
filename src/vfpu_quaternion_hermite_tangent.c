@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_quaternion_hermite_tangent(ScePspQuatMatrix *qout, ScePspQuatMatrix *p1, ScePspQuatMatrix *p2, float bias) {
+void vfpu_QuatHermiteTangent(ScePspQuatMatrix *qout, ScePspQuatMatrix *p1, ScePspQuatMatrix *p2, float bias) {
 	__asm__ volatile (
 		// load p1 and p2
 		"lv.q    C000, 0(%1)\n"

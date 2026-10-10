@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "pspmath.h"
 
-void printMatrixFloat(const int matId)
+void vfpu_PrintMatrix(const int matId)
 {
 	float m[16] PSPMATH_ALIGN;
 

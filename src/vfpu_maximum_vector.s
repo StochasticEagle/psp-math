@@ -22,6 +22,6 @@ gfunc vfpu_Vec4Maximum_U
     singleOpVec4_U vmax.q
     jr $ra
 
-gfunc vfpu_VecVMaximum
+gfunc vfpu_Vec4Maximum
     singleOpVecV vmax.q
     jr $ra

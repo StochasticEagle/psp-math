@@ -141,6 +141,6 @@ gfunc vfpu_Vec4Compare_U
     singleOpVec4_U vscmp.q
     jr $ra
 
-gfunc vfpu_VecVCompare
+gfunc vfpu_Vec4Compare
     singleOpVecV vscmp.q
     jr $ra

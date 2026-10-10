@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "pspmath.h"
 
-void printQuaternionFloat(const int quatId)
+void vfpu_PrintQuaternion(const int quatId)
 {
 	float q[4] PSPMATH_ALIGN;
 

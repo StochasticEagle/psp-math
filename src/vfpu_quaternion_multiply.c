@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_quaternion_multiply(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b) {
+void vfpu_QuatMultiplyOutFirst(ScePspQuatMatrix *qout, ScePspQuatMatrix *a, ScePspQuatMatrix *b) {
 	__asm__ volatile (
 		"lv.q    C000, %1\n"			// load quaternion a
 		"lv.q    C010, %2\n"			// load quaternion b

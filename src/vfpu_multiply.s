@@ -21,7 +21,7 @@ gfunc vfpu_Vec4Multiply_U
     singleOpVec4_U vmul.q
     jr $ra
 
-gfunc vfpu_VecVMultiply
+gfunc vfpu_Vec4Multiply
     singleOpVecV vmul.q
     jr $ra
 

@@ -27,5 +27,5 @@ void vfpu_QuatRotate(float *q1, float *q2, float *qout)
     vfpu_QuatConjugate(q2, q2c);
     vfpu_QuatMultiply(q2, q1, accumulator);
     vfpu_QuatMultiply(accumulator, q2c, accumulator);
-    vfpu_VecVCopy(accumulator, qout);
+    vfpu_Vec4Copy(accumulator, qout);
 }

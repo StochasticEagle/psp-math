@@ -22,6 +22,6 @@ gfunc vfpu_Vec4Minimum_U
     singleOpVec4_U vmin.q
     jr $ra
 
-gfunc vfpu_VecVMinimum
+gfunc vfpu_Vec4Minimum
     singleOpVecV vmin.q
     jr $ra

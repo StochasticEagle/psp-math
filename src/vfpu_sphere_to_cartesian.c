@@ -1,6 +1,6 @@
 #include "pspmath.h"
 
-void vfpu_sphere_to_cartesian(float az, float ze, float rad, float *x, float *y, float *z) {
+void vfpu_Vec3FromSpherical(float az, float ze, float rad, float *x, float *y, float *z) {
 	__asm__ volatile (
 		"mtv      %3, S000\n"
 		"mtv      %4, S001\n"
