@@ -2153,14 +2153,14 @@ void vfpu_Vec3RotationMatrix(float *v1, float *mout);
 /**
   *  Get a rotation quaternion from a set of euler angles in π/2 radians - Unaligned
   *  @param v1 input vector [x,y,z]
-  *  @param qout output quaternion [w,x,y,z]
+  *  @param qout output quaternion [x,y,z,w]
 **/
 void vfpu_Vec3RotationQuaternion_U(float *v1, float *qout);
 
 /**
   *  Get a rotation quaternion from a set of euler angles in π/2 radians - Aligned
   *  @param v1 input vector [x,y,z]
-  *  @param qout output quaternion [w,x,y,z]
+  *  @param qout output quaternion [x,y,z,w]
 **/
 void vfpu_Vec3RotationQuaternion(float *v1, float *qout);
 

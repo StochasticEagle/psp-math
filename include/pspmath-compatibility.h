@@ -218,8 +218,24 @@ extern "C" {
 #define psplaQuatInverseU              vfpu_QuatInverse_U
 #define psplaQuatLerpA                 vfpu_QuatLerp
 #define psplaQuatLerpU                 vfpu_QuatLerp_U
-#define psplaQuatMultiplyA             vfpu_QuatMultiply
-#define psplaQuatMultiplyU             vfpu_QuatMultiply_U
+/* Legacy pspla uses scalar-first [w,x,y,z]; the native VFPU API uses
+ * scalar-last [x,y,z,w]. Convert only at this compatibility boundary. */
+static inline void psplaQuatMultiplyA(const float *a, const float *b, float *out)
+{
+    float aa[4] PSPMATH_ALIGN = {a[1], a[2], a[3], a[0]};
+    float bb[4] PSPMATH_ALIGN = {b[1], b[2], b[3], b[0]};
+    float rr[4] PSPMATH_ALIGN;
+    vfpu_QuatMultiply(aa, bb, rr);
+    out[0] = rr[3]; out[1] = rr[0]; out[2] = rr[1]; out[3] = rr[2];
+}
+static inline void psplaQuatMultiplyU(const float *a, const float *b, float *out)
+{
+    float aa[4] PSPMATH_ALIGN = {a[1], a[2], a[3], a[0]};
+    float bb[4] PSPMATH_ALIGN = {b[1], b[2], b[3], b[0]};
+    float rr[4] PSPMATH_ALIGN;
+    vfpu_QuatMultiply(aa, bb, rr);
+    out[0] = rr[3]; out[1] = rr[0]; out[2] = rr[1]; out[3] = rr[2];
+}
 #define psplaQuatRotateA               vfpu_QuatRotate
 #define psplaQuatRotateU               vfpu_QuatRotate_U
 #define psplaQuatRotationMatrixA       vfpu_QuatRotationMatrix

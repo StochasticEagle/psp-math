@@ -195,10 +195,7 @@ gfunc vfpu_QuatMultiply_U
     ulv.q r000, 0($a0)
     ulv.q r001, 0($a1)
     popf $f0
-    vmov.q r100, r000[y,z,w,x]
-    vmov.q r101, r001[y,z,w,x]
-    vqmul.q r200, r100, r101
-    vmov.q r201, r200[w,x,y,z]
+    vqmul.q r201, r000, r001
     usv.q r201, 0($a2)
     jr $ra
     nop
@@ -206,10 +203,7 @@ gfunc vfpu_QuatMultiply_U
 gfunc vfpu_QuatMultiply
     lv.q r000, 0($a0)
     lv.q r001, 0($a1)
-    vmov.q r100, r000[y,z,w,x]
-    vmov.q r101, r001[y,z,w,x]
-    vqmul.q r200, r100, r101
-    vmov.q r201, r200[w,x,y,z]
+    vqmul.q r201, r000, r001
     sv.q r201, 0($a2)
     jr $ra
     nop
