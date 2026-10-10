@@ -820,7 +820,7 @@ float vfpu_Vec4Average_U(float *v1);
 /**
   *  Get the average of the elements in a vector - Aligned
   *  @param v1 input vector
-  *  @return The average of each element
+  *  @param vout two results (one per packed element), in order
 **/
 float vfpu_Vec2Average(float *v1);
 
@@ -829,7 +829,7 @@ float vfpu_Vec2Average(float *v1);
   *  @param v1 input vector
   *  @return The average of each element
 **/
-float vfpu_Vec2pAverage(float *v1);
+void vfpu_Vec2pAverage(float *v1, float *vout);
 
 /**
   *  Get the average of the elements in a vector - Aligned
@@ -869,7 +869,7 @@ float vfpu_Vec4Sum_U(float *v1);
 /**
   *  Get the sum of the elements in a vector - Aligned
   *  @param v1 input vector
-  *  @return The sum of the elements
+  *  @param vout two results (one per packed element), in order
 **/
 float vfpu_Vec2Sum(float *v1);
 
@@ -878,7 +878,7 @@ float vfpu_Vec2Sum(float *v1);
   *  @param v1 input vector
   *  @return The sum of the elements
 **/
-float vfpu_Vec2pSum(float *v1);
+void vfpu_Vec2pSum(float *v1, float *vout);
 
 /**
   *  Get the sum of the elements in a vector - Aligned
@@ -1025,7 +1025,7 @@ float vfpu_Vec4DotProduct_U(float *v1, float *v2);
   *  Get the dot product of two vectors - Aligned
   *  @param v1 first vector
   *  @param v2 second vector
-  *  @return The dot product
+  *  @param vout two results (one per packed element), in order
 **/
 float vfpu_Vec2DotProduct(float *v1, float *v2);
 
@@ -1035,7 +1035,7 @@ float vfpu_Vec2DotProduct(float *v1, float *v2);
   *  @param v2 second vector
   *  @return The dot product
 **/
-float vfpu_Vec2pDotProduct(float *v1, float *v2);
+void vfpu_Vec2pDotProduct(float *v1, float *v2, float *vout);
 
 /**
   *  Get the dot product of two vectors - Aligned
@@ -1134,7 +1134,7 @@ float vfpu_Vec4Magnitude_U(float *v1);
 /**
   *  Get the magnitude of a vector - Aligned
   *  @param v1 input vector
-  *  @return The magnitude
+  *  @param vout two results (one per packed element), in order
 **/
 float vfpu_Vec2Magnitude(float *v1);
 
@@ -1143,7 +1143,7 @@ float vfpu_Vec2Magnitude(float *v1);
   *  @param v1 input vector
   *  @return The magnitude
 **/
-float vfpu_Vec2pMagnitude(float *v1);
+void vfpu_Vec2pMagnitude(float *v1, float *vout);
 
 /**
   *  Get the magnitude of a vector - Aligned
@@ -2554,7 +2554,7 @@ float vfpu_Mat4Determinant_U(float *m1);
 /**
   *  Get the determinant of a matrix - Aligned
   *  @param m1 input matrix
-  *  @return The determinant
+  *  @param vout two results (one per packed element), in order
 **/
 float vfpu_Mat2Determinant(float *m1);
 
@@ -2563,7 +2563,7 @@ float vfpu_Mat2Determinant(float *m1);
   *  @param m1 input matrix
   *  @return The determinant
 **/
-float vfpu_Mat2pDeterminant(float *m1);
+void vfpu_Mat2pDeterminant(float *m1, float *mout);
 
 /**
   *  Get the determinant of a matrix - Aligned
@@ -2617,7 +2617,7 @@ void vfpu_Mat2Inverse(float *m1, float s1, float *mout);
   *  @param s1 determinant
   *  @param mout inverse matrix
 **/
-void vfpu_Mat2pInverse(float *m1, float s1, float *mout);
+void vfpu_Mat2pInverse(float *m1, float *s1, float *mout);
 
 /**
   *  Get the inverse of a matrix - Aligned
