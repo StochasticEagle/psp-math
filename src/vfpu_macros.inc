@@ -1,3 +1,12 @@
+/* pspla
+ * A VFPU accelerated linear algebra &amp; quaternion library for the PlayStation Portable.
+ *
+ * MIT License
+ *
+ * Copyright (c) 2024 Jayanky
+ */
+
+
 # Unaligned and aligned loads for matrices
 # Figured that splitting these up better allows for choosing between speed and flexibility
 # Imported from pspla

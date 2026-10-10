@@ -1,3 +1,12 @@
+/* pspla
+* A VFPU accelerated linear algebra &amp; quaternion library for the PlayStation Portable.
+*
+* MIT License
+*
+* Copyright (c) 2024 Jayanky
+*/
+
+
 #include "vfpu_macros.inc"
 
 gfunc vfpu_Vec2Negate_U
