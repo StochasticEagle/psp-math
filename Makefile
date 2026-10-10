@@ -51,6 +51,7 @@ SRCS = \
     vfpu_normalize_vector.o \
     vfpu_ortho_matrix.o \
     vfpu_perspective_matrix.o \
+    vfpu_packed.o \
     vfpu_powf.o \
     vfpu_quaternion_copy.o \
     vfpu_quaternion_exp.o \

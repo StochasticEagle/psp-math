@@ -2261,13 +2261,6 @@ void vfpu_Mat4Add_U(float *m1, float *m2, float *mout);
 **/
 void vfpu_Mat2Add(float *m1, float *m2, float *mout);
 
-/**
-  *  Add two matrices - Aligned
-  *  @param m1 first matrix
-  *  @param m2 second matrix
-  *  @param mout output matrix
-**/
-void vfpu_Mat2pAdd(float *m1, float *m2, float *mout);
 
 /**
   *  Add two matrices - Aligned
@@ -2317,13 +2310,6 @@ void vfpu_Mat4Subtract_U(float *m1, float *m2, float *mout);
 **/
 void vfpu_Mat2Subtract(float *m1, float *m2, float *mout);
 
-/**
-  *  Subtract two matrices - Aligned
-  *  @param m1 first matrix
-  *  @param m2 second matrix
-  *  @param mout output matrix
-**/
-void vfpu_Mat2pSubtract(float *m1, float *m2, float *mout);
 
 /**
   *  Subtract two matrices - Aligned
@@ -2373,13 +2359,6 @@ void vfpu_Mat4Scale_U(float *m1, float s1, float *mout);
 **/
 void vfpu_Mat2Scale(float *m1, float s1, float *mout);
 
-/**
-  *  Scale a matrix by a scalar value - Aligned
-  *  @param m1 input matrix
-  *  @param s1 scale factor
-  *  @param mout scaled matrix
-**/
-void vfpu_Mat2pScale(float *m1, float s1, float *mout);
 
 /**
   *  Scale a matrix by a scalar value - Aligned
@@ -2429,13 +2408,6 @@ void vfpu_Mat4Multiply_U(float *m1, float *m2, float *mout);
 **/
 void vfpu_Mat2Multiply(float *m1, float *m2, float *mout);
 
-/**
-  *  Multiply two matrices - Aligned
-  *  @param m1 first matrix
-  *  @param m2 second matrix
-  *  @param mout output matrix
-**/
-void vfpu_Mat2pMultiply(float *m1, float *m2, float *mout);
 
 /**
   *  Multiply two matrices - Aligned
@@ -2477,11 +2449,6 @@ void vfpu_Mat4Identity_U(float *mout);
 **/
 void vfpu_Mat2Identity(float *mout);
 
-/**
-  *  Set a matrix to an identity matrix - Aligned
-  *  @param mout output matrix
-**/
-void vfpu_Mat2pIdentity(float *mout);
 
 /**
   *  Set a matrix to an identity matrix - Aligned
@@ -2516,12 +2483,6 @@ void vfpu_Mat3Transpose_U(float *m1, float *mout);
 **/
 void vfpu_Mat4Transpose_U(float *m1, float *mout);
 
-/**
-  *  Transpose a matrix - Unaligned
-  *  @param m1 input matrix
-  *  @param mout transposed matrix
-**/
-void vfpu_Mat2pTranspose(float *m1, float *mout);
 
 /**
   *  Transpose a matrix - Unaligned
@@ -2558,12 +2519,6 @@ float vfpu_Mat4Determinant_U(float *m1);
 **/
 float vfpu_Mat2Determinant(float *m1);
 
-/**
-  *  Get the determinant of a matrix - Aligned
-  *  @param m1 input matrix
-  *  @return The determinant
-**/
-void vfpu_Mat2pDeterminant(float *m1, float *mout);
 
 /**
   *  Get the determinant of a matrix - Aligned
@@ -2611,13 +2566,6 @@ void vfpu_Mat4Inverse_U(float *m1, float s1, float *mout);
 **/
 void vfpu_Mat2Inverse(float *m1, float s1, float *mout);
 
-/**
-  *  Get the inverse of a matrix - Aligned
-  *  @param m1 input matrix
-  *  @param s1 determinant
-  *  @param mout inverse matrix
-**/
-void vfpu_Mat2pInverse(float *m1, float *s1, float *mout);
 
 /**
   *  Get the inverse of a matrix - Aligned
@@ -2709,13 +2657,6 @@ void vfpu_Mat4Vector4Multiply_U(float *m1, float *v1, float *vout);
 **/
 void vfpu_Mat2Vector2Multiply(float *m1, float *v1, float *vout);
 
-/**
-  *  Multiply a matrix by a vector - Aligned
-  *  @param m1 input matrix
-  *  @param v1 input vector
-  *  @param vout output vector
-**/
-void vfpu_Mat2pVector2pMultiply(float *m1, float *v1, float *vout);
 
 /**
   *  Multiply a matrix by a vector - Aligned

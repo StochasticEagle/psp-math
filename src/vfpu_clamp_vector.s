@@ -60,6 +60,7 @@ gfunc vfpu_Vec4Clamp_U
     usv.q r000, 0($a1)
     jr $ra
 
+gfunc vfpu_Vec2pClamp
 gfunc vfpu_Vec4Clamp
     lv.q r000, 0($a0)
     mfc1 $t0, $f12

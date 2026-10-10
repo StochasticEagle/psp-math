@@ -29,6 +29,7 @@ gfunc vfpu_Vec3Equals
     comparisonOpVec vcmp.t, eq
     jr $ra
 
+gfunc vfpu_Vec2pEquals
 gfunc vfpu_Vec4Equals
     comparisonOpVec vcmp.q, eq
     jr $ra
@@ -53,6 +54,7 @@ gfunc vfpu_Vec3LessThan
     comparisonOpVec vcmp.t, lt
     jr $ra
 
+gfunc vfpu_Vec2pLessThan
 gfunc vfpu_Vec4LessThan
     comparisonOpVec vcmp.q, lt
     jr $ra
@@ -77,6 +79,7 @@ gfunc vfpu_Vec3LessThanEqual
     comparisonOpVec vcmp.t, le
     jr $ra
 
+gfunc vfpu_Vec2pLessThanEqual
 gfunc vfpu_Vec4LessThanEqual
     comparisonOpVec vcmp.q, le
     jr $ra
@@ -101,6 +104,7 @@ gfunc vfpu_Vec3GreaterThan
     comparisonOpVec vcmp.t, gt
     jr $ra
 
+gfunc vfpu_Vec2pGreaterThan
 gfunc vfpu_Vec4GreaterThan
     comparisonOpVec vcmp.q, gt
     jr $ra
@@ -125,6 +129,7 @@ gfunc vfpu_Vec3GreaterThanEqual
     comparisonOpVec vcmp.t, ge
     jr $ra
 
+gfunc vfpu_Vec2pGreaterThanEqual
 gfunc vfpu_Vec4GreaterThanEqual
     comparisonOpVec vcmp.q, ge
     jr $ra
@@ -141,6 +146,7 @@ gfunc vfpu_Vec4Compare_U
     singleOpVec4_U vscmp.q
     jr $ra
 
+gfunc vfpu_Vec2pCompare_U
 gfunc vfpu_Vec4Compare
     singleOpVecV vscmp.q
     jr $ra

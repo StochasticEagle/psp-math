@@ -66,6 +66,7 @@ gfunc vfpu_Vec4Copy_U
     jr $ra
 
 gfunc vfpu_Mat2Copy
+gfunc vfpu_Vec2pCopy
 gfunc vfpu_Vec4Copy
     lv.q r000, 0($a0)
     sv.q r000, 0($a1)

@@ -29,13 +29,13 @@ gfunc vfpu_Vec4Cosine_U
     jr $ra
 
 gfunc vfpu_Vec2Cosine
-    singleOpsVecV vcos.p
+    singleOpSVecV vcos.p
     jr $ra
 
 gfunc vfpu_Vec3Cosine
-    singleOpsVecV vcos.t
+    singleOpSVecV vcos.t
     jr $ra
 
 gfunc vfpu_Vec4Cosine
-    singleOpsVecV vcos.q
+    singleOpSVecV vcos.q
     jr $ra

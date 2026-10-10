@@ -21,6 +21,7 @@ gfunc vfpu_Vec4Negate_U
     singleOpSVec4_U vneg.q
     jr $ra
 
+gfunc vfpu_Vec2pNegate_U
 gfunc vfpu_Vec4Negate
     singleOpSVecV vneg.q
     jr $ra

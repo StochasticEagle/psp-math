@@ -25,6 +25,7 @@ gfunc vfpu_Vec4AbsoluteValue_U
     singleOpSVec4_U vabs.q
     jr $ra
 
+gfunc vfpu_Vec2pAbsoluteValue
 gfunc vfpu_Vec4AbsoluteValue
     singleOpSVecV vabs.q
     jr $ra

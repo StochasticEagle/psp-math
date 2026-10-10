@@ -27,13 +27,13 @@ gfunc vfpu_Vec4Sine_U
     jr $ra
 
 gfunc vfpu_Vec2Sine
-    singleOpsVecV vsin.p
+    singleOpSVecV vsin.p
     jr $ra
 
 gfunc vfpu_Vec3Sine
-    singleOpsVecV vsin.t
+    singleOpSVecV vsin.t
     jr $ra
 
 gfunc vfpu_Vec4Sine
-    singleOpsVecV vsin.q
+    singleOpSVecV vsin.q
     jr $ra

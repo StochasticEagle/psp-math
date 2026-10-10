@@ -25,6 +25,7 @@ gfunc vfpu_Vec4Add_U
     jr $ra
 
 gfunc vfpu_Mat2Add
+gfunc vfpu_Vec2pAdd
 gfunc vfpu_Vec4Add
     singleOpVecV vadd.q
     jr $ra

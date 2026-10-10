@@ -64,3 +64,15 @@ void vfpu_Vec4Distance(const ScePspFVector4 *va, const ScePspFVector4 *vb, ScePs
         : : "r"(vout), "r"(va), "r"(vb) : "memory"
     );
 }
+
+
+void vfpu_Vec2pDistance(const ScePspFVector2 *va, const ScePspFVector2 *vb, ScePspFVector2 *vout)
+{
+    __asm__ volatile (
+        "lv.q C000, 0(%1)\n"
+        "lv.q C010, 0(%2)\n"
+        "vsub.q C020, C000, C010\n"
+        "sv.q C020, 0(%0)\n"
+        : : "r"(vout), "r"(va), "r"(vb) : "memory"
+    );
+}

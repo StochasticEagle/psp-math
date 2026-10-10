@@ -27,13 +27,13 @@ gfunc vfpu_Vec4SquareRoot_U
     jr $ra
 
 gfunc vfpu_Vec2SquareRoot
-    singleOpsVecV vsqrt.p
+    singleOpSVecV vsqrt.p
     jr $ra
 
 gfunc vfpu_Vec3SquareRoot
-    singleOpsVecV vsqrt.t
+    singleOpSVecV vsqrt.t
     jr $ra
 
 gfunc vfpu_Vec4SquareRoot
-    singleOpsVecV vsqrt.q
+    singleOpSVecV vsqrt.q
     jr $ra
