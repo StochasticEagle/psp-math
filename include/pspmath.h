@@ -34,6 +34,75 @@ typedef struct quat {
 	float a, b, c, d;
 } PSPMATH_ALIGN ScePspQuatMatrix;
 
+
+#define PSPMATH_ALIGN __attribute__((aligned(16)))
+
+// --- Vector Constants ---
+
+static const ScePspFVector2 zero_vec2  PSPMATH_ALIGN = { 0.0f, 0.0f };
+static const ScePspFVector4 zero_vec2p PSPMATH_ALIGN = { 0.0f, 0.0f, 0.0f, 0.0f };
+static const ScePspFVector3 zero_vec3  PSPMATH_ALIGN = { 0.0f, 0.0f, 0.0f };
+static const ScePspFVector4 zero_vec4  PSPMATH_ALIGN = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+static const ScePspFVector2 one_vec2   PSPMATH_ALIGN = { 1.0f, 1.0f };
+static const ScePspFVector4 one_vec2p  PSPMATH_ALIGN = { 1.0f, 1.0f, 1.0f, 1.0f };
+static const ScePspFVector3 one_vec3   PSPMATH_ALIGN = { 1.0f, 1.0f, 1.0f };
+static const ScePspFVector4 one_vec4   PSPMATH_ALIGN = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+// --- Matrix Constants ---
+
+// Zero Matrices
+static const ScePspFMatrix3 zero_mat3 PSPMATH_ALIGN =
+{
+  { 0.0f, 0.0f, 0.0f },
+  { 0.0f, 0.0f, 0.0f },
+  { 0.0f, 0.0f, 0.0f }
+};
+
+static const ScePspFMatrix4 zero_mat4 PSPMATH_ALIGN =
+{
+  { 0.0f, 0.0f, 0.0f, 0.0f },
+  { 0.0f, 0.0f, 0.0f, 0.0f },
+  { 0.0f, 0.0f, 0.0f, 0.0f },
+  { 0.0f, 0.0f, 0.0f, 0.0f }
+};
+
+// Ones Matrices
+static const ScePspFMatrix3 one_mat3 PSPMATH_ALIGN =
+{
+  { 1.0f, 1.0f, 1.0f },
+  { 1.0f, 1.0f, 1.0f },
+  { 1.0f, 1.0f, 1.0f }
+};
+
+static const ScePspFMatrix4 one_mat4 PSPMATH_ALIGN =
+{
+  { 1.0f, 1.0f, 1.0f, 1.0f },
+  { 1.0f, 1.0f, 1.0f, 1.0f },
+  { 1.0f, 1.0f, 1.0f, 1.0f },
+  { 1.0f, 1.0f, 1.0f, 1.0f }
+};
+
+// Identity Matrices
+static const ScePspFMatrix3 identity_mat3 PSPMATH_ALIGN =
+{
+  { 1.0f, 0.0f, 0.0f },
+  { 0.0f, 1.0f, 0.0f },
+  { 0.0f, 0.0f, 1.0f }
+};
+
+static const ScePspFMatrix4 identity_mat4 PSPMATH_ALIGN =
+{
+  { 1.0f, 0.0f, 0.0f, 0.0f },
+  { 0.0f, 1.0f, 0.0f, 0.0f },
+  { 0.0f, 0.0f, 1.0f, 0.0f },
+  { 0.0f, 0.0f, 0.0f, 1.0f }
+};
+
+
+
+
+
 /* @addtogroup VFPUMATH **/
 /**@{**/
 
@@ -286,7 +355,7 @@ float vfpu_EaseInOut(float t);
   * @param v - pointer to vector
   *
 **/
-void vfpu_Vec2Zero(ScePspFVector2 *v);
+void vfpu_Vec2Zero_U(ScePspFVector2 *v);
 
 /**
  * Zero a packed 2d vector pair
@@ -294,7 +363,7 @@ void vfpu_Vec2Zero(ScePspFVector2 *v);
  * @param v - pointer to vector
  *
  **/
-void vfpu_Vec2pZero(ScePspFVector2 *v);
+void vfpu_Vec2pZero(ScePspFVector4 *v);
 
 /**
   * Zero a 3d vector
@@ -302,7 +371,7 @@ void vfpu_Vec2pZero(ScePspFVector2 *v);
   * @param v - pointer to vector
   *
 **/
-void vfpu_Vec3Zero(ScePspFVector3 *v);
+void vfpu_Vec3Zero_U(ScePspFVector3 *v);
 
 /**
   * Zero a 4d vector
@@ -2757,6 +2826,21 @@ void vfpu_Mat4LookAt_U(const ScePspFVector3 *eye, const ScePspFVector3 *center, 
   *  @param mout output matrix
 **/
 void vfpu_Mat4LookAt(const ScePspFVector3 *eye, const ScePspFVector3 *center, const ScePspFVector3 *up, ScePspFMatrix4 *mout);
+
+
+/**
+ * @brief Convert a 3D vector to a 4D position vector (w = 1.0)
+ * @param dst Pointer to destination 4D vector
+ * @param src Pointer to source 3D vector
+ */
+void vfpu_Vec3SetPosition(ScePspFVector4 *dst, const ScePspFVector3 *src);
+
+/**
+ * @brief Convert a 3D vector to a 4D direction vector (w = 0.0)
+ * @param dst Pointer to destination 4D vector
+ * @param src Pointer to source 3D vector
+ */
+void vfpu_Vec3SetDirection(ScePspFVector4 *dst, const ScePspFVector3 *src);
 
 
 #if defined(__cplusplus)

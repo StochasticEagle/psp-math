@@ -1,5 +1,5 @@
 /* vfpu_
- * A VFPU accelerated linear algebra &amp; quaternion library for the PlayStation Portable.
+ * A VFPU accelerated linear algebra & quaternion library for the PlayStation Portable.
  *
  * MIT License
  *

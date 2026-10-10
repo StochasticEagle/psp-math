@@ -29,6 +29,7 @@ SRCS = \
     vfpu_cosine.o \
     vfpu_cross_product.o \
     vfpu_determinant.o \
+    vfpu_direction.o \
     vfpu_distance_vector.o \
     vfpu_divide_vector.o \
     vfpu_dot_product.o \
@@ -51,7 +52,6 @@ SRCS = \
     vfpu_normalize_vector.o \
     vfpu_ortho_matrix.o \
     vfpu_perspective_matrix.o \
-    vfpu_packed.o \
     vfpu_powf.o \
     vfpu_quaternion_copy.o \
     vfpu_quaternion_exp.o \

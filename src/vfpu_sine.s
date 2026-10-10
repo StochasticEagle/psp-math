@@ -1,5 +1,5 @@
 /* pspla
-* A VFPU accelerated linear algebra &amp; quaternion library for the PlayStation Portable.
+* A VFPU accelerated linear algebra & quaternion library for the PlayStation Portable.
 *
 * MIT License
 *
@@ -34,6 +34,7 @@ gfunc vfpu_Vec3Sine
     singleOpSVecV vsin.t
     jr $ra
 
+gfunc vfpu_Vec2pSine
 gfunc vfpu_Vec4Sine
     singleOpSVecV vsin.q
     jr $ra
