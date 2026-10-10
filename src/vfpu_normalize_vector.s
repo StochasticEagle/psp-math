@@ -1,11 +1,6 @@
-/* pspla
-* A VFPU accelerated linear algebra &amp; quaternion library for the PlayStation Portable.
-*
-* MIT License
-*
-* Copyright (c) 2024 Jayanky
-*/
 
+/* pspla names but different, optimal functions.
+ */
 
 #include "vfpu_macros.inc"
 
@@ -13,12 +8,9 @@ gfunc vfpu_Vec2Normalize_U
     pushf $f0
     ulv.q r000, 0($a0)
     popf $f0
-    vmul.p r001, r000, r000
-    vfad.p s002, r001
-    vsqrt.s s003, s002
-    vfim.s s002, 1
-    vdiv.s s013, s002, s003
-    vscl.p r000, r000, s013
+    vdot.p s002, r000, r000
+    vrsq.s s002, s002
+    vscl.p r000, r000, s002
     svp s000, s010, $a1, 0
     jr $ra
 
@@ -26,12 +18,9 @@ gfunc vfpu_Vec3Normalize_U
     pushf $f0
     ulv.q r000, 0($a0)
     popf $f0
-    vmul.t r001, r000, r000
-    vfad.t s002, r001
-    vsqrt.s s003, s002
-    vfim.s s002, 1
-    vdiv.s s013, s002, s003
-    vscl.t r000, r000, s013
+    vdot.t s002, r000, r000
+    vrsq.s s002, s002
+    vscl.t r000, r000, s002
     svt s000, s010, s020, $a1, 0
     jr $ra
 
@@ -40,45 +29,33 @@ gfunc vfpu_Vec4Normalize_U
     pushf $f0
     ulv.q r000, 0($a0)
     popf $f0
-    vmul.p r001, r000, r000
-    vfad.p s002, r001
-    vsqrt.s s003, s002
-    vfim.s s002, 1
-    vdiv.s s013, s002, s003
-    vscl.p r000, r000, s013
+    vdot.q s002, r000, r000
+    vrsq.s s002, s002
+    vscl.q r000, r000, s002
     usv.q r000, 0($a1)
     jr $ra
 
 gfunc vfpu_Vec2Normalize
     lv.q r000, 0($a0)
-    vmul.p r001, r000, r000
-    vfad.p s002, r001
-    vsqrt.s s003, s002
-    vfim.s s002, 1
-    vdiv.s s013, s002, s003
-    vscl.p r000, r000, s013
+    vdot.p s002, r000, r000
+    vrsq.s s002, s002
+    vscl.p r000, r000, s002
     sv.q r000, 0($a1)
     jr $ra
 
 gfunc vfpu_Vec3Normalize
     lv.q r000, 0($a0)
-    vmul.t r001, r000, r000
-    vfad.t s002, r001
-    vsqrt.s s003, s002
-    vfim.s s002, 1
-    vdiv.s s013, s002, s003
-    vscl.t r000, r000, s013
+    vdot.t s002, r000, r000
+    vrsq.s s002, s002
+    vscl.t r000, r000, s002
     sv.q r000, 0($a1)
     jr $ra
 
 gfunc vfpu_QuatNormalize
 gfunc vfpu_Vec4Normalize
     lv.q r000, 0($a0)
-    vmul.q r001, r000, r000
-    vfad.q s002, r001
-    vsqrt.s s003, s002
-    vfim.s s002, 1
-    vdiv.s s013, s002, s003
-    vscl.q r000, r000, s013
+    vdot.q s002, r000, r000
+    vrsq.s s002, s002
+    vscl.q r000, r000, s002
     sv.q r000, 0($a1)
     jr $ra

@@ -10,6 +10,7 @@ BIN_DIR = bin
 SRCS = \
     printMatrix.o \
     printQuaternion.o \
+    printRegisters.o \
     printVector.o \
     vfpu_absolute_value_vector.o \
     vfpu_acosf.o \
@@ -29,7 +30,7 @@ SRCS = \
     vfpu_cosine.o \
     vfpu_cross_product.o \
     vfpu_determinant.o \
-    vfpu_distance.o \
+    vfpu_distance_vector.o \
     vfpu_divide_vector.o \
     vfpu_dot_product.o \
     vfpu_ease_in_out.o \
@@ -62,11 +63,14 @@ SRCS = \
     vfpu_quaternion_from_euler.o \
     vfpu_quaternion_hermite_tangent.o \
     vfpu_quaternion_identity.o \
+    vfpu_quaternion_inverse \
     vfpu_quaternion_ln.o \
     vfpu_quaternion_multiply.o \
     vfpu_quaternion_normalize.o \
+    vfpu_quaternion_rotate \
     vfpu_quaternion_sample_hermite.o \
     vfpu_quaternion_sample_linear.o \
+    vfpu_quaternion_slerp \
     vfpu_quaternion_to_matrix.o \
     vfpu_rand_8888.o \
     vfpu_rand_565.o \
