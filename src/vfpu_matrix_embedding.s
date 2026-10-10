@@ -20,7 +20,7 @@ gfunc vfpu_Mat2ToMatrix3_U
     svt s002, s012, s022, $a1, 24
     jr $ra
 
-gfunc vfpu_Mat2ToMatrix3_A
+gfunc vfpu_Mat2ToMatrix3
     lm2_a 0, $a0
     vidt.q c020
     vidt.q r002
@@ -43,7 +43,7 @@ gfunc vfpu_Mat2ToMatrix4_U
     usv.q r003, 48($a1)
     jr $ra
 
-gfunc vfpu_Mat2ToMatrix4_A
+gfunc vfpu_Mat2ToMatrix4
     lm2_a 0, $a0
     vidt.q c020
     vidt.q r002
@@ -67,7 +67,7 @@ gfunc vfpu_Mat3ToMatrix4_U
     usv.q r003, 48($a1)
     jr $ra
 
-gfunc vfpu_Mat3ToMatrix4_A
+gfunc vfpu_Mat3ToMatrix4
     lm3_a 0, $a0
     vidt.q c030
     vidt.q r003

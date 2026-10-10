@@ -212,8 +212,8 @@ extern "C" {
 
 #define psplaQuatConjugateA            vfpu_QuatConjugate
 #define psplaQuatConjugateU            vfpu_QuatConjugate_U
-#define psplaQuatIdentityA             vfpu_QuatIdentity
-#define psplaQuatIdentityU             vfpu_QuatIdentity_U
+#define psplaQuatIdentityA             vfpu_quaternion_identity
+#define psplaQuatIdentityU             vfpu_quaternion_identity_U
 #define psplaQuatInverseA              vfpu_QuatInverse
 #define psplaQuatInverseU              vfpu_QuatInverse_U
 #define psplaQuatLerpA                 vfpu_QuatLerp

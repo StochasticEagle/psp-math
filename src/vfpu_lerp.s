@@ -55,8 +55,8 @@ gfunc vfpu_Vec4Lerp_U
     usv.q r003, 0($a2)
     jr $ra
 
-gfunc vfpu_QuatLerp_A
-gfunc vfpu_VecVLerp_A
+gfunc vfpu_QuatLerp
+gfunc vfpu_VecVLerp
     lv.q r000, 0($a0)
     lv.q r001, 0($a1)
     mfc1 $t0, $f12

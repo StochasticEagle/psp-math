@@ -54,7 +54,7 @@ void vfpu_Vec4Distance_U(const ScePspFVector4Unaligned *va, const ScePspFVector4
 }
 
 
-void vfpu_Vec4Distance_A(const ScePspFVector4 *va, const ScePspFVector4 *vb, ScePspFVector4 *vout)
+void vfpu_Vec4Distance(const ScePspFVector4 *va, const ScePspFVector4 *vb, ScePspFVector4 *vout)
 {
     __asm__ volatile (
         "lv.q      C000, 0(%1)\n"        // Load va

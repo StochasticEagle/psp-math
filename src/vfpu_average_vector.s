@@ -11,26 +11,26 @@
 
 
 
-gfunc vfpu_Vec2_Average_U
+gfunc vfpu_Vec2Average_U
     singleOpScaV_U vavg.p
     jr $ra
 
-gfunc vfpu_Vec3_Average_U
+gfunc vfpu_Vec3Average_U
     singleOpScaV_U vavg.t
     jr $ra
 
-gfunc vfpu_Vec4_Average_U
+gfunc vfpu_Vec4Average_U
     singleOpScaV_U vavg.q
     jr $ra
 
-gfunc vfpu_Vec2_Average
+gfunc vfpu_Vec2Average
     singleOpScaV vavg.p
     jr $ra
 
-gfunc vfpu_Vec3_Average
+gfunc vfpu_Vec3Average
     singleOpScaV vavg.t
     jr $ra
 
-gfunc vfpu_Vec4_Average
+gfunc vfpu_Vec4Average
     singleOpScaV vavg.q
     jr $ra

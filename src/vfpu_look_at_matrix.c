@@ -46,7 +46,7 @@ void vfpu_Mat4LookAt_U(const ScePspFVector3 *eye, const ScePspFVector3 *center, 
 }
 
 
-void vfpu_Mat4LookAt_A(const ScePspFVector3 *eye, const ScePspFVector3 *center, const ScePspFVector3 *up, ScePspFMatrix4 *mout)
+void vfpu_Mat4LookAt(const ScePspFVector3 *eye, const ScePspFVector3 *center, const ScePspFVector3 *up, ScePspFMatrix4 *mout)
 {
     __asm__ volatile (
         "vmidt.q   M000\n"              /* Start with the Identity matrix */

@@ -111,15 +111,6 @@ unsigned int vfpu_rand_8888(int min, int max);
  **/
 unsigned short vfpu_rand_565(int minS, int minL, int maxS, int maxL);
 
-
-/**
-  * Generate an identity matrix
-  *
-  * @param m - pointer to matrix to set
-  *
-**/
-void vfpu_identity_matrix(ScePspFMatrix4 *m);
-
 /**
   * Generate a translation matrix
   *
@@ -289,15 +280,6 @@ float vfpu_fmodf(float x, float y);
 **/
 float vfpu_ease_in_out(float t);
 
-
-/**
-  * Normalize a 3d vector, returning a unit vector of length = 1
-  *
-  * @param v - pointer to vector to normalize
-  *
-**/
-void vfpu_normalize_vector(ScePspFVector4 *v);
-
 /**
   * Zero a 3d vector
   *
@@ -305,26 +287,6 @@ void vfpu_normalize_vector(ScePspFVector4 *v);
   *
 **/
 void vfpu_zero_vector(ScePspFVector4 *v);
-
-/**
-  * Scale a 3d vector
-  *
-  * @param vout  - pointer to result vector
-  * @param vin   - pointer to vector to scale
-  * @param scale - float value to scale vector by
-  *
-**/
-void vfpu_scale_vector(ScePspFVector4 *vout, ScePspFVector4 *vin, float scale);
-
-/**
-  * Add 2 3d vectors
-  *
-  * @param vout - pointer to result vector
-  * @param va   - pointer to first vector to add
-  * @param vb   - pointer to second vector to add
-**/
-void vfpu_add_vector(ScePspFVector4 *vout, ScePspFVector4 *va, ScePspFVector4 *vb);
-
 
 /**
   * Generate rotation matrix for environment map.
@@ -582,6 +544,14 @@ void vfpu_Vec3Add_U(float *v1, float *v2, float *vout);
   *  @param vout result vector
 **/
 void vfpu_Vec4Add_U(float *v1, float *v2, float *vout);
+
+/**
+ *  Add two vectors - Unaligned
+ *  @param v1 first vector
+ *  @param v2 second vector
+ *  @param vout result vector
+ **/
+void vfpu_Vec4Add(float *v1, float *v2, float *vout);
 
 /**
   *  Add two vectors - Aligned
@@ -933,6 +903,14 @@ void vfpu_Vec3Scale_U(float *v1, float s1, float *vout);
   *  @param vout output vector
 **/
 void vfpu_Vec4Scale_U(float *v1, float s1, float *vout);
+
+/**
+ *  Scale a vector by a scalar value - Unaligned
+ *  @param v1 input vector
+ *  @param s1 scale value
+ *  @param vout output vector
+ **/
+void vfpu_Vec4Scale(float *v1, float s1, float *vout);
 
 /**
   *  Scale a vector by a scalar value - Aligned
@@ -1891,18 +1869,6 @@ void vfpu_QuatMultiply_U(float *q1, float *q2, float *qout);
   *  @param qout output quaternion
 **/
 void vfpu_QuatMultiply(float *q1, float *q2, float *qout);
-
-/**
-  *  Set a quaternion to an identity quaternion - Unaligned
-  *  @param qout output quaternion
-**/
-void vfpu_QuatIdentity_U(float *qout);
-
-/**
-  *  Set a quaternion to an identity quaternion - Aligned
-  *  @param qout output quaternion
-**/
-void vfpu_QuatIdentity(float *qout);
 
 /**
   *  Get the conjugate of a quaternion - Unaligned

@@ -83,7 +83,7 @@ gfunc vfpu_Mat4Inverse_U
     usv.q r303, 48($a1)
     jr $ra
 
-gfunc vfpu_Mat2Inverse_A
+gfunc vfpu_Mat2Inverse
     mfc1 $t0, $f12
     mtv $t0, s100
     lv.q r101, 0($a0)
@@ -94,7 +94,7 @@ gfunc vfpu_Mat2Inverse_A
     sv.q r101, 0($a1)
     jr $ra
 
-gfunc vfpu_Mat3Inverse_A
+gfunc vfpu_Mat3Inverse
     lm3_a 7, $a0
     mat2Determinant 11, 21, 12, 22, s100
     mat2Determinant 01, 21, 02, 22, s110
@@ -118,7 +118,7 @@ gfunc vfpu_Mat3Inverse_A
     usv.q r202, 24($a1)
     jr $ra
 
-gfunc vfpu_Mat4Inverse_A
+gfunc vfpu_Mat4Inverse
     lm4_a 7, $a0
     mat3Determinant 12, 22, 32, 13, 23, 33, y, z, w, 01, s200
     mat3Determinant 02, 22, 32, 03, 23, 33, x, z, w, 01, s210

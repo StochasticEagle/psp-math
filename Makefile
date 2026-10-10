@@ -15,7 +15,6 @@ SRCS = \
     vfpu_absolute_value_vector.o \
     vfpu_acosf.o \
     vfpu_add.o \
-    vfpu_add_vector.o \
     vfpu_arccosine.o \
     vfpu_arcsine.o \
     vfpu_asinf.o \
@@ -41,8 +40,6 @@ SRCS = \
     vfpu_fminf.o \
     vfpu_fmodf.o \
     vfpu_identity_matrix.o \
-    vfpu_identity_matrix.o \
-    vfpu_identity_quaternion.o \
     vfpu_inverse_matrix.o \
     vfpu_lerp.o \
     vfpu_logf.o \
@@ -63,14 +60,14 @@ SRCS = \
     vfpu_quaternion_from_euler.o \
     vfpu_quaternion_hermite_tangent.o \
     vfpu_quaternion_identity.o \
-    vfpu_quaternion_inverse \
+    vfpu_quaternion_inverse.o \
     vfpu_quaternion_ln.o \
     vfpu_quaternion_multiply.o \
     vfpu_quaternion_normalize.o \
-    vfpu_quaternion_rotate \
+    vfpu_quaternion_rotate.o \
     vfpu_quaternion_sample_hermite.o \
     vfpu_quaternion_sample_linear.o \
-    vfpu_quaternion_slerp \
+    vfpu_quaternion_slerp.o \
     vfpu_quaternion_to_matrix.o \
     vfpu_rand_8888.o \
     vfpu_rand_565.o \
