@@ -28,7 +28,13 @@ void vfpu_QuatFromEuler(ScePspQuatMatrix *res, float x, float y, float z) {
 		"vadd.q C000, R100[x,z,0,0], R100[-y,w,0,0]\n"
 		"vadd.q C000, C000, R101[0,0,x,z]\n"
 		"vadd.q C000, C000, R101[0,0,-y,w]\n"
-		"usv.q  C000, %0\n\t"
-		:"=m"(*res) : "r"(x), "r"(y), "r"(z), "r"(&piover180));
-	vfpu_QuatNormalize((const float *)res, (float *)res);
+		"vdot.q S100, C000, C000\n\t"
+        "vone.s S101\n\t"
+        "vzero.s S102\n\t"
+        "vcmp.s EQ, S100, S102\n\t"
+        "vcmovt.s S100, S101, 0\n\t"
+        "vrsq.s S100, S100\n\t"
+        "vscl.q C000, C000, S100\n\t"
+        "sv.q C000, %0\n\t"
+		:"=m"(*res) : "r"(x), "r"(y), "r"(z), "r"(&piover180));
 }

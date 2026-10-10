@@ -1,28 +1,43 @@
 #include "pspmath.h"
 
-void vfpu_QuatLn(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin) {
-	//float r  = sqrt(a[0]*a[0]+a[1]*a[1]+a[2]*a[2]);
-	//float t  = r>0.00001f? atan2(r,a[3])/r: 0.f;
-	//return quat(t*a[0],t*a[1],t*a[2],0.5*log(norm(a)));
-	float r;
-	__asm__ volatile (
-		"lv.q     C010, 0 + %1\n"
-		"vdot.t   S020, C010, C010\n"		// r = x^2 + y^2 + z^2
-		"vsqrt.s  S020, S020\n"				// r = sqrt(x^2 + y^2 + z^2)
-		"mfv      %0, S020\n"
-	:"=r"(r): "m"(*qin));
-
-	r = vfpu_atan2f(r, qin->d)/r;
-
-	__asm__ volatile (
-		"mtv      %1, S021\n"				// t = atan2(r, w) / r
-		"vdot.q   S022, C010, C010\n"		// norm = x^2 + y^2 + z^2 + w^2
-		"vcst.s   S023, VFPU_LOG2E\n"
-        "vrcp.s   S023, S023\n"
-        "vlog2.s  S013, S022\n"
-        "vmul.s   S013, S013, S023\n"
-		"vmul.s   S013, S013, S013[1/2]\n"
-        "vscl.t   C010, C010, S021\n"
-        "sv.q     C010, 0 + %0\n"
-	: "=m"(*qout) : "r"(r));
+/* Quaternion logarithm in native VFPU [x,y,z,w] order.
+ * One VFPU block: no calls, register reloads, or division by zero.
+ * For vanishing vector magnitude the direction is saturated to zero;
+ * a zero-norm quaternion has its logarithmic magnitude saturated. */
+void vfpu_QuatLn(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin)
+{
+    const float epsilon = 1.0e-5f;
+    const float epsilon2 = 1.0e-20f;
+    __asm__ volatile (
+        "lv.q C000, %1\n"
+        "mtv %2, S020\n"
+        "mtv %3, S021\n"
+        "vdot.t S010, C000, C000\n"
+        "vdot.q S011, C000, C000\n"
+        "vmax.s S011, S011, S021\n"
+        "vsqrt.s S012, S010\n"
+        "vsqrt.s S013, S011\n"
+        "vdiv.s S022, S003, S013\n"
+        "vone.s S024\n"
+        "vneg.s S025, S024\n"
+        "vmin.s S022, S022, S024\n"
+        "vmax.s S022, S022, S025\n"
+        "vasin.s S022, S022\n"
+        "vocp.s S022, S022\n"
+        "vcst.s S023, VFPU_PI_2\n"
+        "vmul.s S022, S022, S023\n"
+        "vmax.s S020, S012, S020\n"
+        "vdiv.s S020, S022, S020\n"
+        "vmul.s S027, S020, S020\n"
+        "vcmp.s LT, S010, S027\n"
+        "vzero.s S024\n"
+        "vcmovt.s S020, S024, 0\n"
+        "vscl.t C000, C000, S020\n"
+        "vlog2.s S025, S011\n"
+        "vcst.s S026, VFPU_LN2\n"
+        "vmul.s S025, S025, S026\n"
+        "vfim.s S027, 0.5\n"
+        "vmul.s S003, S025, S027\n"
+        "sv.q C000, %0\n"
+        : "=m"(*qout) : "m"(*qin), "r"(epsilon), "r"(epsilon2));
 }

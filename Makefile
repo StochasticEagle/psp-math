@@ -46,7 +46,6 @@ SRCS = \
     vfpu_multiply.o \
     vfpu_negate.o \
     vfpu_normalize_vector.o \
-    vfpu_normalize_vector.o \
     vfpu_ortho_matrix.o \
     vfpu_perspective_matrix.o \
     vfpu_powf.o \
@@ -70,7 +69,6 @@ SRCS = \
     vfpu_rotations.o \
     vfpu_round.o \
     vfpu_scale_matrix.o \
-    vfpu_scale_vector.o \
     vfpu_scale_vector.o \
     vfpu_sincos.o \
     vfpu_sine.o \
@@ -117,4 +115,4 @@ include $(PSPSDK)/lib/build.mak
 install: $(TARGET_LIB)
 	@echo "Installing library to $(PSPSDK)/lib..."
 	@cp $(TARGET_LIB) $(PSPSDK)/lib
-	@cp $(INCDIR)/pspmath.h $(PSPSDK)/include
+	@cp $(INCDIR)/pspmath.h $(INCDIR)/pspmath-compatibility.h $(PSPSDK)/include
