@@ -18,12 +18,12 @@ gfunc vfpu_QuatExp
     vone.s S113
     vcmovt.s S110, S113, 0
     vcmovt.s S111, S113, 0
-    vcst.s S114, VFPU_LOG2E
-    vmul.s S114, S030, S114
-    vexp2.s S114, S114
-    vmul.s S110, S110, S114
+    vcst.s S103, VFPU_LOG2E
+    vmul.s S103, S030, S103
+    vexp2.s S103, S103
+    vmul.s S110, S110, S103
     vscl.t C000, C000, S110
-    vmul.s S030, S111, S114
+    vmul.s S030, S111, S103
     sv.q C000, 0($a1)
     jr $ra
     nop
