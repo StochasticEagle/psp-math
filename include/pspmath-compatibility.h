@@ -389,25 +389,18 @@ static inline void psplaQuatMultiplyU(const float *a, const float *b, float *out
 #define psplaVecVSubtractA             vfpu_Vec4Subtract
 
 
-/* Additional canonical API aliases and former exported names. */
+/* Original pspla API aliases retained for source compatibility. */
 #define psplaPrintRegisters                     vfpu_PrintRegisters
-#define printVFPURegisters                      vfpu_PrintRegisters
 #define psplaPrintMatrix                        vfpu_PrintMatrix
-#define printMatrixFloat                        vfpu_PrintMatrix
 #define psplaPrintVector                        vfpu_PrintVector
-#define printVectorFloat                        vfpu_PrintVector
 #define psplaPrintQuaternion                    vfpu_PrintQuaternion
-#define printQuaternionFloat                    vfpu_PrintQuaternion
 #define psplaSrand                              vfpu_srand
 #define psplaRandf                              vfpu_randf
 #define psplaRand_8888                          vfpu_rand_8888
 #define psplaRand_565                           vfpu_rand_565
 #define psplaMat4TranslateA                     vfpu_Mat4Translate
-#define vfpu_translate_matrix                   vfpu_Mat4Translate
 #define psplaMat4PerspectiveA                   vfpu_Mat4Perspective
-#define vfpu_perspective_matrix                 vfpu_Mat4Perspective
 #define psplaMat4OrthographicA                  vfpu_Mat4Orthographic
-#define vfpu_ortho_matrix                       vfpu_Mat4Orthographic
 #define psplaSinf                               vfpu_sinf
 #define psplaCosf                               vfpu_cosf
 #define psplaTanf                               vfpu_tanf
@@ -424,43 +417,21 @@ static inline void psplaQuatMultiplyU(const float *a, const float *b, float *out
 #define psplaPowf                               vfpu_powf
 #define psplaFmodf                              vfpu_fmodf
 #define psplaEaseInOut                          vfpu_EaseInOut
-#define vfpu_ease_in_out                        vfpu_EaseInOut
 #define psplaVec4ZeroA                          vfpu_Vec4Zero
-#define vfpu_zero_vector                        vfpu_Vec4Zero
 #define psplaVec4EnvironmentMapA                vfpu_Vec4EnvironmentMap
-#define vfpu_envmap_matrix                      vfpu_Vec4EnvironmentMap
 #define psplaMat4TransformVec4A                 vfpu_Mat4TransformVec4
-#define vfpu_transform_vector                   vfpu_Mat4TransformVec4
 #define psplaVec3FromSphericalA                 vfpu_Vec3FromSpherical
-#define vfpu_sphere_to_cartesian                vfpu_Vec3FromSpherical
-#define vfpu_quaternion_identity_U              vfpu_QuatIdentity_U
-#define vfpu_quaternion_identity                vfpu_QuatIdentity
 #define psplaQuatCopyA                          pspmath_compat_quat_copy
-#define vfpu_quaternion_copy                    pspmath_compat_quat_copy
 #define psplaQuatMultiplyOutFirstA              pspmath_compat_quat_multiply_out_first
-#define vfpu_quaternion_multiply                pspmath_compat_quat_multiply_out_first
 #define psplaQuatFromEulerA                     vfpu_QuatFromEuler
-#define vfpu_quaternion_from_euler              vfpu_QuatFromEuler
 #define psplaQuatExpA                           pspmath_compat_quat_exp
-#define vfpu_quaternion_exp                     pspmath_compat_quat_exp
 #define psplaQuatLnA                            pspmath_compat_quat_ln
-#define vfpu_quaternion_ln                      pspmath_compat_quat_ln
 #define psplaQuatSampleLinearA                  pspmath_compat_quat_sample_linear
-#define vfpu_quaternion_sample_linear           pspmath_compat_quat_sample_linear
 #define psplaQuatSampleHermiteA                 pspmath_compat_quat_sample_hermite
-#define vfpu_quaternion_sample_hermite          pspmath_compat_quat_sample_hermite
 #define psplaQuatHermiteTangentA                pspmath_compat_quat_hermite_tangent
-#define vfpu_quaternion_hermite_tangent         pspmath_compat_quat_hermite_tangent
 #define psplaQuatToMat4A                        vfpu_QuatToMat4
-#define vfpu_quaternion_to_matrix               vfpu_QuatToMat4
 #define psplaQuatNormalizeU                     vfpu_QuatNormalize_U
 #define psplaQuatNormalizeA                     vfpu_QuatNormalize
-#define vfpu_Mat2ToMatrix3_U                    vfpu_Mat2ToMat3_U
-#define vfpu_Mat2ToMatrix3                      vfpu_Mat2ToMat3
-#define vfpu_Mat2ToMatrix4_U                    vfpu_Mat2ToMat4_U
-#define vfpu_Mat2ToMatrix4                      vfpu_Mat2ToMat4
-#define vfpu_Mat3ToMatrix4_U                    vfpu_Mat3ToMat4_U
-#define vfpu_Mat3ToMatrix4                      vfpu_Mat3ToMat4
 #define psplaVec2DistanceU                      vfpu_Vec2Distance_U
 #define psplaVec3DistanceU                      vfpu_Vec3Distance_U
 #define psplaVec4DistanceU                      vfpu_Vec4Distance_U
@@ -510,7 +481,7 @@ static inline void pspmath_compat_quat_ln(ScePspQuatMatrix *out, ScePspQuatMatri
 static inline void pspmath_compat_quat_sample_hermite(ScePspQuatMatrix *out, ScePspQuatMatrix *a, ScePspQuatMatrix *b, ScePspQuatMatrix *at, ScePspQuatMatrix *bt, float t) { vfpu_QuatSampleHermite(a, b, at, bt, t, out); }
 static inline void pspmath_compat_quat_hermite_tangent(ScePspQuatMatrix *out, ScePspQuatMatrix *a, ScePspQuatMatrix *b, float bias) { vfpu_QuatHermiteTangent(a, b, bias, out); }
 
-/* Original libpspmath and pre-normalization vfpu names. */
+/* Original libpspmath vector-generic entry points. */
 #define vfpu_VecVCopy                           vfpu_Vec4Copy
 #define vfpu_VecVAdd                            vfpu_Vec4Add
 #define vfpu_VecVSubtract                       vfpu_Vec4Subtract
