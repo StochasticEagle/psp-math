@@ -21,11 +21,11 @@ void vfpu_QuatSlerp_U(float *q1, float *q2, float s1, float *qout)
         return;
     }
 
-    float omega = vfpu_Arccosine(cosOmega);
+    float omega = vfpu_acosf(cosOmega);
     float sinOmega = vfpu_SquareRoot(1.0 - (cosOmega * cosOmega));
 
-    float p1 = vfpu_Sine(((1.0 - s1) * omega) / sinOmega);
-    float p2 = vfpu_Sine((s1 * omega) / sinOmega);
+    float p1 = vfpu_sinf((1.0f - s1) * omega) / sinOmega;
+    float p2 = vfpu_sinf(s1 * omega) / sinOmega;
 
     vfpu_Vec4Scale_U(q1, p1, r1);
     vfpu_Vec4Scale_U(q2, p2, r2);
@@ -45,11 +45,11 @@ void vfpu_QuatSlerp(float *q1, float *q2, float s1, float *qout)
         return;
     }
 
-    float omega = vfpu_Arccosine(cosOmega);
+    float omega = vfpu_acosf(cosOmega);
     float sinOmega = vfpu_SquareRoot(1.0 - (cosOmega * cosOmega));
 
-    float p1 = vfpu_Sine(((1.0 - s1) * omega) / sinOmega);
-    float p2 = vfpu_Sine((s1 * omega) / sinOmega);
+    float p1 = vfpu_sinf((1.0f - s1) * omega) / sinOmega;
+    float p2 = vfpu_sinf(s1 * omega) / sinOmega;
 
     vfpu_Vec4Scale(q1, p1, r1);
     vfpu_Vec4Scale(q2, p2, r2);
