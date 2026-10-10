@@ -9,11 +9,6 @@
 
 #include "vfpu_macros.inc"
 
-gfunc vfpu_Sine
-    singleOpSca2Sca vsin.s
-    jr $ra
-    nop
-
 gfunc vfpu_Vec2Sine_U
     singleOpSVec2_U vsin.p
     jr $ra

@@ -15,8 +15,6 @@ SRCS = \
     vfpu_absolute_value_vector.o \
     vfpu_acosf.o \
     vfpu_add.o \
-    vfpu_arccosine.o \
-    vfpu_arcsine.o \
     vfpu_asinf.o \
     vfpu_atanf.o \
     vfpu_average_vector.o \

@@ -38,14 +38,21 @@ extern "C" {
     */
 
 
+/* Legacy pspla scalar angle units are multiples of pi/2; canonical
+ * vfpu_*f scalar trig APIs use radians. */
+static inline float pspmath_compat_sine(float angle) { return vfpu_sinf(angle * 1.5707963267948966f); }
+static inline float pspmath_compat_cosine(float angle) { return vfpu_cosf(angle * 1.5707963267948966f); }
+static inline float pspmath_compat_arcsine(float value) { return vfpu_asinf(value) * 0.6366197723675814f; }
+static inline float pspmath_compat_arccosine(float value) { return vfpu_acosf(value) * 0.6366197723675814f; }
+
 /* Scalar */
 
 #define psplaAbsoluteValue             vfpu_AbsoluteValue
-#define psplaArccosine                 vfpu_Arccosine
-#define psplaArcsine                   vfpu_Arcsine
-#define psplaCosine                    vfpu_Cosine
+#define psplaArccosine                 pspmath_compat_arccosine
+#define psplaArcsine                   pspmath_compat_arcsine
+#define psplaCosine                    pspmath_compat_cosine
 #define psplaRandom                    vfpu_Random
-#define psplaSine                      vfpu_Sine
+#define psplaSine                      pspmath_compat_sine
 #define psplaSquareRoot                vfpu_SquareRoot
 
 

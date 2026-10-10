@@ -10,11 +10,6 @@
 #include "vfpu_macros.inc"
 
 
-gfunc vfpu_Cosine
-    singleOpSca2Sca vcos.s
-    jr $ra
-    nop
-
 gfunc vfpu_Vec2Cosine_U
     singleOpSVec2_U vcos.p
     jr $ra

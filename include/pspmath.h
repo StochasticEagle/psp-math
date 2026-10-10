@@ -1396,19 +1396,7 @@ void vfpu_Vec4Ceiling_U(float *v1, float *vout);
 **/
 void vfpu_Vec4Ceiling(float *v1, float *vout);
 
-/**
-  *  Get the sine of a value in π/2 radians
-  *  @param s1 input value
-  *  @return The sine value
-**/
-float vfpu_Sine(float s1);
 
-/**
-  *  Get the cosine of a value in π/2 radians
-  *  @param s1 input value
-  *  @return The cosine value
-**/
-float vfpu_Cosine(float s1);
 
 /**
   *  Get the sine of each element in a vector in π/2 radians - Unaligned
@@ -1510,19 +1498,7 @@ void vfpu_Vec3Cosine(float *v1, float *vout);
 void vfpu_Vec4Cosine(float *v1, float *vout);
 
 
-/**
-  *  Get the arcsine of a value
-  *  @param s1 input value
-  *  @return The arcsine value in π/2 radians
-**/
-float vfpu_Arcsine(float s1);
 
-/**
-  *  Get the arccosine of a value
-  *  @param s1 input value
-  *  @return The arccosine value in π/2 radians
-**/
-float vfpu_Arccosine(float s1);
 
 /**
   *  Negate a vector - Unaligned
