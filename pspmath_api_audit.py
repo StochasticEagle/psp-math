@@ -23,7 +23,6 @@ def symbols_from_header(header):
     symbols = []
     for statement in text.split(';'):
         if re.search(r'^\s*#', statement):
-            # Ignore preprocessor lines while preserving code that follows them.
             statement = re.sub(r'^\s*#.*$', '', statement, flags=re.M)
         hits = re.findall(r'\b((?:vfpu_[A-Za-z0-9_]+|print[A-Za-z0-9_]+))\s*\(', statement)
         if hits and '(' in statement and ')' in statement:
@@ -67,9 +66,17 @@ def main():
     for dep in (header, archive):
         if not dep.is_file():
             sys.exit(f'Missing {dep}; build psp-math first')
-    for command in (args.cc, args.nm):
+    for command in (args.cc, args.nm, 'psp-config'):
         if not shutil.which(command):
             sys.exit(f'Missing tool: {command}')
+
+    try:
+        pspsdk = Path(subprocess.check_output(['psp-config', '--pspsdk-path'], text=True).strip())
+    except (subprocess.CalledProcessError, OSError) as exc:
+        sys.exit(f'Unable to determine PSPSDK path: {exc}')
+    sdk_include = pspsdk / 'include'
+    if not sdk_include.is_dir():
+        sys.exit(f'Missing PSPSDK include directory: {sdk_include}')
 
     public = symbols_from_header(header.read_text())
     if len(public) < 250:
@@ -97,10 +104,12 @@ def main():
     source = out / 'api-coverage.c'
     source.write_text('\n'.join(lines))
     obj = out / 'api-coverage.o'
-    cc_result = run([args.cc, '-O0', '-G0', '-I' + str(repo / 'include'), '-c', str(source), '-o', str(obj)], out / 'compile.log', allow_failure=True)
+    cc_result = run([args.cc, '-O0', '-G0', '-I' + str(repo / 'include'), '-I' + str(sdk_include),
+                     '-c', str(source), '-o', str(obj)], out / 'compile.log', allow_failure=True)
     link_result = None
     if cc_result == 0:
-        link_result = run([args.cc, '-o', str(out / 'api-coverage.elf'), str(obj), str(archive), '-lm'], out / 'link.log', allow_failure=True)
+        link_result = run([args.cc, '-o', str(out / 'api-coverage.elf'), str(obj), str(archive), '-lm'],
+                          out / 'link.log', allow_failure=True)
     print(f'Public declarations: {len(public)}; defined function symbols: {len(defined_set)}; missing: {len(missing)}; undeclared exported vfpu/print functions: {len(excess)}')
     compile_status = "PASS" if cc_result == 0 else "FAIL"
     link_status = "NOT ATTEMPTED" if link_result is None else "PASS" if link_result == 0 else "FAIL"

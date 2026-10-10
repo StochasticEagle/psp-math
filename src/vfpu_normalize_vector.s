@@ -30,6 +30,10 @@ gfunc vfpu_Vec4Normalize_U
     ulv.q r000, 0($a0)
     popf $f0
     vdot.q s002, r000, r000
+    vzero.s s003
+    vcmp.s EQ, s002, s003
+    vone.s s003
+    vcmovt.s s002, s003, 0
     vrsq.s s002, s002
     vscl.q r000, r000, s002
     usv.q r000, 0($a1)
@@ -55,6 +59,10 @@ gfunc vfpu_QuatNormalize
 gfunc vfpu_Vec4Normalize
     lv.q r000, 0($a0)
     vdot.q s002, r000, r000
+    vzero.s s003
+    vcmp.s EQ, s002, s003
+    vone.s s003
+    vcmovt.s s002, s003, 0
     vrsq.s s002, s002
     vscl.q r000, r000, s002
     sv.q r000, 0($a1)

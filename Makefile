@@ -57,6 +57,7 @@ SRCS = \
     vfpu_quaternion_from_euler.o \
     vfpu_quaternion_hermite_tangent.o \
     vfpu_quaternion_identity.o \
+    vfpu_quaternion_inverse.o \
     vfpu_quaternion_ln.o \
     vfpu_quaternion_multiply.o \
     vfpu_quaternion_rotate.o \

@@ -1918,33 +1918,43 @@ void vfpu_QuatConjugate_U(float *q1, float *qout);
 **/
 void vfpu_QuatConjugate(float *q1, float *qout);
 
-/**
- *  Get the norm of a quaternion - Unaligned
- *  @param q1 input quaternion
- *  @return The quaternion norm
- **/
-float vfpu_QuatMagnitude_U(float* q1);
 
 /**
- *  Get the norm of a quaternion - Aligned
- *  @param q1 input quaternion
- *  @return The quaternion norm
- **/
-void vfpu_QuatMagnitude(const float *q1, float *qout);
+ * @brief Calculate the magnitude of an unaligned quaternion.
+ *
+ * @param q1 Input quaternion.
+ * @return Quaternion magnitude.
+ */
+float vfpu_QuatMagnitude_U(const float *q1);
 
 /**
-  *  Get the normalized of a quaternion - Unaligned
-  *  @param q1 input quaternion
-  *  @return The quaternion with magnitude = 1
-**/
-float vfpu_QuatNormalize_U(float* q1);
+ * @brief Calculate the magnitude of an aligned quaternion.
+ *
+ * @param q1 Input quaternion, 16-byte aligned.
+ * @return Quaternion magnitude.
+ */
+float vfpu_QuatMagnitude(const float *q1);
 
 /**
-  *  Get the normalized quaternion - Aligned
-  *  @param q1 input quaternion
-  *  @return The quaternion with magnitude = 1
-**/
+ * @brief Normalize a quaternion using unaligned memory access.
+ *
+ * @param q1 Input quaternion.
+ * @param qout Output unit quaternion.
+ *
+ * @note Input must have nonzero magnitude. In-place operation is supported.
+ */
+void vfpu_QuatNormalize_U(const float *q1, float *qout);
+
+/**
+ * @brief Normalize an aligned quaternion.
+ *
+ * @param q1 Input quaternion, 16-byte aligned.
+ * @param qout Output unit quaternion, 16-byte aligned.
+ *
+ * @note Input must have nonzero magnitude. In-place operation is supported.
+ */
 void vfpu_QuatNormalize(const float *q1, float *qout);
+
 
 /**
   *  Get the inverse of a quaternion - Unaligned
