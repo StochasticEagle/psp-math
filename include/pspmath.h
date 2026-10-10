@@ -17,16 +17,16 @@
 
 #include <psptypes.h>
 
-/* @defgroup VFPUMATH VFPU Math Library
- *
- **/
+/** @defgroup VFPUMATH VFPU Math Library
+  *
+**/
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
 /**
- * Aligns data to a 16-byte boundary
+  * Aligns data to a 16-byte boundary
 **/
 #define PSPMATH_ALIGN __attribute__((aligned(16)))
 
@@ -44,6 +44,32 @@ typedef struct quat {
   *
 **/
 void printVFPURegisters(int blockid);
+
+/**
+ * Print a formatted block of 16 vfpu registers
+ *
+ * @param matId - matrix id (0 to 7)
+ *
+ **/
+void printMatrixFloat(int matId);
+
+/**
+ * Print a formatted block of 16 vfpu registers
+ *
+ * @param vecId - vector id (0 to 7)
+ * @param vecSize - vector dimension (2 to 4)
+ *
+ **/
+void printVectorFloat(int vecId, int vecSize);
+
+/**
+ * Print a formatted quaternion
+ *
+ * @param quatId - quaternion id (0 to 7)
+ *
+ **/
+void printQuaternionFloat(int quatId);
+
 
 /**
   * Set vfpu random generator seed
@@ -71,6 +97,20 @@ float vfpu_randf(float min, float max);
   *
 **/
 unsigned int vfpu_rand_8888(int min, int max);
+
+/**
+ * Return random color value in 565 16-bit color format
+ * The 5-bit channels use minS/maxS
+ * The 6-bit channel uses minL/maxL
+ *
+ * @param minS Minimum value for the 5-bit channels (0..31).
+ * @param minL Minimum value for the 6-bit channel (0..63).
+ * @param maxS Maximum value for the 5-bit channels (0..31).
+ * @param maxL Maximum value for the 6-bit channel (0..63).
+ *
+ **/
+unsigned short vfpu_rand_565(int minS, int minL, int maxS, int maxL);
+
 
 /**
   * Generate an identity matrix
@@ -429,8 +469,24 @@ void vfpu_quaternion_to_matrix(ScePspQuatMatrix *q, ScePspFMatrix4 *m);
 
 
 
-/************ Imported from pspla library ************/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************ Imported from pspla library ************/
 
 
 /**
@@ -459,21 +515,21 @@ void vfpu_Mat4Copy_U(float *m1, float *mout);
   *  @param m1 source matrix
   *  @param mout destination matrix
 **/
-void vfpu_Mat2Copy__A(float *m1, float *mout);
+void vfpu_Mat2Copy(float *m1, float *mout);
 
 /**
   *  Copy a matrix - Aligned
   *  @param m1 source matrix
   *  @param mout destination matrix
 **/
-void vfpu_Mat3Copy__A(float *m1, float *mout);
+void vfpu_Mat3Copy(float *m1, float *mout);
 
 /**
   *  Copy a matrix - Aligned
   *  @param m1 source matrix
   *  @param mout destination matrix
 **/
-void vfpu_Mat4Copy_A(float *m1, float *mout);
+void vfpu_Mat4Copy(float *m1, float *mout);
 
 /**
   *  Copy a vector - Unaligned
@@ -501,7 +557,7 @@ void vfpu_Vec4Copy_U(float *v1, float *vout);
   *  @param v1 source vector
   *  @param vout destination vector
 **/
-void vfpu_VecVCopy_A(float *v1, float *vout);
+void vfpu_VecVCopy(float *v1, float *vout);
 
 /**
   *  Add two vectors - Unaligned
@@ -533,7 +589,7 @@ void vfpu_Vec4Add_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout result vector
 **/
-void vfpu_VecVAdd_A(float *v1, float *v2, float *vout);
+void vfpu_VecVAdd(float *v1, float *v2, float *vout);
 
 /**
   *  Subtract two vectors - Unaligned
@@ -565,7 +621,7 @@ void vfpu_Vec4Subtract_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout result vector
 **/
-void vfpu_VecVSubtract_A(float *v1, float *v2, float *vout);
+void vfpu_VecVSubtract(float *v1, float *v2, float *vout);
 
 /**
   *  Multiply two vectors - Unaligned
@@ -597,7 +653,7 @@ void vfpu_Vec4Multiply_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout result vector
 **/
-void vfpu_VecVMultiply_A(float *v1, float *v2, float *vout);
+void vfpu_VecVMultiply(float *v1, float *v2, float *vout);
 
 /**
   *  Divide two vectors - Unaligned
@@ -629,7 +685,7 @@ void vfpu_Vec4Divide_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout result vector
 **/
-void vfpu_Vec2Divide_A(float *v1, float *v2, float *vout);
+void vfpu_Vec2Divide(float *v1, float *v2, float *vout);
 
 /**
   *  Divide two vectors - Aligned
@@ -637,7 +693,7 @@ void vfpu_Vec2Divide_A(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout result vector
 **/
-void vfpu_Vec3Divide_A(float *v1, float *v2, float *vout);
+void vfpu_Vec3Divide(float *v1, float *v2, float *vout);
 
 /**
   *  Divide two vectors - Aligned
@@ -645,7 +701,7 @@ void vfpu_Vec3Divide_A(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout result vector
 **/
-void vfpu_Vec4Divide_A(float *v1, float *v2, float *vout);
+void vfpu_Vec4Divide(float *v1, float *v2, float *vout);
 
 /**
   *  Divide two vectors - Aligned
@@ -653,7 +709,7 @@ void vfpu_Vec4Divide_A(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout result vector
 **/
-void vfpu_VecVDivide_A(float *v1, float *v2, float *vout);
+void vfpu_VecVDivide(float *v1, float *v2, float *vout);
 
 /**
   *  Construct a vector from the the element-wise minimum of two vectors - Unaligned
@@ -685,7 +741,7 @@ void vfpu_Vec4Minimum_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout output vector
 **/
-void vfpu_VecVMinimum_A(float *v1, float *v2, float *vout);
+void vfpu_VecVMinimum(float *v1, float *v2, float *vout);
 
 /**
   *  Construct a vector from the the element-wise maximum of two vectors - Unaligned
@@ -717,7 +773,7 @@ void vfpu_Vec4Maximum_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout output vector
 **/
-void vfpu_VecVMaximum_A(float *v1, float *v2, float *vout);
+void vfpu_VecVMaximum(float *v1, float *v2, float *vout);
 
 /**
   *  Get the average of the elements in a vector - Unaligned
@@ -745,21 +801,21 @@ float vfpu_Vec4Average_U(float *v1);
   *  @param v1 input vector
   *  @return The average of each element
 **/
-float vfpu_Vec2Average_A(float *v1);
+float vfpu_Vec2Average(float *v1);
 
 /**
   *  Get the average of the elements in a vector - Aligned
   *  @param v1 input vector
   *  @return The average of each element
 **/
-float vfpu_Vec3Average_A(float *v1);
+float vfpu_Vec3Average(float *v1);
 
 /**
   *  Get the average of the elements in a vector - Aligned
   *  @param v1 input vector
   *  @return The average of each element
 **/
-float vfpu_Vec4Average_A(float *v1);
+float vfpu_Vec4Average(float *v1);
 
 /**
   *  Get the sum of the elements in a vector - Unaligned
@@ -787,21 +843,21 @@ float vfpu_Vec4Sum_U(float *v1);
   *  @param v1 input vector
   *  @return The sum of the elements
 **/
-float vfpu_Vec2Sum_A(float *v1);
+float vfpu_Vec2Sum(float *v1);
 
 /**
   *  Get the sum of the elements in a vector - Aligned
   *  @param v1 input vector
   *  @return The sum of the elements
 **/
-float vfpu_Vec3Sum_A(float *v1);
+float vfpu_Vec3Sum(float *v1);
 
 /**
   *  Get the sum of the elements in a vector - Aligned
   *  @param v1 input vector
   *  @return The sum of the elements
 **/
-float vfpu_Vec4Sum_A(float *v1);
+float vfpu_Vec4Sum(float *v1);
 
 /**
   *  Get the absolute value of a scalar
@@ -836,7 +892,7 @@ void vfpu_Vec4AbsoluteValue_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_VecVAbsoluteValue_A(float *v1, float *vout);
+void vfpu_VecVAbsoluteValue(float *v1, float *vout);
 
 /**
   *  Get the cross product of two vectors - Unaligned
@@ -852,7 +908,7 @@ void vfpu_Vec3CrossProduct_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout cross product
 **/
-void vfpu_Vec3CrossProduct_A(float *v1, float *v2, float *vout);
+void vfpu_Vec3CrossProduct(float *v1, float *v2, float *vout);
 
 /**
   *  Scale a vector by a scalar value - Unaligned
@@ -884,7 +940,7 @@ void vfpu_Vec4Scale_U(float *v1, float s1, float *vout);
   *  @param s1 scale value
   *  @param vout output vector
 **/
-void vfpu_VecVScale_A(float *v1, float s1, float *vout);
+void vfpu_VecVScale(float *v1, float s1, float *vout);
 
 /**
   *  Get the dot product of two vectors - Unaligned
@@ -916,7 +972,7 @@ float vfpu_Vec4DotProduct_U(float *v1, float *v2);
   *  @param v2 second vector
   *  @return The dot product
 **/
-float vfpu_Vec2DotProduct_A(float *v1, float *v2);
+float vfpu_Vec2DotProduct(float *v1, float *v2);
 
 /**
   *  Get the dot product of two vectors - Aligned
@@ -924,7 +980,7 @@ float vfpu_Vec2DotProduct_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return The dot product
 **/
-float vfpu_Vec3DotProduct_A(float *v1, float *v2);
+float vfpu_Vec3DotProduct(float *v1, float *v2);
 
 /**
   *  Get the dot product of two vectors - Aligned
@@ -932,7 +988,7 @@ float vfpu_Vec3DotProduct_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return The dot product
 **/
-float vfpu_Vec4DotProduct_A(float *v1, float *v2);
+float vfpu_Vec4DotProduct(float *v1, float *v2);
 
 /**
   *  Find the square root of a scalar
@@ -967,28 +1023,28 @@ void vfpu_Vec4SquareRoot_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Vec2SquareRoot_A(float *v1, float *vout);
+void vfpu_Vec2SquareRoot(float *v1, float *vout);
 
 /**
   *  Find the square roots of each element in a vector - Aligned
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Vec3SquareRoot_A(float *v1, float *vout);
+void vfpu_Vec3SquareRoot(float *v1, float *vout);
 
 /**
   *  Find the square roots of each element in a vector - Aligned
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Vec4SquareRoot_A(float *v1, float *vout);
+void vfpu_Vec4SquareRoot(float *v1, float *vout);
 
 /**
   *  Find the square roots of each element in a vector - Aligned
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_VecVSquareRoot_A(float *v1, float *vout);
+void vfpu_VecVSquareRoot(float *v1, float *vout);
 
 /**
   *  Get the magnitude of a vector - Unaligned
@@ -1016,21 +1072,21 @@ float vfpu_Vec4Magnitude_U(float *v1);
   *  @param v1 input vector
   *  @return The magnitude
 **/
-float vfpu_Vec2Magnitude_A(float *v1);
+float vfpu_Vec2Magnitude(float *v1);
 
 /**
   *  Get the magnitude of a vector - Aligned
   *  @param v1 input vector
   *  @return The magnitude
 **/
-float vfpu_Vec3Magnitude_A(float *v1);
+float vfpu_Vec3Magnitude(float *v1);
 
 /**
   *  Get the magnitude of a vector - Aligned
   *  @param v1 input vector
   *  @return The magnitude
 **/
-float vfpu_Vec4Magnitude_A(float *v1);
+float vfpu_Vec4Magnitude(float *v1);
 
 /**
   *  Get a vector of the same direction but with a magnitude of 1 - Unaligned
@@ -1058,21 +1114,21 @@ void vfpu_Vec4Normalize_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout normalized vector
 **/
-void vfpu_Vec2Normalize_A(float *v1, float *vout);
+void vfpu_Vec2Normalize(float *v1, float *vout);
 
 /**
   *  Get a vector of the same direction but with a magnitude of 1 - Aligned
   *  @param v1 input vector
   *  @param vout normalized vector
 **/
-void vfpu_Vec3Normalize_A(float *v1, float *vout);
+void vfpu_Vec3Normalize(float *v1, float *vout);
 
 /**
   *  Get a vector of the same direction but with a magnitude of 1 - Aligned
   *  @param v1 input vector
   *  @param vout normalized vector
 **/
-void vfpu_Vec4Normalize_A(float *v1, float *vout);
+void vfpu_Vec4Normalize(float *v1, float *vout);
 
 /**
   *  Round each element in a vector to the nearest whole number - Unaligned
@@ -1100,7 +1156,7 @@ void vfpu_Vec4Round_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout rounded vector
 **/
-void vfpu_VecVRound_A(float *v1, float *vout);
+void vfpu_VecVRound(float *v1, float *vout);
 
 /**
   *  Round each element in a vector to zero - Unaligned
@@ -1128,7 +1184,7 @@ void vfpu_Vec4Floor_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout truncated vector
 **/
-void vfpu_VecVFloor_A(float *v1, float *vout);
+void vfpu_VecVFloor(float *v1, float *vout);
 
 /**
   *  Round each element in a vector to the next whole number - Unaligned
@@ -1156,7 +1212,7 @@ void vfpu_Vec4Ceiling_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout truncated vector
 **/
-void vfpu_VecVCeiling_A(float *v1, float *vout);
+void vfpu_VecVCeiling(float *v1, float *vout);
 
 /**
   *  Get the sine of a value in π/2 radians
@@ -1198,21 +1254,21 @@ void vfpu_Vec4Sine_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Vec2Sine_A(float *v1, float *vout);
+void vfpu_Vec2Sine(float *v1, float *vout);
 
 /**
   *  Get the sine of each element in a vector in π/2 radians - Aligned
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Vec3Sine_A(float *v1, float *vout);
+void vfpu_Vec3Sine(float *v1, float *vout);
 
 /**
   *  Get the sine of each element in a vector in π/2 radians - Aligned
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Vec4Sine_A(float *v1, float *vout);
+void vfpu_Vec4Sine(float *v1, float *vout);
 
 /**
   *  Get the cosine of each element in a vector in π/2 radians - Unaligned
@@ -1240,21 +1296,21 @@ void vfpu_Vec4Cosine_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Vec2Cosine_A(float *v1, float *vout);
+void vfpu_Vec2Cosine(float *v1, float *vout);
 
 /**
   *  Get the cosine of each element in a vector in π/2 radians - Aligned
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Vec3Cosine_A(float *v1, float *vout);
+void vfpu_Vec3Cosine(float *v1, float *vout);
 
 /**
   *  Get the cosine of each element in a vector in π/2 radians - Aligned
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Vec4Cosine_A(float *v1, float *vout);
+void vfpu_Vec4Cosine(float *v1, float *vout);
 
 /**
   *  Get the arcsine of a value
@@ -1296,7 +1352,7 @@ void vfpu_Vec4Negate_U(float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout negated vector
 **/
-void vfpu_VecVNegate_A(float *v1, float *vout);
+void vfpu_VecVNegate(float *v1, float *vout);
 
 /**
   *  Get the element-wise '==' comparison of two vectors - Unaligned
@@ -1328,7 +1384,7 @@ int vfpu_Vec4Equals_U(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec2Equals_A(float *v1, float *v2);
+int vfpu_Vec2Equals(float *v1, float *v2);
 
 /**
   *  Get the element-wise '==' comparison of two vectors - Aligned
@@ -1336,7 +1392,7 @@ int vfpu_Vec2Equals_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec3Equals_A(float *v1, float *v2);
+int vfpu_Vec3Equals(float *v1, float *v2);
 
 /**
   *  Get the element-wise '==' comparison of two vectors - Aligned
@@ -1344,7 +1400,7 @@ int vfpu_Vec3Equals_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec4Equals_A(float *v1, float *v2);
+int vfpu_Vec4Equals(float *v1, float *v2);
 
 /**
   *  Get the element-wise '<' comparison of two vectors - Unaligned
@@ -1376,7 +1432,7 @@ int vfpu_Vec4LessThan_U(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec2LessThan_A(float *v1, float *v2);
+int vfpu_Vec2LessThan(float *v1, float *v2);
 
 /**
   *  Get the element-wise '<' comparison of two vectors - Aligned
@@ -1384,7 +1440,7 @@ int vfpu_Vec2LessThan_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec3LessThan_A(float *v1, float *v2);
+int vfpu_Vec3LessThan(float *v1, float *v2);
 
 /**
   *  Get the element-wise '<' comparison of two vectors - Aligned
@@ -1392,7 +1448,7 @@ int vfpu_Vec3LessThan_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec4LessThan_A(float *v1, float *v2);
+int vfpu_Vec4LessThan(float *v1, float *v2);
 
 /**
   *  Get the element-wise '<=' comparison of two vectors - Unaligned
@@ -1424,7 +1480,7 @@ int vfpu_Vec4LessThanEqual_U(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec2LessThanEqual_A(float *v1, float *v2);
+int vfpu_Vec2LessThanEqual(float *v1, float *v2);
 
 /**
   *  Get the element-wise '<=' comparison of two vectors - Aligned
@@ -1432,7 +1488,7 @@ int vfpu_Vec2LessThanEqual_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec3LessThanEqual_A(float *v1, float *v2);
+int vfpu_Vec3LessThanEqual(float *v1, float *v2);
 
 /**
   *  Get the element-wise '<=' comparison of two vectors - Aligned
@@ -1440,7 +1496,7 @@ int vfpu_Vec3LessThanEqual_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec4LessThanEqual_A(float *v1, float *v2);
+int vfpu_Vec4LessThanEqual(float *v1, float *v2);
 
 /**
   *  Get the element-wise '>' comparison of two vectors - Unaligned
@@ -1472,7 +1528,7 @@ int vfpu_Vec4GreaterThan_U(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec2GreaterThan_A(float *v1, float *v2);
+int vfpu_Vec2GreaterThan(float *v1, float *v2);
 
 /**
   *  Get the element-wise '>' comparison of two vectors - Aligned
@@ -1480,7 +1536,7 @@ int vfpu_Vec2GreaterThan_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec3GreaterThan_A(float *v1, float *v2);
+int vfpu_Vec3GreaterThan(float *v1, float *v2);
 
 /**
   *  Get the element-wise '>' comparison of two vectors - Aligned
@@ -1488,7 +1544,7 @@ int vfpu_Vec3GreaterThan_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec4GreaterThan_A(float *v1, float *v2);
+int vfpu_Vec4GreaterThan(float *v1, float *v2);
 
 /**
   *  Get the element-wise '>=' comparison of two vectors - Unaligned
@@ -1520,7 +1576,7 @@ int vfpu_Vec4GreaterThanEqual_U(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-1 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec2GreaterThanEqual_A(float *v1, float *v2);
+int vfpu_Vec2GreaterThanEqual(float *v1, float *v2);
 
 /**
   *  Get the element-wise '>=' comparison of two vectors - Aligned
@@ -1528,7 +1584,7 @@ int vfpu_Vec2GreaterThanEqual_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-2 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec3GreaterThanEqual_A(float *v1, float *v2);
+int vfpu_Vec3GreaterThanEqual(float *v1, float *v2);
 
 /**
   *  Get the element-wise '>=' comparison of two vectors - Aligned
@@ -1536,7 +1592,7 @@ int vfpu_Vec3GreaterThanEqual_A(float *v1, float *v2);
   *  @param v2 second vector
   *  @return A bitfield of results. Bits 0-3 are the result of each comparison. Bits 4 and 5 are '||' and '&&' operations on the comparison bits.
 **/
-int vfpu_Vec4GreaterThanEqual_A(float *v1, float *v2);
+int vfpu_Vec4GreaterThanEqual(float *v1, float *v2);
 
 /**
   *  Get the element wise comparison of two vectors (-1.0 for lt, 0.0 for eq, 1.0 for gt) - Unaligned
@@ -1568,7 +1624,7 @@ void vfpu_Vec4Compare_U(float *v1, float *v2, float *vout);
   *  @param v2 second vector
   *  @param vout output vector
 **/
-void vfpu_VecVCompare_A(float *v1, float *v2, float *vout);
+void vfpu_VecVCompare(float *v1, float *v2, float *vout);
 
 /**
   *  Get a linear interpolation between two vectors - Unaligned
@@ -1604,7 +1660,7 @@ void vfpu_Vec4Lerp_U(float *v1, float *v2, float s1, float *vout);
   *  @param s1 weight
   *  @param vout interpolated vector
 **/
-void vfpu_VecVLerp_A(float *v1, float *v2, float s1, float *vout);
+void vfpu_VecVLerp(float *v1, float *v2, float s1, float *vout);
 
 /**
   *  Clamp each element in a vector to a specified range - Unaligned
@@ -1640,7 +1696,7 @@ void vfpu_Vec4Clamp_U(float *v1, float s1, float s2, float *vout);
   *  @param s2 maximum
   *  @param vout clamped vector
 **/
-void vfpu_VecVClamp_A(float *v1, float s1, float s2, float *vout);
+void vfpu_VecVClamp(float *v1, float s1, float s2, float *vout);
 
 /**
   *  Create a new vector by reordering elements of the input vector - Unaligned
@@ -1672,7 +1728,7 @@ void vfpu_Vec4Reorder_U(float *v1, int *v2, float *vout);
   *  @param v2 vector of element indices 0-1
   *  @param vout reordered vector
 **/
-void vfpu_Vec2Reorder_A(float *v1, int *v2, float *vout);
+void vfpu_Vec2Reorder(float *v1, int *v2, float *vout);
 
 /**
   *  Create a new vector by reordering elements of the input vector - Aligned
@@ -1680,7 +1736,7 @@ void vfpu_Vec2Reorder_A(float *v1, int *v2, float *vout);
   *  @param v2 vector of element indices 0-2
   *  @param vout reordered vector
 **/
-void vfpu_Vec3Reorder_A(float *v1, int *v2, float *vout);
+void vfpu_Vec3Reorder(float *v1, int *v2, float *vout);
 
 /**
   *  Create a new vector by reordering elements of the input vector - Aligned
@@ -1688,7 +1744,7 @@ void vfpu_Vec3Reorder_A(float *v1, int *v2, float *vout);
   *  @param v2 vector of element indices 0-3
   *  @param vout reordered vector
 **/
-void vfpu_Vec4Reorder_A(float *v1, int *v2, float *vout);
+void vfpu_Vec4Reorder(float *v1, int *v2, float *vout);
 
 /**
   *  Generate a random floating pointer number
@@ -1718,25 +1774,25 @@ void vfpu_Vec4Random_U(float *vout);
   *  Generate a vector of random floating point numbers (0 <= x < 1) - Aligned
   *  @param vout output vector
 **/
-void vfpu_Vec2Random_A(float *vout);
+void vfpu_Vec2Random(float *vout);
 
 /**
   *  Generate a vector of random floating point numbers (0 <= x < 1) - Aligned
   *  @param vout output vector
 **/
-void vfpu_Vec3Random_A(float *vout);
+void vfpu_Vec3Random(float *vout);
 
 /**
   *  Generate a vector of random floating point numbers (0 <= x < 1) - Aligned
   *  @param vout output vector
 **/
-void vfpu_Vec4Random_A(float *vout);
+void vfpu_Vec4Random(float *vout);
 
 /**
   *  Generate a vector of random floating point numbers (0 <= x < 1) - Aligned
   *  @param vout output vector
 **/
-void vfpu_VecVRandom_A(float *vout);
+void vfpu_VecVRandom(float *vout);
 
 /**
   *  Set the VFPU's RNG seed
@@ -1774,7 +1830,7 @@ void vfpu_Vec4Reflect_U(float *v1, float *v2, float *vout);
   *  @param v2 normalized surface normal
   *  @param vout reflected vector
 **/
-void vfpu_Vec2Reflect_A(float *v1, float *v2, float *vout);
+void vfpu_Vec2Reflect(float *v1, float *v2, float *vout);
 
 /**
   *  Get the reflection of a vector off of a surface normal - Aligned
@@ -1782,7 +1838,7 @@ void vfpu_Vec2Reflect_A(float *v1, float *v2, float *vout);
   *  @param v2 normalized surface normal
   *  @param vout reflected vector
 **/
-void vfpu_Vec3Reflect_A(float *v1, float *v2, float *vout);
+void vfpu_Vec3Reflect(float *v1, float *v2, float *vout);
 
 /**
   *  Get the reflection of a vector off of a surface normal - Aligned
@@ -1790,7 +1846,7 @@ void vfpu_Vec3Reflect_A(float *v1, float *v2, float *vout);
   *  @param v2 normalized surface normal
   *  @param vout reflected vector
 **/
-void vfpu_Vec4Reflect_A(float *v1, float *v2, float *vout);
+void vfpu_Vec4Reflect(float *v1, float *v2, float *vout);
 
 /**
   *  Get a rotation matrix from a set of euler angles in π/2 radians - Unaligned
@@ -1804,7 +1860,7 @@ void vfpu_Vec3RotationMatrix_U(float *v1, float *mout);
   *  @param v1 input vector
   *  @param mout rotation matrix
 **/
-void vfpu_Vec3RotationMatrix_A(float *v1, float *mout);
+void vfpu_Vec3RotationMatrix(float *v1, float *mout);
 
 /**
   *  Get a rotation quaternion from a set of euler angles in π/2 radians - Unaligned
@@ -1818,7 +1874,7 @@ void vfpu_Vec3RotationQuaternion_U(float *v1, float *qout);
   *  @param v1 input vector [x,y,z]
   *  @param qout output quaternion [w,x,y,z]
 **/
-void vfpu_Vec3RotationQuaternion_A(float *v1, float *qout);
+void vfpu_Vec3RotationQuaternion(float *v1, float *qout);
 
 /**
   *  Multiply two quaternions - Unaligned
@@ -1834,7 +1890,7 @@ void vfpu_QuatMultiply_U(float *q1, float *q2, float *qout);
   *  @param q2 second quaternion
   *  @param qout output quaternion
 **/
-void vfpu_QuatMultiply_A(float *q1, float *q2, float *qout);
+void vfpu_QuatMultiply(float *q1, float *q2, float *qout);
 
 /**
   *  Set a quaternion to an identity quaternion - Unaligned
@@ -1846,7 +1902,7 @@ void vfpu_QuatIdentity_U(float *qout);
   *  Set a quaternion to an identity quaternion - Aligned
   *  @param qout output quaternion
 **/
-void vfpu_QuatIdentity_A(float *qout);
+void vfpu_QuatIdentity(float *qout);
 
 /**
   *  Get the conjugate of a quaternion - Unaligned
@@ -1860,7 +1916,7 @@ void vfpu_QuatConjugate_U(float *q1, float *qout);
   *  @param q1 input quaternion
   *  @param qout output quaternion
 **/
-void vfpu_QuatConjugate_A(float *q1, float *qout);
+void vfpu_QuatConjugate(float *q1, float *qout);
 
 /**
   *  Get the norm of a quaternion - Unaligned
@@ -1874,7 +1930,7 @@ float vfpu_QuatNorm_U(float* q1);
   *  @param q1 input quaternion
   *  @return The quaternion norm
 **/
-float vfpu_QuatNorm_A(float* q1);
+float vfpu_QuatNorm(float* q1);
 
 /**
   *  Get the inverse of a quaternion - Unaligned
@@ -1888,7 +1944,7 @@ void vfpu_QuatInverse_U(float *q1, float *qout);
   *  @param q1 input quaternion
   *  @param qout inverse quaternion
 **/
-void vfpu_QuatInverse_A(float *q1, float *qout);
+void vfpu_QuatInverse(float *q1, float *qout);
 
 /**
   *  Get the linear interpolation of two quaternions based on a specified weight - Unaligned
@@ -1906,7 +1962,7 @@ void vfpu_QuatLerp_U(float *q1, float *q2, float s1, float *qout);
   *  @param s1 weight
   *  @param qout interpolated quaternion
 **/
-void vfpu_QuatLerp_A(float *q1, float *q2, float s1, float *qout);
+void vfpu_QuatLerp(float *q1, float *q2, float s1, float *qout);
 
 /**
   *  Get the spherical linear interpolations of two quaternions based on a specified weight - Unaligned
@@ -1924,7 +1980,7 @@ void vfpu_QuatSlerp_U(float *q1, float *q2, float s1, float *qout);
   *  @param s1 weight
   *  @param qout interpolated quaternion
 **/
-void vfpu_QuatSlerp_A(float *q1, float *q2, float s1, float *qout);
+void vfpu_QuatSlerp(float *q1, float *q2, float s1, float *qout);
 
 /**
   *  Rotate a pure quaternion (0, Vec3) by a quaternion - Unaligned
@@ -1940,7 +1996,7 @@ void vfpu_QuatRotate_U(float *q1, float *q2, float *qout);
   *  @param q2 rotation quaternion
   *  @param qout pure output quaternion
 **/
-void vfpu_QuatRotate_A(float *q1, float *q2, float *qout);
+void vfpu_QuatRotate(float *q1, float *q2, float *qout);
 
 /**
   *  Get a rotation matrix from a quaternion - Unaligned
@@ -1954,7 +2010,7 @@ void vfpu_QuatRotationMatrix_U(float *q1, float *mout);
   *  @param q1 input quaternion
   *  @param mout output matrix
 **/
-void vfpu_QuatRotationMatrix_A(float *q1, float *mout);
+void vfpu_QuatRotationMatrix(float *q1, float *mout);
 
 /**
   *  Add two matrices - Unaligned
@@ -1986,7 +2042,7 @@ void vfpu_Mat4Add_U(float *m1, float *m2, float *mout);
   *  @param m2 second matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat2Add_A(float *m1, float *m2, float *mout);
+void vfpu_Mat2Add(float *m1, float *m2, float *mout);
 
 /**
   *  Add two matrices - Aligned
@@ -1994,7 +2050,7 @@ void vfpu_Mat2Add_A(float *m1, float *m2, float *mout);
   *  @param m2 second matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat3Add_A(float *m1, float *m2, float *mout);
+void vfpu_Mat3Add(float *m1, float *m2, float *mout);
 
 /**
   *  Add two matrices - Aligned
@@ -2002,7 +2058,7 @@ void vfpu_Mat3Add_A(float *m1, float *m2, float *mout);
   *  @param m2 second matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat4Add_A(float *m1, float *m2, float *mout);
+void vfpu_Mat4Add(float *m1, float *m2, float *mout);
 
 /**
   *  Subtract two matrices - Unaligned
@@ -2034,7 +2090,7 @@ void vfpu_Mat4Subtract_U(float *m1, float *m2, float *mout);
   *  @param m2 second matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat2Subtract_A(float *m1, float *m2, float *mout);
+void vfpu_Mat2Subtract(float *m1, float *m2, float *mout);
 
 /**
   *  Subtract two matrices - Aligned
@@ -2042,7 +2098,7 @@ void vfpu_Mat2Subtract_A(float *m1, float *m2, float *mout);
   *  @param m2 second matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat3Subtract_A(float *m1, float *m2, float *mout);
+void vfpu_Mat3Subtract(float *m1, float *m2, float *mout);
 
 /**
   *  Subtract two matrices - Aligned
@@ -2050,7 +2106,7 @@ void vfpu_Mat3Subtract_A(float *m1, float *m2, float *mout);
   *  @param m2 second matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat4Subtract_A(float *m1, float *m2, float *mout);
+void vfpu_Mat4Subtract(float *m1, float *m2, float *mout);
 
 /**
   *  Scale a matrix by a scalar value - Unaligned
@@ -2082,7 +2138,7 @@ void vfpu_Mat4Scale_U(float *m1, float s1, float *mout);
   *  @param s1 scale factor
   *  @param mout scaled matrix
 **/
-void vfpu_Mat2Scale_A(float *m1, float s1, float *mout);
+void vfpu_Mat2Scale(float *m1, float s1, float *mout);
 
 /**
   *  Scale a matrix by a scalar value - Aligned
@@ -2090,7 +2146,7 @@ void vfpu_Mat2Scale_A(float *m1, float s1, float *mout);
   *  @param s1 scale factor
   *  @param mout scaled matrix
 **/
-void vfpu_Mat3Scale_A(float *m1, float s1, float *mout);
+void vfpu_Mat3Scale(float *m1, float s1, float *mout);
 
 /**
   *  Scale a matrix by a scalar value - Aligned
@@ -2098,7 +2154,7 @@ void vfpu_Mat3Scale_A(float *m1, float s1, float *mout);
   *  @param s1 scale factor
   *  @param mout scaled matrix
 **/
-void vfpu_Mat4Scale_A(float *m1, float s1, float *mout);
+void vfpu_Mat4Scale(float *m1, float s1, float *mout);
 
 /**
   *  Multiply two matrices - Unaligned
@@ -2130,7 +2186,7 @@ void vfpu_Mat4Multiply_U(float *m1, float *m2, float *mout);
   *  @param m2 second matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat2Multiply_A(float *m1, float *m2, float *mout);
+void vfpu_Mat2Multiply(float *m1, float *m2, float *mout);
 
 /**
   *  Multiply two matrices - Aligned
@@ -2138,7 +2194,7 @@ void vfpu_Mat2Multiply_A(float *m1, float *m2, float *mout);
   *  @param m2 second matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat3Multiply_A(float *m1, float *m2, float *mout);
+void vfpu_Mat3Multiply(float *m1, float *m2, float *mout);
 
 /**
   *  Multiply two matrices - Aligned
@@ -2146,7 +2202,7 @@ void vfpu_Mat3Multiply_A(float *m1, float *m2, float *mout);
   *  @param m2 second matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat4Multiply_A(float *m1, float *m2, float *mout);
+void vfpu_Mat4Multiply(float *m1, float *m2, float *mout);
 
 /**
   *  Set a matrix to an identity matrix - Unaligned
@@ -2170,19 +2226,19 @@ void vfpu_Mat4Identity_U(float *mout);
   *  Set a matrix to an identity matrix - Aligned
   *  @param mout output matrix
 **/
-void vfpu_Mat2Identity_A(float *mout);
+void vfpu_Mat2Identity(float *mout);
 
 /**
   *  Set a matrix to an identity matrix - Aligned
   *  @param mout output matrix
 **/
-void vfpu_Mat3Identity_A(float *mout);
+void vfpu_Mat3Identity(float *mout);
 
 /**
   *  Set a matrix to an identity matrix - Aligned
   *  @param mout output matrix
 **/
-void vfpu_Mat4Identity_A(float *mout);
+void vfpu_Mat4Identity(float *mout);
 
 /**
   *  Transpose a matrix - Unaligned
@@ -2231,21 +2287,21 @@ float vfpu_Mat4Determinant_U(float *m1);
   *  @param m1 input matrix
   *  @return The determinant
 **/
-float vfpu_Mat2Determinant_A(float *m1);
+float vfpu_Mat2Determinant(float *m1);
 
 /**
   *  Get the determinant of a matrix - Aligned
   *  @param m1 input matrix
   *  @return The determinant
 **/
-float vfpu_Mat3Determinant_A(float *m1);
+float vfpu_Mat3Determinant(float *m1);
 
 /**
   *  Get the determinant of a matrix - Aligned
   *  @param m1 input matrix
   *  @return The determinant
 **/
-float vfpu_Mat4Determinant_A(float *m1);
+float vfpu_Mat4Determinant(float *m1);
 
 /**
   *  Get the inverse of a matrix - Unaligned
@@ -2277,7 +2333,7 @@ void vfpu_Mat4Inverse_U(float *m1, float s1, float *mout);
   *  @param s1 determinant
   *  @param mout inverse matrix
 **/
-void vfpu_Mat2Inverse_A(float *m1, float s1, float *mout);
+void vfpu_Mat2Inverse(float *m1, float s1, float *mout);
 
 /**
   *  Get the inverse of a matrix - Aligned
@@ -2285,7 +2341,7 @@ void vfpu_Mat2Inverse_A(float *m1, float s1, float *mout);
   *  @param s1 determinant
   *  @param mout inverse matrix
 **/
-void vfpu_Mat3Inverse_A(float *m1, float s1, float *mout);
+void vfpu_Mat3Inverse(float *m1, float s1, float *mout);
 
 /**
   *  Get the inverse of a matrix - Aligned
@@ -2293,7 +2349,7 @@ void vfpu_Mat3Inverse_A(float *m1, float s1, float *mout);
   *  @param s1 determinant
   *  @param mout inverse matrix
 **/
-void vfpu_Mat4Inverse_A(float *m1, float s1, float *mout);
+void vfpu_Mat4Inverse(float *m1, float s1, float *mout);
 
 /**
   *  Convert a matrix 2 to a matrix 3 - Unaligned
@@ -2307,7 +2363,7 @@ void vfpu_Mat2ToMatrix3_U(float *m1, float *mout);
   *  @param m1 input matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat2ToMatrix3_A(float *m1, float *mout);
+void vfpu_Mat2ToMatrix3(float *m1, float *mout);
 
 /**
   *  Convert a matrix 2 to a matrix 4 - Unaligned
@@ -2321,7 +2377,7 @@ void vfpu_Mat2ToMatrix4_U(float *m1, float *mout);
   *  @param m1 input matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat2ToMatrix4_A(float *m1, float *mout);
+void vfpu_Mat2ToMatrix4(float *m1, float *mout);
 
 /**
   *  Convert a matrix 3 to a matrix 4 - Unaligned
@@ -2335,7 +2391,7 @@ void vfpu_Mat3ToMatrix4_U(float *m1, float *mout);
   *  @param m1 input matrix
   *  @param mout output matrix
 **/
-void vfpu_Mat3ToMatrix4_A(float *m1, float *mout);
+void vfpu_Mat3ToMatrix4(float *m1, float *mout);
 
 /**
   *  Multiply a matrix by a vector - Unaligned
@@ -2367,7 +2423,7 @@ void vfpu_Mat4Vector4Multiply_U(float *m1, float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Mat2Vector2Multiply_A(float *m1, float *v1, float *vout);
+void vfpu_Mat2Vector2Multiply(float *m1, float *v1, float *vout);
 
 /**
   *  Multiply a matrix by a vector - Aligned
@@ -2375,7 +2431,7 @@ void vfpu_Mat2Vector2Multiply_A(float *m1, float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Mat3Vector3Multiply_A(float *m1, float *v1, float *vout);
+void vfpu_Mat3Vector3Multiply(float *m1, float *v1, float *vout);
 
 /**
   *  Multiply a matrix by a vector - Aligned
@@ -2383,12 +2439,28 @@ void vfpu_Mat3Vector3Multiply_A(float *m1, float *v1, float *vout);
   *  @param v1 input vector
   *  @param vout output vector
 **/
-void vfpu_Mat4Vector4Multiply_A(float *m1, float *v1, float *vout);
+void vfpu_Mat4Vector4Multiply(float *m1, float *v1, float *vout);
 
 
 
-/************ New functions to complete library ************/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************ New Library Functions ************/
 
 
 /**
@@ -2417,7 +2489,7 @@ void vfpu_Vec4Distance_U(const ScePspFVector4Unaligned *va, const ScePspFVector4
   *  @param position 1
   *  @param position 2
 **/
-void vfpu_Vec4Distance_A(const ScePspFVector4 *va, const ScePspFVector4 *vb, ScePspFVector4 *vout);
+void vfpu_Vec4Distance(const ScePspFVector4 *va, const ScePspFVector4 *vb, ScePspFVector4 *vout);
 
 
 /**
@@ -2436,7 +2508,7 @@ void vfpu_Mat4LookAt_U(const ScePspFVector3 *eye, const ScePspFVector3 *center, 
   *  @param up input vector
   *  @param mout output matrix
 **/
-void vfpu_Mat4LookAt_A(const ScePspFVector3 *eye, const ScePspFVector3 *center, const ScePspFVector3 *up, ScePspFMatrix4 *mout);
+void vfpu_Mat4LookAt(const ScePspFVector3 *eye, const ScePspFVector3 *center, const ScePspFVector3 *up, ScePspFMatrix4 *mout);
 
 
 #if defined(__cplusplus)

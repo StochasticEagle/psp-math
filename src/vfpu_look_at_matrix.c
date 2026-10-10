@@ -50,7 +50,6 @@ void vfpu_Mat4LookAt_A(const ScePspFVector3 *eye, const ScePspFVector3 *center, 
 {
     __asm__ volatile (
         "vmidt.q   M000\n"              /* Start with the Identity matrix */
-
         "lv.q      C100, 0(%1)\n"       /* Load eye */
         "lv.q      C110, 0(%2)\n"       /* Load center */
         "lv.q      C120, 0(%3)\n"       /* Load up */
