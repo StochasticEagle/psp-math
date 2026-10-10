@@ -6,8 +6,8 @@
  * Clamp the squared norm to avoid log(0) and division by zero. */
 void vfpu_QuatLn(ScePspQuatMatrix *qout, ScePspQuatMatrix *qin)
 {
-    const float epsilon2 = 1.0e-10f;
-    const float norm_min = 1.0e-20f;
+    const float epsilon2 = 1.08420217257e-19f;
+    const float norm_min = 1.08420217257e-19f;
     __asm__ volatile (
         "lv.q C000, %1\n"
         "mtv %2, S120\n"
