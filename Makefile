@@ -8,10 +8,6 @@ BIN_DIR = bin
 
 # List all source files residing in src/
 SRCS = \
-    printMatrix.o \
-    printQuaternion.o \
-    printRegisters.o \
-    printVector.o \
     vfpu_absolute_value_vector.o \
     vfpu_acosf.o \
     vfpu_add.o \
@@ -49,6 +45,7 @@ SRCS = \
     vfpu_ortho_matrix.o \
     vfpu_perspective_matrix.o \
     vfpu_powf.o \
+    vfpu_print \
     vfpu_quaternion_copy.o \
     vfpu_quaternion_exp.o \
     vfpu_quaternion_from_euler.o \
