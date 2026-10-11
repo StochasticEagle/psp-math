@@ -50,6 +50,7 @@ static inline float pspmath_compat_arccosine(float value) { return vfpu_acosf(va
 #define oslVfpu_cosf vfpu_cosf_scaled
 #define oslSin       vfpu_sind_scaled
 #define oslCos       vfpu_cosd_scaled
+#define oslTan       vfpu_tand_scaled
 
 /* Scalar */
 

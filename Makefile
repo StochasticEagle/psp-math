@@ -78,6 +78,7 @@ SRCS = \
     vfpu_subtract.o \
     vfpu_sum.o \
     vfpu_tanf.o \
+    vfpu_tan_int16.o \
     vfpu_tanhf.o \
     vfpu_translate_matrix.o \
     vfpu_transpose_matrix.o \

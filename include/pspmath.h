@@ -245,11 +245,16 @@ float vfpu_sinf_scaled(float angle, float scale);
 float vfpu_cosf_scaled(float angle, float scale);
 float vfpu_sind_scaled(float angle, float scale);
 float vfpu_cosd_scaled(float angle, float scale);
+float vfpu_tand_scaled(float angle, float scale);
 
 /** Integer-degree Q14 sine/cosine. Values are in [-16384, 16384]
  * and are read from one 450-element immutable lookup table. */
 int16_t vfpu_sind_int16(int angle);
 int16_t vfpu_cosd_int16(int angle);
+
+/** Q14 tangent of integer degrees, saturated to int16_t bounds.
+ * At undefined 90 and 270 degrees the function returns INT16_MAX. */
+int16_t vfpu_tan_int16(int angle);
 
 /**
   * Calculate tangent

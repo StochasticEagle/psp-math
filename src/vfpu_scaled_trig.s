@@ -59,3 +59,19 @@ gfunc vfpu_cosd_scaled
     mtc1    $t0, $f0
     jr      $ra
     nop
+
+gfunc vfpu_tand_scaled
+    mfc1    $t0, $f12
+    mtv     $t0, S000
+    li      $t0, 0x3c360b61  // 1.0f / 90.0f
+    mtv     $t0, S001
+    vmul.s  S000, S000, S001
+    vrot.p  C002, S000, [s, c]
+    vdiv.s  S000, S002, S003
+    mfc1    $t0, $f14
+    mtv     $t0, S002
+    vmul.s  S000, S000, S002
+    mfv     $t0, S000
+    mtc1    $t0, $f0
+    jr      $ra
+    nop
