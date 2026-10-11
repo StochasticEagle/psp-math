@@ -436,22 +436,28 @@
     mat2Determinant \e, \f, \i, \j, s411
 .endm
 
-# One cofactor from three previously computed minors and the selected row.
-.macro mat4Cofactor m0, m1, m2, x, y, z, row, out
-    vmov.s s500, \m0
-    vmov.s s501, \m1
-    vmov.s s502, \m2
+# C500 contains three packed minors; row select and reduction use independent registers.
+.macro mat4Cofactor x, y, z, row, out
     vmov.q c510, r7\row\()[\x,\y,\z,0]
     vmul.t c520, c510, c500
     vfad.t \out, c520[x,-y,z]
 .endm
 
-# Emit four unsigned cofactors, sharing the six minors in M400.
+# Reuse the packed 2x2 minors (C400 and C410) with pair/triple moves.
+# Preserves M400 and M700 while writing only scratch M500 and M510.
 .macro mat4Cofactors row, o0, o1, o2, o3
-    mat4Cofactor s400, s401, s402, y, z, w, \row, \o0
-    mat4Cofactor s400, s403, s410, x, z, w, \row, \o1
-    mat4Cofactor s401, s403, s411, x, y, w, \row, \o2
-    mat4Cofactor s402, s410, s411, x, y, z, \row, \o3
+    vmov.t c500, c400[x,y,z]
+    mat4Cofactor y, z, w, \row, \o0
+    vmov.p c500, c400[x,w]
+    vmov.s s502, s410
+    mat4Cofactor x, z, w, \row, \o1
+    vmov.p c500, c400[y,w]
+    vmov.s s502, s411
+    mat4Cofactor x, y, w, \row, \o2
+    vmov.s s500, s402
+    vmov.s s501, s410
+    vmov.s s502, s411
+    mat4Cofactor x, y, z, \row, \o3
 .endm
 
 .macro mat4Determinant e, f, g, h, i, j, k, l, out
