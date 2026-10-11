@@ -25,12 +25,12 @@ gfunc vfpu_Vec4Sine_U
     nop
 
 gfunc vfpu_Vec2Sine
-    singleOpSVecV vsin.p
+    singleOpSVec2 vsin.p
     jr $ra
     nop
 
 gfunc vfpu_Vec3Sine
-    singleOpSVecV vsin.t
+    singleOpSVec3 vsin.t
     jr $ra
     nop
 

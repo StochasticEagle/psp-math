@@ -138,6 +138,20 @@
     sv.q r002, 0($a2)
 .endm
 
+.macro singleOpVec2 op
+    lv.q r000, 0($a0)
+    lv.q r001, 0($a1)
+    \op\() r002, r000, r001
+    svp s002, s012, $a2, 0
+.endm
+
+.macro singleOpVec3 op
+    lv.q r000, 0($a0)
+    lv.q r001, 0($a1)
+    \op\() r002, r000, r001
+    svt s002, s012, s022, $a2, 0
+.endm
+
 # For functions that take a single vector and output a scalar
 .macro singleOpScaV_U op
     pushf $f0
@@ -208,6 +222,18 @@
 .endm
 
 
+
+.macro singleOpSVec2 op
+    lv.q r000, 0($a0)
+    \op\() r002, r000
+    svp s002, s012, $a1, 0
+.endm
+
+.macro singleOpSVec3 op
+    lv.q r000, 0($a0)
+    \op\() r002, r000
+    svt s002, s012, s022, $a1, 0
+.endm
 
 # For functions that take a vector and scalar as arguments, and return a vector
 .macro singleOpVecSca_U op
@@ -309,6 +335,8 @@
     \inst\() \op\(), r000, r001
     vnop
     mfvc $v0, $131
+    srl $v0, $v0, 5
+    andi $v0, $v0, 1
 .endm
 
 .macro comparisonOpVec inst op
@@ -319,6 +347,8 @@
     \inst\() \op\(), r000, r001
     vnop
     mfvc $v0, $131
+    srl $v0, $v0, 5
+    andi $v0, $v0, 1
 .endm
 
 

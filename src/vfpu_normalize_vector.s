@@ -47,7 +47,7 @@ gfunc vfpu_Vec2Normalize
     vdot.p s002, r000, r000
     vrsq.s s002, s002
     vscl.p r000, r000, s002
-    sv.q r000, 0($a1)
+    svp s000, s010, $a1, 0
     jr $ra
     nop
 
@@ -72,7 +72,7 @@ gfunc vfpu_Vec3Normalize
     vdot.t s002, r000, r000
     vrsq.s s002, s002
     vscl.t r000, r000, s002
-    sv.q r000, 0($a1)
+    svt s000, s010, s020, $a1, 0
     jr $ra
     nop
 

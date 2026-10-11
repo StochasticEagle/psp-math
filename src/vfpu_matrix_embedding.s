@@ -27,7 +27,7 @@ gfunc vfpu_Mat2ToMat3
     vidt.q r002
     sv.q r000, 0($a1)
     usv.q r001, 12($a1)
-    usv.q r002, 24($a1)
+    svt s002, s012, s022, $a1, 24
     jr $ra
     nop
 

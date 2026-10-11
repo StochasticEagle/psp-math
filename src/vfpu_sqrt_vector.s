@@ -31,12 +31,12 @@ gfunc vfpu_Vec4SquareRoot_U
     nop
 
 gfunc vfpu_Vec2SquareRoot
-    singleOpSVecV vsqrt.p
+    singleOpSVec2 vsqrt.p
     jr $ra
     nop
 
 gfunc vfpu_Vec3SquareRoot
-    singleOpSVecV vsqrt.t
+    singleOpSVec3 vsqrt.t
     jr $ra
     nop
 

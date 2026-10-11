@@ -29,7 +29,7 @@ gfunc vfpu_Vec3RotationMatrix_U
     vmmul.t m500, m400, m300
     sv.q r500, 0($a1)
     usv.q r501, 12($a1)
-    usv.q r502, 24($a1)
+    svt s502, s512, s522, $a1, 24
     jr $ra
     nop
 
@@ -50,7 +50,7 @@ gfunc vfpu_Vec3RotationMatrix
     vmmul.t m500, m400, m300
     sv.q r500, 0($a1)
     usv.q r501, 12($a1)
-    usv.q r502, 24($a1)
+    svt s502, s512, s522, $a1, 24
     jr $ra
     nop
 

@@ -26,12 +26,12 @@ gfunc vfpu_Vec4Cosine_U
     nop
 
 gfunc vfpu_Vec2Cosine
-    singleOpSVecV vcos.p
+    singleOpSVec2 vcos.p
     jr $ra
     nop
 
 gfunc vfpu_Vec3Cosine
-    singleOpSVecV vcos.t
+    singleOpSVec3 vcos.t
     jr $ra
     nop
 

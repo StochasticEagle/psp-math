@@ -27,12 +27,12 @@ gfunc vfpu_Vec4Divide_U
     nop
 
 gfunc vfpu_Vec2Divide
-    singleOpVecV vdiv.p
+    singleOpVec2 vdiv.p
     jr $ra
     nop
 
 gfunc vfpu_Vec3Divide
-    singleOpVecV vdiv.t
+    singleOpVec3 vdiv.t
     jr $ra
     nop
 
