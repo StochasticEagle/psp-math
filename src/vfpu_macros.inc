@@ -443,15 +443,15 @@
     vfad.t \out, c520[x,-y,z]
 .endm
 
-# Reuse the packed 2x2 minors (C400 and C410) with pair/triple moves.
+# Reuse packed 2x2 minors (C400 and C410); quad swizzles can select w.
 # Preserves M400 and M700 while writing only scratch M500 and M510.
 .macro mat4Cofactors row, o0, o1, o2, o3
     vmov.t c500, c400[x,y,z]
     mat4Cofactor y, z, w, \row, \o0
-    vmov.p c500, c400[x,w]
+    vmov.q c500, c400[x,w,z,w]
     vmov.s s502, s410
     mat4Cofactor x, z, w, \row, \o1
-    vmov.p c500, c400[y,w]
+    vmov.q c500, c400[y,w,z,w]
     vmov.s s502, s411
     mat4Cofactor x, y, w, \row, \o2
     vmov.s s500, s402
