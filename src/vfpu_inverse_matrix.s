@@ -12,9 +12,7 @@
 gfunc vfpu_Mat2Inverse_U
     mfc1 $t0, $f12
     mtv $t0, s100
-    pushf $f4
     ulv.q r101, 0($a0)
-    popf $f4
     vrcp.s s120, s100
     vscl.q r101, r101, s120
     vmov.q r101, r101[w,-y,-z,x]

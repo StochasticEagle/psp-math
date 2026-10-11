@@ -5,9 +5,7 @@
 #include "vfpu_macros.inc"
 
 gfunc vfpu_Vec2Normalize_U
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     vdot.p s002, r000, r000
     vrsq.s s002, s002
     vscl.p r000, r000, s002
@@ -16,9 +14,7 @@ gfunc vfpu_Vec2Normalize_U
     nop
 
 gfunc vfpu_Vec3Normalize_U
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     vdot.t s002, r000, r000
     vrsq.s s002, s002
     vscl.t r000, r000, s002
@@ -28,9 +24,7 @@ gfunc vfpu_Vec3Normalize_U
 
 gfunc vfpu_QuatNormalize_U
 gfunc vfpu_Vec4Normalize_U
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     vdot.q s002, r000, r000
     vzero.s s003
     vcmp.s EQ, s002, s003

@@ -38,12 +38,10 @@ gfunc vfpu_Mat4Transpose_U
     nop
 
 gfunc vfpu_Mat4Transpose
-    pushf   $f0
     lv.q    c000, 0($a0)
     lv.q    c010, 16($a0)
     lv.q    c020, 32($a0)
     lv.q    c030, 48($a0)
-    popf    $f0
 
     vmov.q  c100, r000
     vmov.q  c110, r001

@@ -11,9 +11,7 @@
 
 
 gfunc vfpu_QuatConjugate_U
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     vneg.t r010, r010
     usv.q r000, 0($a1)
     jr $ra
