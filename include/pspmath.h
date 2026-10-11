@@ -256,6 +256,44 @@ int16_t vfpu_cosd_int16(int angle);
  * At undefined 90 and 270 degrees the function returns INT16_MAX. */
 int16_t vfpu_tan_int16(int angle);
 
+/** Fixed-point scalar VFPU API. Inputs and outputs are signed Q14
+ * (1.0 = 16384); results saturate to [-32768, 32767].
+ * Radian angles are Q14 radians, unlike the integer-degree lookup functions.
+ * Domain restrictions follow the underlying floating-point VFPU routines;
+ * non-finite results saturate (NaN is returned as zero).
+ * These wrappers convert Q14 to/from float and invoke the existing VFPU
+ * math kernels. They are not guaranteed faster than float calls.
+ */
+int16_t vfpu_sinf_int16(int16_t x);
+int16_t vfpu_cosf_int16(int16_t x);
+int16_t vfpu_tanf_int16(int16_t x);
+int16_t vfpu_asinf_int16(int16_t x);
+int16_t vfpu_acosf_int16(int16_t x);
+int16_t vfpu_atanf_int16(int16_t x);
+int16_t vfpu_sinhf_int16(int16_t x);
+int16_t vfpu_coshf_int16(int16_t x);
+int16_t vfpu_tanhf_int16(int16_t x);
+int16_t vfpu_expf_int16(int16_t x);
+int16_t vfpu_logf_int16(int16_t x);
+int16_t vfpu_EaseInOut_int16(int16_t x);
+int16_t vfpu_AbsoluteValue_int16(int16_t x);
+int16_t vfpu_SquareRoot_int16(int16_t x);
+int16_t vfpu_atan2f_int16(int16_t x, int16_t y);
+int16_t vfpu_powf_int16(int16_t x, int16_t y);
+int16_t vfpu_fmodf_int16(int16_t x, int16_t y);
+/** Paired Q14 sine and cosine in radians. */
+void vfpu_sincos_int16(int16_t radians, int16_t *s, int16_t *c);
+/** Q14 random value in [0, 1), mapped from the VFPU RNG. */
+int16_t vfpu_random_int16(void);
+/** Q14 scaled sine/cosine/tangent. f inputs are Q14 radians;
+ * d inputs are integer degrees. scale is Q14 for both. */
+int16_t vfpu_sinf_scaled_int16(int16_t radians, int16_t scale);
+int16_t vfpu_cosf_scaled_int16(int16_t radians, int16_t scale);
+int16_t vfpu_sind_scaled_int16(int degrees, int16_t scale);
+int16_t vfpu_cosd_scaled_int16(int degrees, int16_t scale);
+int16_t vfpu_tand_scaled_int16(int degrees, int16_t scale);
+
+
 /**
   * Calculate tangent
   *
