@@ -3,14 +3,8 @@
 # Shortest-arc quaternion SLERP; inputs [x,y,z,w], t in $a2.
 # Both implementations are leaf functions and keep coefficients in VFPU.
 gfunc vfpu_QuatSlerp_U
-    lv.s S000, 0($a0)
-    lv.s S001, 4($a0)
-    lv.s S002, 8($a0)
-    lv.s S003, 12($a0)
-    lv.s S010, 0($a1)
-    lv.s S011, 4($a1)
-    lv.s S012, 8($a1)
-    lv.s S013, 12($a1)
+    ulv.q C000, 0($a0)
+    ulv.q C010, 0($a1)
     mtv $a2, S102
     vone.s S101
     vsub.s S121, S101, S102

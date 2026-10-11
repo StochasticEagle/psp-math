@@ -26,10 +26,8 @@ gfunc vfpu_Vec2Cross_U
     mtc1  $t0, $f0                    # Optimized branch delay slot (moves to return float)
 
 gfunc vfpu_Vec2Cross
-    lv.s  s000, 0($a0)                # Load v1.x safely using lv.s
-    lv.s  s010, 4($a0)                # Load v1.y safely using lv.s
-    lv.s  s001, 0($a1)                # Load v2.x safely using lv.s
-    lv.s  s011, 4($a1)                # Load v2.y safely using lv.s
+    lv.q  r000, 0($a0)
+    lv.q  r001, 0($a1)
     vmul.p r002, r000, r001[y,x]      # r002.x = x1*y2, r002.y = y1*x2
     vfad.p s003, r002[x,-y]           # s003 = x1*y2 - y1*x2
     mfv   $t0, s003                   # Move result to GPR
