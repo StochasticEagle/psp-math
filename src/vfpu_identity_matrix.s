@@ -44,7 +44,7 @@ gfunc vfpu_Mat3Identity
     vmidt.t m000
     sv.q r000, 0($a0)
     usv.q r001, 12($a0)
-    usv.q r002, 24($a0)
+    svt s002, s012, s022, $a0, 24
     jr $ra
     nop
 

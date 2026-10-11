@@ -24,9 +24,9 @@ gfunc vfpu_Mat2Inverse_U
     nop
 
 gfunc vfpu_Mat3Inverse_U
-    pushf $f28
+    pushf28_31
     lm3_u 7, $a0
-    popf $f28
+    popf28_31
     mat2Determinant 11, 21, 12, 22, s100
     mat2Determinant 01, 21, 02, 22, s110
     mat2Determinant 01, 11, 02, 12, s120
@@ -51,25 +51,16 @@ gfunc vfpu_Mat3Inverse_U
     nop
 
 gfunc vfpu_Mat4Inverse_U
-    pushf $f28
+    pushf28_31
     lm4_u 7, $a0
-    popf $f28
-    mat3Determinant 12, 22, 32, 13, 23, 33, y, z, w, 01, s200
-    mat3Determinant 02, 22, 32, 03, 23, 33, x, z, w, 01, s210
-    mat3Determinant 02, 12, 32, 03, 13, 33, x, y, w, 01, s220
-    mat3Determinant 02, 12, 22, 03, 13, 23, x, y, z, 01, s230
-    mat3Determinant 12, 22, 32, 13, 23, 33, y, z, w, 00, s201
-    mat3Determinant 02, 22, 32, 03, 23, 33, x, z, w, 00, s211
-    mat3Determinant 02, 12, 32, 03, 13, 33, x, y, w, 00, s221
-    mat3Determinant 02, 12, 22, 03, 13, 23, x, y, z, 00, s231
-    mat3Determinant 11, 21, 31, 13, 23, 33, y, z, w, 00, s202
-    mat3Determinant 01, 21, 31, 03, 23, 33, x, z, w, 00, s212
-    mat3Determinant 01, 11, 31, 03, 13, 33, x, y, w, 00, s222
-    mat3Determinant 01, 11, 21, 03, 13, 23, x, y, z, 00, s232
-    mat3Determinant 11, 21, 31, 12, 22, 32, y, z, w, 00, s203
-    mat3Determinant 01, 21, 31, 02, 22, 32, x, z, w, 00, s213
-    mat3Determinant 01, 11, 31, 02, 12, 32, x, y, w, 00, s223
-    mat3Determinant 01, 11, 11, 02, 12, 22, x, y, z, 00, s233
+    popf28_31
+    mat4Minors 02, 12, 22, 32, 03, 13, 23, 33
+    mat4Cofactors 01, s200, s210, s220, s230
+    mat4Cofactors 00, s201, s211, s221, s231
+    mat4Minors 01, 11, 21, 31, 03, 13, 23, 33
+    mat4Cofactors 00, s202, s212, s222, s232
+    mat4Minors 01, 11, 21, 31, 02, 12, 22, 32
+    mat4Cofactors 00, s203, s213, s223, s233
     vmov.q c300, r200[x,-y,z,-w]
     vmov.q c310, r201[-x,y,-z,w]
     vmov.q c320, r202[x,-y,z,-w]
@@ -119,28 +110,19 @@ gfunc vfpu_Mat3Inverse
     vmscl.t m200, m200, s320
     sv.q r200, 0($a1)
     usv.q r201, 12($a1)
-    usv.q r202, 24($a1)
+    svt s202, s212, s222, $a1, 24
     jr $ra
     nop
 
 gfunc vfpu_Mat4Inverse
     lm4_a 7, $a0
-    mat3Determinant 12, 22, 32, 13, 23, 33, y, z, w, 01, s200
-    mat3Determinant 02, 22, 32, 03, 23, 33, x, z, w, 01, s210
-    mat3Determinant 02, 12, 32, 03, 13, 33, x, y, w, 01, s220
-    mat3Determinant 02, 12, 22, 03, 13, 23, x, y, z, 01, s230
-    mat3Determinant 12, 22, 32, 13, 23, 33, y, z, w, 00, s201
-    mat3Determinant 02, 22, 32, 03, 23, 33, x, z, w, 00, s211
-    mat3Determinant 02, 12, 32, 03, 13, 33, x, y, w, 00, s221
-    mat3Determinant 02, 12, 22, 03, 13, 23, x, y, z, 00, s231
-    mat3Determinant 11, 21, 31, 13, 23, 33, y, z, w, 00, s202
-    mat3Determinant 01, 21, 31, 03, 23, 33, x, z, w, 00, s212
-    mat3Determinant 01, 11, 31, 03, 13, 33, x, y, w, 00, s222
-    mat3Determinant 01, 11, 21, 03, 13, 23, x, y, z, 00, s232
-    mat3Determinant 11, 21, 31, 12, 22, 32, y, z, w, 00, s203
-    mat3Determinant 01, 21, 31, 02, 22, 32, x, z, w, 00, s213
-    mat3Determinant 01, 11, 31, 02, 12, 32, x, y, w, 00, s223
-    mat3Determinant 01, 11, 11, 02, 12, 22, x, y, z, 00, s233
+    mat4Minors 02, 12, 22, 32, 03, 13, 23, 33
+    mat4Cofactors 01, s200, s210, s220, s230
+    mat4Cofactors 00, s201, s211, s221, s231
+    mat4Minors 01, 11, 21, 31, 03, 13, 23, 33
+    mat4Cofactors 00, s202, s212, s222, s232
+    mat4Minors 01, 11, 21, 31, 02, 12, 22, 32
+    mat4Cofactors 00, s203, s213, s223, s233
     vmov.q c300, r200[x,-y,z,-w]
     vmov.q c310, r201[-x,y,-z,w]
     vmov.q c320, r202[x,-y,z,-w]

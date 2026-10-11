@@ -79,15 +79,32 @@
 
 # Pushing and popping corrupted registers to and from the stack
 .macro pushf reg
-    sub $sp, $sp, 4
+    addiu $sp, $sp, -16
     s.s \reg\(), 0($sp)
 .endm
 
 .macro popf reg
     l.s \reg\(), 0($sp)
-    add $sp, $sp, 4
+    addiu $sp, $sp, 16
 .endm
 
+
+
+.macro pushf28_31
+    addiu $sp, $sp, -16
+    s.s $f28, 0($sp)
+    s.s $f29, 4($sp)
+    s.s $f30, 8($sp)
+    s.s $f31, 12($sp)
+.endm
+
+.macro popf28_31
+    l.s $f31, 12($sp)
+    l.s $f30, 8($sp)
+    l.s $f29, 4($sp)
+    l.s $f28, 0($sp)
+    addiu $sp, $sp, 16
+.endm
 
 
 # For functions that take two vectors and output a vector
@@ -308,14 +325,14 @@
 
 # For mat3 and mat4 element-wise functions
 .macro singleOpMat3_U op
-    sub $sp, $sp, 8
+    addiu $sp, $sp, -16
     s.s $f0, 4($sp)
     s.s $f4, 0($sp)
     lm3_u 0, $a0
     lm3_u 1, $a1
     l.s $f4, 0($sp)
     l.s $f0, 4($sp)
-    add $sp, $sp, 8
+    addiu $sp, $sp, 16
     \op\().t r200, r000, r100
     \op\().t r201, r001, r101
     \op\().t r202, r002, r102
@@ -325,14 +342,14 @@
 .endm
 
 .macro singleOpMat4_U op
-    sub $sp, $sp, 8
+    addiu $sp, $sp, -16
     s.s $f0, 4($sp)
     s.s $f4, 0($sp)
     lm4_u 0, $a0
     lm4_u 1, $a1
     l.s $f4, 0($sp)
     l.s $f0, 4($sp)
-    add $sp, $sp, 8
+    addiu $sp, $sp, 16
     \op\().q r200, r000, r100
     \op\().q r201, r001, r101
     \op\().q r202, r002, r102
@@ -351,7 +368,7 @@
     \op\().t r202, r002, r102
     sv.q r200, 0($a2)
     usv.q r201, 12($a2)
-    usv.q r202, 24($a2)
+    svt s202, s212, s222, $a2, 24
 .endm
 
 .macro singleOpMat4 op
@@ -372,11 +389,10 @@
 # For determinant and inverse functions
 .macro mat2Determinant a, b, c, d, out
     vmov.s s000, s7\a
-    vmov.s s010, s7\d
     vmov.s s001, s7\b
-    vmov.s s011, s7\c
-    vmul.p c020, c000, c010
-    vfad.p \out, c020[x,-y]
+    vmov.s s010, s7\c
+    vmov.s s011, s7\d
+    vdet.p \out, c000, c010
 .endm
 
 .macro mat3Determinant d, e, f, g, h, i, j, k, l, mlt, out
@@ -388,11 +404,38 @@
     vfad.t \out, c120[x,-y,z]
 .endm
 
+# Six shared 2x2 minors for the four 3x3 subdeterminants of a 4x4 row.
+# The input matrix is in M700; M000 is scratch, M400 caches the minors.
+.macro mat4Minors e, f, g, h, i, j, k, l
+    mat2Determinant \g, \h, \k, \l, s400
+    mat2Determinant \f, \h, \j, \l, s401
+    mat2Determinant \f, \g, \j, \k, s402
+    mat2Determinant \e, \h, \i, \l, s403
+    mat2Determinant \e, \g, \i, \k, s410
+    mat2Determinant \e, \f, \i, \j, s411
+.endm
+
+# One cofactor from three previously computed minors and the selected row.
+.macro mat4Cofactor m0, m1, m2, x, y, z, row, out
+    vmov.s s500, \m0
+    vmov.s s501, \m1
+    vmov.s s502, \m2
+    vmov.q c510, r7\row\()[\x,\y,\z,0]
+    vmul.t c520, c510, c500
+    vfad.t \out, c520[x,-y,z]
+.endm
+
+# Emit four unsigned cofactors, sharing the six minors in M400.
+.macro mat4Cofactors row, o0, o1, o2, o3
+    mat4Cofactor s400, s401, s402, y, z, w, \row, \o0
+    mat4Cofactor s400, s403, s410, x, z, w, \row, \o1
+    mat4Cofactor s401, s403, s411, x, y, w, \row, \o2
+    mat4Cofactor s402, s410, s411, x, y, z, \row, \o3
+.endm
+
 .macro mat4Determinant e, f, g, h, i, j, k, l, out
-    mat3Determinant \f, \g, \h, \j, \k, \l, y, z, w, 01, s200
-    mat3Determinant \e, \g, \h, \i, \k, \l, x, z, w, 01, s201
-    mat3Determinant \e, \f, \h, \i, \j, \l, x, y, w, 01, s202
-    mat3Determinant \e, \f, \g, \i, \j, \k, x, y, z, 01, s203
+    mat4Minors \e, \f, \g, \h, \i, \j, \k, \l
+    mat4Cofactors 01, s200, s201, s202, s203
     vmov.q c210, r700
     vmul.q c220, c210, c200
     vfad.q \out, c220[x,-y,z,-w]

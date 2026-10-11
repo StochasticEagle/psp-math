@@ -34,7 +34,7 @@ gfunc vfpu_Mat3Copy
     lm3_a 0, $a0
     sv.q r000, 0($a1)
     usv.q r001, 12($a1)
-    usv.q r002, 24($a1)
+    svt s002, s012, s022, $a1, 24
     jr $ra
     nop
 

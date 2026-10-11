@@ -20,9 +20,9 @@ gfunc vfpu_Mat2Determinant_U
     nop
 
 gfunc vfpu_Mat3Determinant_U
-    pushf $f28
+    pushf28_31
     lm3_u 7, $a0
-    popf $f28
+    popf28_31
     mat3Determinant 01, 11, 21, 02, 12, 22, x, y, z, 00, s103
     mfv $t0, s103
     mtc1 $t0, $f0
@@ -30,9 +30,9 @@ gfunc vfpu_Mat3Determinant_U
     nop
 
 gfunc vfpu_Mat4Determinant_U
-    pushf $f28
+    pushf28_31
     lm4_u 7, $a0
-    popf $f28
+    popf28_31
     mat4Determinant 02, 12, 22, 32, 03, 13, 23, 33, s300
     mfv $t0, s300
     mtc1 $t0, $f0

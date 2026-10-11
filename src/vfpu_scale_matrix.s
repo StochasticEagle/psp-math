@@ -43,7 +43,7 @@ gfunc vfpu_Mat3Scale
     vmscl.t m100, m000, s200
     sv.q r100, 0($a1)
     usv.q r101, 12($a1)
-    usv.q r102, 24($a1)
+    svt s102, s112, s122, $a1, 24
     jr $ra
     nop
 
