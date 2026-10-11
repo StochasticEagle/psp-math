@@ -45,6 +45,12 @@ static inline float pspmath_compat_cosine(float angle) { return vfpu_cosf(angle 
 static inline float pspmath_compat_arcsine(float value) { return vfpu_asinf(value) * 0.6366197723675814f; }
 static inline float pspmath_compat_arccosine(float value) { return vfpu_acosf(value) * 0.6366197723675814f; }
 
+/* OSLib trigonometry compatibility (angle, scale). */
+#define oslVfpu_sinf vfpu_sinf_scaled
+#define oslVfpu_cosf vfpu_cosf_scaled
+#define oslSin       vfpu_sind_scaled
+#define oslCos       vfpu_cosd_scaled
+
 /* Scalar */
 
 #define psplaAbsoluteValue             vfpu_AbsoluteValue

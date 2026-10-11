@@ -239,6 +239,18 @@ float vfpu_sinf(float x);
 **/
 float vfpu_cosf(float x);
 
+/** Scaled VFPU sine/cosine: returns scale times sin/cos of angle.
+ * The f variants accept radians and the d variants accept degrees. */
+float vfpu_sinf_scaled(float angle, float scale);
+float vfpu_cosf_scaled(float angle, float scale);
+float vfpu_sind_scaled(float angle, float scale);
+float vfpu_cosd_scaled(float angle, float scale);
+
+/** Integer-degree Q14 sine/cosine. Values are in [-16384, 16384]
+ * and are read from one 450-element immutable lookup table. */
+int16_t vfpu_sind_int16(int angle);
+int16_t vfpu_cosd_int16(int angle);
+
 /**
   * Calculate tangent
   *
