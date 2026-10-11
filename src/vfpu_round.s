@@ -25,6 +25,10 @@ gfunc vfpu_Vec4Round_U
     nop
 
 gfunc vfpu_Vec2pRound_U
+    truncateOpVec4_U vf2in.q
+    jr $ra
+    nop
+
 gfunc vfpu_Vec4Round
     truncateOpVecV vf2in.q
     jr $ra
@@ -46,6 +50,10 @@ gfunc vfpu_Vec4Floor_U
     nop
 
 gfunc vfpu_Vec2pFloor_U
+    truncateOpVec4_U vf2iz.q
+    jr $ra
+    nop
+
 gfunc vfpu_Vec4Floor
     truncateOpVecV vf2iz.q
     jr $ra
@@ -67,6 +75,10 @@ gfunc vfpu_Vec4Ceiling_U
     nop
 
 gfunc vfpu_Vec2pCeiling_U
+    truncateOpVec4_U vf2iu.q
+    jr $ra
+    nop
+
 gfunc vfpu_Vec4Ceiling
     truncateOpVecV vf2iu.q
     jr $ra

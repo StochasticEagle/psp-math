@@ -180,6 +180,10 @@ gfunc vfpu_Vec4Compare_U
     nop
 
 gfunc vfpu_Vec2pCompare_U
+    singleOpVec4_U vscmp.q
+    jr $ra
+    nop
+
 gfunc vfpu_Vec4Compare
     singleOpVecV vscmp.q
     jr $ra

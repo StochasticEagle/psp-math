@@ -133,7 +133,7 @@ gfunc vfpu_Mat4Vector4Multiply_U
     addiu $sp, $sp, -16
     s.s $f0, 4($sp)
     s.s $f4, 0($sp)
-    lm4_a 0, $a0
+    lm4_u 0, $a0
     ulv.q r100, 0($a1)
     l.s $f4, 0($sp)
     l.s $f0, 4($sp)
