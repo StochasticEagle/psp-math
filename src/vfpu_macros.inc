@@ -437,27 +437,31 @@
 .endm
 
 # C500 contains three packed minors; row select and reduction use independent registers.
-.macro mat4Cofactor x, y, z, row, out
+.macro mat4Cofactor x, y, z, row, out, negative=0
     vmov.q c510, r7\row\()[\x,\y,\z,0]
     vmul.t c520, c510, c500
-    vfad.t \out, c520[x,-y,z]
+    .if \negative
+        vfad.t \out, c520[-x,y,-z]
+    .else
+        vfad.t \out, c520[x,-y,z]
+    .endif
 .endm
 
 # Reuse packed 2x2 minors (C400 and C410); quad swizzles can select w.
 # Preserves M400 and M700 while writing only scratch M500 and M510.
-.macro mat4Cofactors row, o0, o1, o2, o3
+.macro mat4Cofactors row, o0, o1, o2, o3, neg0=0, neg1=0, neg2=0, neg3=0
     vmov.t c500, c400[x,y,z]
-    mat4Cofactor y, z, w, \row, \o0
+    mat4Cofactor y, z, w, \row, \o0, \neg0
     vmov.q c500, c400[x,w,z,w]
     vmov.s s502, s410
-    mat4Cofactor x, z, w, \row, \o1
+    mat4Cofactor x, z, w, \row, \o1, \neg1
     vmov.q c500, c400[y,w,z,w]
     vmov.s s502, s411
-    mat4Cofactor x, y, w, \row, \o2
+    mat4Cofactor x, y, w, \row, \o2, \neg2
     vmov.s s500, s402
     vmov.s s501, s410
     vmov.s s502, s411
-    mat4Cofactor x, y, z, \row, \o3
+    mat4Cofactor x, y, z, \row, \o3, \neg3
 .endm
 
 .macro mat4Determinant e, f, g, h, i, j, k, l, out

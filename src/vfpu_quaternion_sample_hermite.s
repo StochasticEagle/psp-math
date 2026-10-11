@@ -17,14 +17,11 @@ gfunc vfpu_QuatSampleHermite
     vmul.s  S201, S202, S202
     vmul.s  S200, S202, S201
     vone.s  S203
-    vmul.q  C000, C000, C200
-    vmul.q  C010, C010, C200
-    vmul.q  C020, C020, C200
-    vmul.q  C030, C030, C200
-    vfad.q  S210, C000
-    vfad.q  S211, C010
-    vfad.q  S212, C020
-    vfad.q  S213, C030
+    # Each coefficient is one dot product of a polynomial row with [t^3,t^2,t,1].
+    vdot.q  S210, C000, C200
+    vdot.q  S211, C010, C200
+    vdot.q  S212, C020, C200
+    vdot.q  S213, C030, C200
     vscl.q  C100, C100, S210
     vscl.q  C110, C110, S211
     vscl.q  C120, C120, S212

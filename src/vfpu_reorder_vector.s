@@ -117,31 +117,17 @@ gfunc vfpu_Vec4Reorder
     nop
 
 
-/* Indices 0 and 1 are local to each independent packed vec2. */
+/* Indices are 0 or 1 within each independent packed Vec2.
+ * Select four components entirely in VFPU; no scalar indexed gathers.
+ * Input C000 = [x0,y0,x1,y1], indices C010 = [i0,i1,i2,i3].
+ */
 gfunc vfpu_Vec2pReorder
-    lw $t0, 0($a1)
-    lw $t1, 4($a1)
-    lw $t2, 8($a1)
-    lw $t3, 12($a1)
-    andi $t0, $t0, 1
-    andi $t1, $t1, 1
-    andi $t2, $t2, 1
-    andi $t3, $t3, 1
-    sll $t0, $t0, 2
-    sll $t1, $t1, 2
-    sll $t2, $t2, 2
-    sll $t3, $t3, 2
-    addu $t0, $a0, $t0
-    addu $t1, $a0, $t1
-    addu $t2, $a0, $t2
-    addu $t3, $a0, $t3
-    lw $t0, 0($t0)
-    lw $t1, 0($t1)
-    lw $t2, 8($t2)
-    lw $t3, 8($t3)
-    sw $t0, 0($a2)
-    sw $t1, 4($a2)
-    sw $t2, 8($a2)
-    sw $t3, 12($a2)
+    lv.q C000, 0($a0)
+    lv.q C010, 0($a1)
+    vi2f.q C010, C010, 0
+    vcmp.q NE, C010, C010[0,0,0,0]
+    vmov.q C020, C000[x,x,z,z]
+    vcmovt.q C020, C000[y,y,w,w], 6
+    sv.q C020, 0($a2)
     jr $ra
     nop
