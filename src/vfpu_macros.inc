@@ -77,6 +77,13 @@
 
 
 
+# Store exactly three rows of a compact 3x3 matrix (36 bytes).
+.macro sm3 mat, dest
+    usv.q r\mat\()00, 0(\dest\())
+    usv.q r\mat\()01, 12(\dest\())
+    svt s\mat\()02, s\mat\()12, s\mat\()22, \dest\(), 24
+.endm
+
 # Pushing and popping corrupted registers to and from the stack
 .macro pushf reg
     addiu $sp, $sp, -16
@@ -109,10 +116,8 @@
 
 # For functions that take two vectors and output a vector
 .macro singleOpVec_U op
-    pushf $f0
     ulv.q r000, 0($a0)
     ulv.q r001, 0($a1)
-    popf $f0
     \op\() r002, r000, r001
 .endm
 
@@ -154,9 +159,7 @@
 
 # For functions that take a single vector and output a scalar
 .macro singleOpScaV_U op
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     \op\() s001, r000
     mfv $t0, s001
     mtc1 $t0, $f0
@@ -173,10 +176,8 @@
 
 # For functions that take two vectors and output a scalar
 .macro singleOpScaDV_U op
-    pushf $f0
     ulv.q r000, 0($a0)
     ulv.q r001, 0($a1)
-    popf $f0
     \op\() s002, r000, r001
     mfv $t0, s002
     mtc1 $t0, $f0
@@ -194,9 +195,7 @@
 
 # For functions that take a single vector and return a single vector
 .macro singleOpSVec_U op
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     \op\() r002, r000
 .endm
 
@@ -237,9 +236,7 @@
 
 # For functions that take a vector and scalar as arguments, and return a vector
 .macro singleOpVecSca_U op
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     mfc1 $t0, $f12
     mtv $t0, s001
     \op\() r002, r000, s001
@@ -293,9 +290,7 @@
 
 # For Round, Floor, and Ceiling functions
 .macro truncateOpVec_U op
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     \op\() r000, r000, 0
     vi2f.q r000, r000, 0
 .endm
@@ -326,12 +321,8 @@
 
 # For comparison functions
 .macro comparisonOpVec_U inst op
-    pushf $f0
     ulv.q r000, 0($a0)
     ulv.q r001, 0($a1)
-    popf $f0
-    viim.s s003, 0
-    vmtvc $131, s003
     \inst\() \op\(), r000, r001
     vnop
     mfvc $v0, $131

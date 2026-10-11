@@ -11,9 +11,7 @@
 
 
 gfunc vfpu_Vec3RotationMatrix_U
-    pushf $f0
     ulv.q r001, 0($a0)
-    popf $f0
     vsin.t r002, r001
     vcos.t r003, r001
     vmidt.q m100
@@ -55,9 +53,7 @@ gfunc vfpu_Vec3RotationMatrix
     nop
 
 gfunc vfpu_Vec3RotationQuaternion_U
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     vfim.s s003, 0.5
     vscl.t r000, r000, s003
     vsin.t r001, r000
@@ -101,9 +97,7 @@ gfunc vfpu_Vec3RotationQuaternion
 
 
 gfunc vfpu_QuatRotationMatrix_U
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     vfim.s s001, 2
     vfim.s s011, 1
     vmul.q r100, r000[x,y,y,0], r000[x,z,w,0]

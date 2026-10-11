@@ -44,9 +44,7 @@ gfunc vfpu_Mat3Inverse_U
     vfim.s s310, 1
     vdiv.s s320, s310, s300
     vmscl.t m200, m200, s320
-    usv.q r200, 0($a1)
-    usv.q r201, 12($a1)
-    svt s202, s212, s222, $a1, 24
+    sm3 2, $a1
     jr $ra
     nop
 

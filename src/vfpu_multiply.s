@@ -57,9 +57,7 @@ gfunc vfpu_Mat3Multiply_U
     l.s $f0, 4($sp)
     addiu $sp, $sp, 16
     vmmul.t m200, m000, m100
-    usv.q r200, 0($a2)
-    usv.q r201, 12($a2)
-    svt s202, s212, s222, $a2, 24
+    sm3 2, $a2
     jr $ra
     nop
 
@@ -113,10 +111,8 @@ gfunc vfpu_Mat4Multiply
 
 
 gfunc vfpu_Mat2Vector2Multiply_U
-    pushf $f0
     lm2_u 0, $a0
     ulv.q r002, 0($a1)
-    popf $f0
     vdot.p s100, r000, r002
     vdot.p s110, r001, r002
     svp s100, s110, $a2, 0
@@ -124,10 +120,8 @@ gfunc vfpu_Mat2Vector2Multiply_U
     nop
 
 gfunc vfpu_Mat3Vector3Multiply_U
-    pushf $f0
     lm3_u 0, $a0
     ulv.q r003, 0($a1)
-    popf $f0
     vdot.t s100, r000, r003
     vdot.t s110, r001, r003
     vdot.t s120, r002, r003
@@ -191,10 +185,8 @@ gfunc vfpu_Mat4Vector4Multiply
 
 
 gfunc vfpu_QuatMultiply_U
-    pushf $f0
     ulv.q r000, 0($a0)
     ulv.q r001, 0($a1)
-    popf $f0
     vqmul.q r201, r000, r001
     usv.q r201, 0($a2)
     jr $ra

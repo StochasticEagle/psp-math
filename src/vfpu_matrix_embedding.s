@@ -10,14 +10,10 @@
 #include "vfpu_macros.inc"
 
 gfunc vfpu_Mat2ToMat3_U
-    pushf $f0
     lm2_u 0, $a0
-    popf $f0
     vidt.q c020
     vidt.q r002
-    usv.q r000, 0($a1)
-    usv.q r001, 12($a1)
-    svt s002, s012, s022, $a1, 24
+    sm3 0, $a1
     jr $ra
     nop
 
@@ -32,9 +28,7 @@ gfunc vfpu_Mat2ToMat3
     nop
 
 gfunc vfpu_Mat2ToMat4_U
-    pushf $f0
     lm2_u 0, $a0
-    popf $f0
     vidt.q c020
     vidt.q r002
     vidt.q c030
@@ -60,9 +54,7 @@ gfunc vfpu_Mat2ToMat4
     nop
 
 gfunc vfpu_Mat3ToMat4_U
-    pushf $f0
     lm3_u 0, $a0
-    popf $f0
     vidt.q c030
     vidt.q r003
     usv.q r000, 0($a1)

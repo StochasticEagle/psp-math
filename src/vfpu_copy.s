@@ -10,19 +10,13 @@
 #include "vfpu_macros.inc"
 
 gfunc vfpu_Mat3Copy_U
-    pushf $f0
     lm3_u 0, $a0
-    popf $f0
-    usv.q r000, 0($a1)
-    usv.q r001, 12($a1)
-    svt s002, s012, s022, $a1, 24
+    sm3 0, $a1
     jr $ra
     nop
 
 gfunc vfpu_Mat4Copy_U
-    pushf $f0
     lm4_u 0, $a0
-    popf $f0
     usv.q r000, 0($a1)
     usv.q r001, 16($a1)
     usv.q r002, 32($a1)
@@ -48,26 +42,20 @@ gfunc vfpu_Mat4Copy
     nop
 
 gfunc vfpu_Vec2Copy_U
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     svp s000, s010, $a1, 0
     jr $ra
     nop
 
 gfunc vfpu_Vec3Copy_U
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     svt s000, s010, s020, $a1, 0
     jr $ra
     nop
 
 gfunc vfpu_Mat2Copy_U
 gfunc vfpu_Vec4Copy_U
-    pushf $f0
     ulv.q r000, 0($a0)
-    popf $f0
     usv.q r000, 0($a1)
     jr $ra
     nop
