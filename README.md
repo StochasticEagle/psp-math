@@ -45,3 +45,9 @@ Additional scalar functions have `_int16` Q14 adapters, including inverse and hy
 ## Origin and licenses
 
 Derived from historical libpspmath (including OSLibModV2) and pspla sources. See the repository license files and upstream copyright notices for applicable terms.
+
+## AI-assisted contributions and licensing
+
+This fork includes changes made with generative-AI assistance and integrated by the maintainer. To the extent the maintainer holds copyright in independently original AI-generated or AI-assisted contributions, those rights are dedicated to the public domain under [The Unlicense](https://unlicense.org/). Material that is not copyrightable requires no license.
+
+This dedication applies only to rights controlled by the maintainer. Upstream and third-party code, derivative modifications, submodules and dependencies retain their applicable original licenses and attribution requirements, even when AI assisted in modifying them. Consult the existing license files and source notices.
